@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=7">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <style>
+
+	 .vis-none{
+	display:none;
+     }
+        .uploader{
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            position: fixed;
+            z-index: 999;
+            display: none;
+        }
+ 
+ .loader {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #FFF;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%,-45%);
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+} 
+.loader::after {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-bottom-color: #FF3D00;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+        
+        </style>
+    </head>
+    <body>
+        <section class="uploader">
+            <span style="position: absolute; top: 45%; left: 50%; color: white; font-weight: bold; transform: translate(-45%, -50%);">Uploading to server...</span>
+        <span class="loader"></span>
+
+</section>
+        <!---welcome--->
+<div id="welcome">
+    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow" style="width: 500px;">
+        <div class="card-header"><h3 class="text-dark text-center">Multi Level Speaking</h3></div>
+        <div class="card-body">
+         <h5 class="text-center">Welcome to Speaking Exam!</h5>
+         <p>Test contains the followings:</p>
+          <ul>
+            <li>Part 1: 6 questions</li>
+            <li>Part 2: Cue Card (duration: 2 minutes)</li>
+            <li>Part 3: 5 questions (related to Part 2)</li>
+          </ul>
+          <p class="text-dark text-center fw-bold">If you are ready Please, hit the "Start" button below!</p>
+           <center><button onclick="step0()" class="btn btn-primary px-5 py-2" style="font-size: 17px;">Start</button></center>
+        </div>
+    </div>
+</div>
+</div>
+
+<!----welcome ends-->
+
+<div id="quizBar">
+<div class="navbar navbar-expand-lg navbar-light bg-dark shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand text-light" href="#">Multi Level Speaking</a>
+        <div class="timer-bar text-white" id="full-screen" onclick="toggleFullScreen()"><i class="fa fa-expand"></i></div>
+        </div>
+</div> 
+
+<div class="text-center my-5">
+    <span id="part1" class=" badge px-3 py-2 bg-success level-one fw-bold text-light mx-3">Part 1</span>
+    <span id="part2" class=" badge px-3 py-2  bg-primary level-two fw-bold text-light mx-3 rounded">Part 2</span>
+    <span id="part3" class=" badge  bg-primary px-3 py-2 level-three fw-bold text-light mx-3 rounded">Part 3</span>
+  </div>
+ 
+ <section class="container my-3 pt-2 shadow-sm border-1" style="border: 1px solid lightgrey; border-radius: 5px;">
+ <div class="row">
+   <div class="col-md-5 py-3">
+     <div class="card">
+       <div class="card-body">
+         <div class="header-question d-flex justify-content-between align-items-center">
+           <span class="badge rounded-pill text-bg-dark border-0 px-5 py-2">Question# <span id="que-id"></span></span>
+           <div>
+           <i class="fa fa-volume-up text-dark mx-1"></i><input class="text-dark" type="range" id="audio_volume" min="0" max="1" step="0.01" name=""></div>
+         </div>
+         <hr>
+         <div class=" quiz-container mt-3 d-flex justify-content-center align-items-center">
+           <button class="btn btn-dark px-3 py-1 mx-3" onclick="sizeDown()">A-</button>
+            <button class="btn btn-dark px-3 py-1 mx-3" onclick="sizeUp()">A+</button>
+         </div>
+         <hr>
+         <div id="question-bar">
+         </div>
+         <audio src="../beep.mp3" id="beep"></audio>
+       </div>
+     </div>
+   </div>
+   <!----Right side--->
+   <div class="col-md-7 py-3">
+     <div class="card" id="card">
+       <div class="card-body">
+         <div class="header-question d-flex justify-content-around align-items-center">
+           <button class="btn btn-dark w-100 fw-bold py-1">
+            <i class="fa fa-stopwatch text-light" style="font-size:23px"></i><span class="text-light px-2" id="timer" style="width:50px; font-size: 23px;"></span>
+           </button>
+         </div>
+           <center><button id="q2" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Question 2</button></center>
+           <center><button id="q3" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Question 3</button></center>
+           <center><button id="q4" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Question 4</button></center>
+           <center><button id="q5" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Question 5</button></center>
+           <center><button id="q6" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Question 6</button></center>
+           <center><button id="q7" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Part 2</button></center>
+           <center><button id="q8" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Question 7</button></center>
+           <center><button id="q9" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Part 3</button></center>
+           <center><button id="q10" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Question 8</button></center>
+           <center><button id="q11" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Question 9</button></center>
+           <center><button id="q12" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Question 10</button></center>
+           <center><button id="q13" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Question 11</button></center>
+           <center><button id="q14" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">Question 12</button></center>
+           <center><button id="q15" class="vis-none my-3 w-full btn rounded-lg  px-5 py-2 text-white bg-primary">End Quiz</button></center>
+
+         <div class="recorder">
+         <span class="circle text-center"></span>
+         <p id="recording"></p>
+         <div id="downloadContainer" class="d-flex flex-column">
+            <audio src="" id="audio-playback"></audio>
+         </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ </section>
+
+
+
+<!------->
+                   
+                        <audio src="1.mp3" id="audio_1"></audio>
+                        </div>
+                        <audio src="2.mp3" id="audio_2"></audio>
+                        <audio src="3.mp3" id="audio_3"></audio>
+                        <audio src="4.mp3" id="audio_4"></audio>
+                        <audio src="5.mp3" id="audio_5"></audio>
+                        <audio src="6.mp3" id="audio_6"></audio>
+                        <audio src="part2/intro.mp3" id="audio_7"></audio>
+                        <audio src="part2/1.mp3" id="audio_8"></audio>
+                        <audio src="part3/intro.mp3" id="audio_9"></audio>
+                        <audio src="part3/1.mp3" id="audio_10"></audio>
+                        <audio src="part3/2.mp3" id="audio_11"></audio>
+                        <audio src="part3/3.mp3" id="audio_12"></audio>
+                        <audio src="part3/4.mp3" id="audio_13"></audio>
+                        <audio src="part3/5.mp3" id="audio_14"></audio>
+                        <audio src="part3/end.mp3" id="audio_15"></audio>
+                        
+                
+</div>
+
+
+
+<script>
+window.history.pushState(null, null, window.location.href);
+window.onpopstate = function () {
+    window.history.go(2);
+};
+
+var q=[
+  "How do you organize your time?",
+  "Do you make plans every day?",
+  "Would you say you manage your time well?",
+  "Do you think young people organize their time in the same way?",
+  "What's the biggest difficulty you have when managing time?",
+  "Do you think children should learn to manage time?",
+  `<p><b>Describe a childhood friend you have lost touch with.</b></p><p>You should say:</p><ul><li>Where you met</li><li>how you spent time together</li><li>what you liked about your friend</li><li>and say why you think you have lost touch with them.</li></ul><br><textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Izoh yozish uchun"></textarea>`,
+  "What personal qualities make a good friend?",
+  "Who do people have stronger connection with – their friends or their family? Why?",
+  "Nowadays people tend to start families later in their lives. Why?",
+  "How has technology affected the way people communicate?",
+  "Has the way people meet their partners changed over the past twenty years?"
+]
+
+</script>
+        <script src="../quiz.js"></script>
+
+</html>
