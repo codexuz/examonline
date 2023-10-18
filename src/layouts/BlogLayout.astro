@@ -1,0 +1,83 @@
+---
+import FeelbackPulse from "astro-feelback/components/FeelbackPulse.astro";
+import "astro-feelback/styles/feelback.css";
+const CONTENT_SET_LIKES = "ce74dd85-eb4d-4177-af50-6e539bb57fe5";
+import FeelbackMessage from "astro-feelback/components/FeelbackMessage.astro";
+
+
+import SkillHeader from "@components/SkillHeader.astro";
+const {
+  frontmatter: { title, description, pubDate,author },
+} = Astro.props;
+---
+<html lang="en">
+  <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style is:global>
+      .title {
+        font-size: 2em;
+        margin: 0.25em 0 0;
+      }
+      hr {
+        border-top: 1px solid #ddd;
+        margin: 1rem 0;
+      }
+
+       .feelback-icon svg {
+        color:red
+   }
+    </style>
+  </head>
+  <body>
+    <SkillHeader skillTitle="Blogs"/>
+    <main>
+      <article class="container mx-auto px-4 prose lg:prose-xl prose-invert">
+        <div class="flex flex-col">
+          <h1 class="title">{title}</h1>
+        <div class="flex items-center">  
+          <em>Written by: {author}</em>
+           <FeelbackPulse contentSetId={CONTENT_SET_LIKES}
+        preset="heart" // <-- shows the Heart icon
+        showCount // <-- shows the likes count
+    />
+    </div>
+        </div>
+        <div class="article-body">
+          Published on: {pubDate && <time>{pubDate}</time>}
+          <hr />
+          <slot />
+        </div>
+        <div class="rightbar mt-4">
+        <FeelbackMessage contentSetId="d54e6b0b-17d9-4340-84de-7b82da0e5f15"
+    preset="heart"
+    showCount
+  />
+</div>
+      </article>
+    </main>
+    <div class="footer-container">
+    
+    </div>
+    <style>
+      .footer-container{
+        height:50px
+      }
+
+
+      html {
+        min-height: 100vh;
+        height: 100%;
+      }
+      body {
+        height: 100%;
+        background-color: #1c1d33;
+        color:white
+      }
+      time {
+        display: inline-block;
+        margin-top: 10px;
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+---
+
+interface Props {
+   title:string,
+   desc:string,
+   link: string,
+   author: string,
+   like:string,
+
+
+}
+
+const {title, desc, link, author, like} = Astro.props
+---
+
+
+
+<div class="max-w-sm p-2 border  rounded-2xl shadow-2xl bg-gray-700 border-none" >
+    <div class="block p-2" >
+    <a href={link}>
+    
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">{title}</h5>
+         <p class="mb-3 font-think text-sm text-gray-400">{desc}</p>
+    </a>
+    
+<div class="w-full bg-gray-400 rounded-full h-2.5">
+    <div class="bg-blue-500 h-2.5 rounded-full" style="width: 20%"></div>
+  </div>
+  
+  </div>
+  
+  <div class="p-2 flex justify-between w-full"> 
+    <div class="flex items-center"> 
+    <img src="/static/img/author.png" class="w-7 h-7 rounded-full bg-gray-500">
+    <span class="text-sm text-gray-400 mx-2"><small>{author}</small></span>
+    </div>
+    <!---heart -->
+    <svg id={like} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 absolute right-6 text-gray-500 text-shadow-lg">
+        <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+      </svg>
+      
+    <div>
+       
+ 
+</div>
+

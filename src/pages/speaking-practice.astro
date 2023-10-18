@@ -1,0 +1,167 @@
+---
+import Layout from '@layouts/Layout.astro'
+import { app } from "../lib/firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+
+const auth = getAuth(app);
+const db = getFirestore(app)
+
+/* Check current session */
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+
+const userRef = db.collection("users").doc(user.uid)
+const userSnapshot = await userRef.get();
+const userData = userSnapshot.data();
+
+const {status} = userData
+
+if(status ==="unpaid" || status ===""){
+  return Astro.redirect("/pay");	
+}
+
+---
+
+<head>
+	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script is:inline  src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script is:inline src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+ </head>
+
+<Layout title="Speaking Mock">
+<ons-page>
+	<ons-toolbar style="background-color: #151436;">
+	    <ons-back-button onclick="window.history.back()">Back</ons-back-button>
+		<div class="center" style="color:white; font-size: 18px; font-weight: bold;">
+			Speaking Mock Topics
+		</div>
+	</ons-toolbar>
+	<main id="card" style="display:flex; flex-wrap: wrap; justify-content: center; align-items: center; padding: 30px 0;">
+		
+		
+
+	</main>
+</ons-page>
+
+</Layout>
+
+<script is:inline>
+
+var topics=[
+{
+	title:"Movie",
+	link:"freetests/test6/index.html"
+},
+{
+	title:"Technology",
+	link:"freetests/test7/index.html"
+},
+{
+	title:"Music",
+	link:"freetests/test8/index.html"
+},
+{
+	title:"Newspaper",
+	link:"freetests/test9/index.html"
+},
+{
+	title:"Holiday",
+	link:"freetests/test10/index.html"
+},
+{
+	title:"Hometown",
+	link:"freetests/test11/index.html"
+},
+{
+	title:"Hometown 2",
+	link:"freetests/test12/index.html"
+},
+{
+	title:"Time Management",
+	link:"freetests/test21/index.html"
+},
+{
+	title:"Math",
+	link:"freetests/test23/index.html"
+},
+{
+	title:"Shopping",
+	link:"freetests/test24/index.html"
+}
+]	
+
+var container=document.getElementById("card")
+
+topics.forEach((el)=>{
+	var ons_card=document.createElement("a")
+	ons_card.href=el.link
+	ons_card.classList.add("rounded-lg", "card") 
+	var ons_div=document.createElement("div")
+	var ons_title=document.createElement("span")
+	ons_title.classList.add("title")
+	ons_title.textContent=el.title
+	ons_div.appendChild(ons_title)
+	ons_div.classList.add("flex", "items-center", "justify-around")   
+	var ons_icon=document.createElement("ons-icon")
+	ons_icon.style.color="dodgerblue"
+	ons_icon.style.padding="0 10px"
+	ons_icon.setAttribute("icon", "md-mic")
+	ons_div.appendChild(ons_icon)
+	ons_card.appendChild(ons_div)
+	container.appendChild(ons_card)
+})
+
+	
+
+</script>
+
+<style>
+		
+		a{
+			text-decoration: none;
+			color:gray;
+		}
+
+		.flex{
+			display: flex;
+		}
+
+		.items-center{
+			align-items: center;
+		}
+
+		.justify-center{
+			justify-content: center	;
+		}
+
+		.justify-around{
+			justify-content: space-around;
+		}
+
+		.mx-2{
+			margin: 0 2em;
+		}
+
+		.my{
+			margin: 2em 0;
+		}
+
+		.rounded-lg{
+			border-radius: 15px;
+		}
+
+		ons-card{
+			cursor: pointer;
+		}
+	</style>

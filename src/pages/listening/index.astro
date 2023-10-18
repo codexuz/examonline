@@ -1,0 +1,20 @@
+---
+import Layout from '@layouts/Layout.astro'
+import SkillHeader from '@components/SkillHeader.astro';
+---
+
+<Layout title="Reading">
+    <SkillHeader skillTitle='Reading'/>
+    <div class="pt-7 flex flex-col justify-start ">
+   <div class="container mx-auto px-4">
+   <div class="columns-3 my-4 text-center">
+   	<a href="/listening/part-1"><div class="px-3 py-5  bg-indigo-600 rounded-lg text-sm text-white shadow-lg">Part 1</div></a>
+   	<a href="/listening/part-2"><div class="px-3 py-5  bg-indigo-600 text-sm text-white rounded-lg shadow-lg">Part 2</div></a>
+   	<a href="/listening/part-3"><div class="px-3 py-5  bg-indigo-600 text-sm text-white rounded-lg shadow-lg">Part 3</div></a>
+   </div>
+   <div class="columns-1 my-4 text-center">
+<a href="/listening/mock-tests"><div class="px-3 py-5  bg-indigo-600 text-sm text-white rounded-lg shadow-lg">Mock Exam</div></a>
+   </div>
+   </div>
+</div>
+</Layout>

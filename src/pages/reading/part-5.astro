@@ -1,0 +1,28 @@
+---
+import Layout from "@layouts/Layout.astro"
+import SkillHeader from '@components/SkillHeader.astro'
+
+let res = await fetch("https://xirurgabdukarim.uz/wp-json/wp/v2/reading5?per_page=100&order=asc")
+let posts = await res.json();
+---
+<Layout title="Reading Mock Tests">
+    <SkillHeader skillTitle="Reading Part 5"/>
+  <section>
+    <div class="container mt-3 mx-auto mb-8 px-4 flex justify-center items-center flex-wrap">
+    {
+      posts.map((post) => (
+      
+            <a class="mx-2 mock-container block container mx-auto  bg-indigo-600  my-3 text-center text-sm px-1 font-bold py-4 rounded-lg shadow-lg text-white" href={`/reading/part5/${post.slug}/`} set:html={post.title.rendered} />
+         
+      ))
+    }
+  </div>
+
+  </section>
+</Layout>
+
+<style>
+    .mock-container{
+        width:32%
+    }
+</style>

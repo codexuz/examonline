@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro'
+import TopUser from '@components/TopUser.astro'
+import { app } from "../lib/firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+import Card from '@components/Card.astro';
+import Intro from '@components/Intro.astro';
+import Modules from '@components/Modules.astro';
+
+
+const auth = getAuth(app);
+const db = getFirestore(app)
+
+/* Check current session */
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+
+const userRef = db.collection("users").doc(user.uid)
+const userSnapshot = await userRef.get();
+const userData = userSnapshot.data();
+
+const {name} = userData
+---
+<Layout title="Exam Online - Multilevel imtihoniga tayyorlovchi platforma">
+  <Intro/>
+<section class="hidden" id="main-screen" transition:animate="slide">
+<TopUser
+name={name || "Guest"}
+/>
+<Modules/>
+<main class="w-full flex flex-col justify-center items-center mt-4">
+ 
+    <Card/>
+    
+</main>  
+</section>  
+</Layout>
+
+<script is:inline>
+
+  var notVisible = localStorage.getItem("visible")
+
+  if(!notVisible){
+    document.getElementById("swipe").classList.remove("display-none");
+    document.getElementById("hide-intro").addEventListener("click", ()=>{
+      document.getElementById("main-screen").classList.remove("hidden");
+      document.getElementById("swipe").classList.add("display-none");
+      localStorage.setItem("visible", "true")
+    })
+  }
+  else{
+    document.getElementById("main-screen").classList.remove("hidden");
+    document.getElementById("swipe").classList.add("display-none");
+  }
+
+
+
+</script>
