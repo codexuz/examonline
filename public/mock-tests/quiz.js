@@ -52,6 +52,7 @@ function startRecording() {
 		  })
 			.then(response => response.json())
 			.then(data => console.log(data))
+			  window.location.href='/speaking-mock'
 			.catch(error => console.error(error));
 	  }; 
   
@@ -748,8 +749,6 @@ function examEnd(){
 	audio15.addEventListener("ended",function(){
 		stopRecording();
 		document.querySelector(".uploader").style.display="block"
-		setTimeout(()=>{
-			window.location.href='/speaking-mock'
-		}, 50000)
+	
 });		
 }
