@@ -51,12 +51,14 @@ function startRecording() {
 			body: formData
 		  })
 			.then(response => response.json())
-			.then(data => {
-			  if (data === 'ok') {
-			    // If the response is 'ok', redirect to '/speaking-mock'
-			    window.location.href = '/speaking-mock';
-			  }
-			})
+			then(data => {
+			    if (data === 'ok') {
+			      // If the response is 'ok', redirect to '/speaking-mock'
+			      window.location.href = '/speaking-mock';
+			    } else {
+			      console.log('Response is not ok:', data);
+			    }
+			  })
 			.catch(error => console.error(error));
 	  }; 
   
