@@ -50,15 +50,16 @@ function startRecording() {
 			method: 'POST',
 			body: formData
 		  })
-			.then(response => response.json())
-			then(data => {
-			    if (data === 'ok') {
-			      // If the response is 'ok', redirect to '/speaking-mock'
-			      window.location.href = '/speaking-mock';
-			    } else {
-			      console.log('Response is not ok:', data);
-			    }
-			  })
+			.then(response => {
+			if (response.ok) {
+                        // Response is OK, redirect to the speaking-mock page
+                        window.location.href = '/speaking-mock';
+                    } else {
+                        // Handle non-ok response (optional)
+                        alert('Failed to send audio:', response.status, response.statusText);
+                        // You can show an error message or take other actions as needed
+                    }
+			})
 			.catch(error => console.error(error));
 	  }; 
   
