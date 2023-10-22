@@ -37,6 +37,12 @@ import SkillHeader from '@components/SkillHeader.astro'
 async function partOne() {
 const row=document.getElementById("part1");
   row.innerHTML='';
+ const Api_URL='https://xirurgabdukarim.uz/wp-json/wp/v2/posts/?per_page=100';
+	const response = await fetch(Api_URL);
+	const json= await response.json();
+        const part1 = JSON.stringify(json)
+  	localStorage.setItem("part1", part1)
+
    var part1Data=localStorage.getItem("part1")
     if(part1Data){
     var data=JSON.parse(part1Data)
@@ -50,11 +56,7 @@ const row=document.getElementById("part1");
 
 }
 else{
-    const Api_URL='https://xirurgabdukarim.uz/wp-json/wp/v2/posts/?per_page=100';
-	const response = await fetch(Api_URL);
-	const json= await response.json();
-        const part1 = JSON.stringify(json)
-  	localStorage.setItem("part1", part1)
+   console.log("No data")
 	
 }	
 
