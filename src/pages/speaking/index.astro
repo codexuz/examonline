@@ -35,30 +35,24 @@ import SkillHeader from '@components/SkillHeader.astro'
 	
 	
 async function partOne() {
-const row=document.getElementById("part1");
-  row.innerHTML='';
  const Api_URL='https://xirurgabdukarim.uz/wp-json/wp/v2/posts/?per_page=100';
+	const row=document.getElementById("part1");
+    row.innerHTML='';
 	const response = await fetch(Api_URL);
 	const json= await response.json();
-        const part1 = JSON.stringify(json)
-  	localStorage.setItem("part1", part1)
-
-   var part1Data=localStorage.getItem("part1")
-    if(part1Data){
-    var data=JSON.parse(part1Data)
-     data.forEach(el => {
+	const part2 = JSON.stringify(json)
+  	localStorage.setItem("part2", part2)
+	var part2Data=localStorage.getItem("part2")
+	var data=JSON.parse(part2Data)
+	console.log(data)
+	data.forEach(el => {
 		 row.innerHTML+=`
 		 <details class="w-full px-2 my-2 py-1 bg-gray-200 rounded">
          <summary class="bg-gray-700 text-white rounded px-3 font-bold" style="margin:10px 0; padding:20px; font-size: 18px;">${el.title.rendered}</summary>
          <p class="py-3">${el.content.rendered}</p>
 		 </details>`
 	});
-
-}
-else{
-   console.log("No data")
 	
-}	
 
 }
 
