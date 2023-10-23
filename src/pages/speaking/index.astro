@@ -1,6 +1,9 @@
 ---
 import Layout from '@layouts/Layout.astro'
 import SkillHeader from '@components/SkillHeader.astro'
+const Api_URL='https://xirurgabdukarim.uz/wp-json/wp/v2/posts/?per_page=100';
+const response = await fetch(Api_URL);
+const data= await response.json();
 ---
 	
 <Layout title="Speaking Sample Answers">
@@ -9,7 +12,14 @@ import SkillHeader from '@components/SkillHeader.astro'
 
 <!-- Tab Content -->
     <div id="tab1" class="tab-content active">
-      <div class="py-5 w-full " id="part1"></div>
+      <div class="py-5 w-full " id="part1">
+     { data.map(el=>(
+      <details class="w-full px-2 my-2 py-1 bg-gray-200 rounded">
+         <summary class="bg-gray-700 text-white rounded px-3 font-bold" style="margin:10px 0; padding:20px; font-size: 18px;">{el.title.rendered}</summary>
+         <p class="py-3">{el.content.rendered}</p>
+		 </details>
+     ))}
+      </div>
     </div>
     
     <div id="tab2" class="tab-content">
@@ -34,24 +44,6 @@ import SkillHeader from '@components/SkillHeader.astro'
 <script is:inline>
 	
 	
-async function partOne() {
- const Api_URL='https://xirurgabdukarim.uz/wp-json/wp/v2/posts/?per_page=100';
-	const row=document.getElementById("part1");
-    row.innerHTML='';
-	const response = await fetch(Api_URL);
-	const data= await response.json();
-	data.forEach(el => {
-		 row.innerHTML+=`
-		 <details class="w-full px-2 my-2 py-1 bg-gray-200 rounded">
-         <summary class="bg-gray-700 text-white rounded px-3 font-bold" style="margin:10px 0; padding:20px; font-size: 18px;">${el.title.rendered}</summary>
-         <p class="py-3">${el.content.rendered}</p>
-		 </details>`
-	});
-	
-
-}
-
-partOne();
 
 
 async function partTwo() {
