@@ -30,33 +30,6 @@ if(status ==="unpaid" || status ===""){
   return Astro.redirect("/pay");	
 }
 
----
-
-<head>
-	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-  <script is:inline  src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-  <script is:inline src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
- </head>
-
-<Layout title="Speaking Mock">
-<ons-page>
-	<ons-toolbar style="background-color: #151436;">
-	    <ons-back-button onclick="window.history.back()">Back</ons-back-button>
-		<div class="center" style="color:white; font-size: 18px; font-weight: bold;">
-			Speaking Mock Topics
-		</div>
-	</ons-toolbar>
-	<main id="card" style="display:flex; flex-wrap: wrap; justify-content: center; align-items: center; padding: 30px 0;">
-		
-		
-
-	</main>
-</ons-page>
-
-</Layout>
-<script is:inline>
-
 var topics=[
 {
 	title:"1. Festival",
@@ -106,31 +79,42 @@ var topics=[
 	title:"12. Animals & Zoo",
 	link:"mock-tests/test12/index.html"
 }
-]	
-
-var container=document.getElementById("card")
-
-topics.forEach((el)=>{
-	var ons_card=document.createElement("a")
-	ons_card.href=el.link
-	ons_card.classList.add("rounded-lg", "card") 
-	var ons_div=document.createElement("div")
-	var ons_title=document.createElement("span")
-	ons_title.classList.add("title")
-	ons_title.textContent=el.title
-	ons_div.appendChild(ons_title)
-	ons_div.classList.add("flex", "items-center", "justify-around")   
-	var ons_icon=document.createElement("ons-icon")
-	ons_icon.style.color="dodgerblue"
-	ons_icon.style.padding="0 10px"
-	ons_icon.setAttribute("icon", "md-mic")
-	ons_div.appendChild(ons_icon)
-	ons_card.appendChild(ons_div)
-	container.appendChild(ons_card)
-})
+]
 
 
-</script>
+
+---
+
+<head>
+	<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script is:inline  src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script is:inline src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+ </head>
+
+<Layout title="Speaking Mock">
+<ons-page>
+	<ons-toolbar style="background-color: #151436;">
+	    <ons-back-button onclick="window.history.back()">Back</ons-back-button>
+		<div class="center" style="color:white; font-size: 18px; font-weight: bold;">
+			Speaking Mock Topics
+		</div>
+	</ons-toolbar>
+	<main id="card" style="display:flex; flex-wrap: wrap; justify-content: center; align-items: center; padding: 30px 0;">
+		{topics.map(t=>(<a href={t.link} class="rounded-lg card">
+	<div class="flex items-center justify-around">
+		<span class="title">{t.title}</span>
+		<ons-icon style="color: dodgerblue; padding: 0 10px;" icon="md-mic"></ons-icon>
+	</div>
+</a>
+))}
+		
+
+	</main>
+</ons-page>
+
+</Layout>
+
 
 <style>
 		
