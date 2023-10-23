@@ -42,8 +42,8 @@ function startRecording() {
 		}
 		const caption = localStorage.getItem("name")
 		const formData = new FormData();
-		const opusBlob = new Blob(audioChunks, { type: 'audio/mpeg' });
-		  formData.append('audio', opusBlob, 'audio.mp3');
+		const opusBlob = new Blob(audioChunks, { type: 'audio/wav' });
+		  formData.append('audio', opusBlob, 'audio.wav');
 		  formData.append('caption', caption);
 		  formData.append('title', "Multilevel Mock");
 		  fetch('https://api.telegram.org/bot6124695087:AAG0NprnUOPuxyaHA_79ZDazy870_007Dtk/sendAudio?chat_id=1483919112', {
