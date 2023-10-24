@@ -29,14 +29,15 @@ rel="stylesheet"
 
 	<title>Result</title>
 	<style>
-#yakuniy{
-  padding: 20px;
-}
 
-.result{
-  display:block;
+#result{
+  display:inlined;
+  background: blue;
+  padding: 5px 15px;
+  font-size: 18px;
   font-weight: bold;
-  color: blue;
+  border-radius: 10px;
+  color:white
 }
         
 #feedback{
@@ -44,163 +45,29 @@ font-style: italic
 }
 
 
-.home-back{
-    margin: 30px 0; 
-  padding: 6px 18px;
-  background: #0000ff;
-  color: white;
-  cursor: pointer;
-  border-radius: 30px;
-  border: 1px solid #0000ff;
-}
-
-
-.span{
-  color:#0000ff;
-}
-
-mark{
-  background-color:rgb(250, 235, 215);
-}
-
-.btn-container{
-  width:100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top:30px;
-}
-
-.subscribe-btn{
- padding: 8px 20px;
- border: 1px solid dodgerblue;
- border-radius: 30px;
- background: dodgerblue;
- width: 450px;
- font-size:23px;
- font-weight: bold;
- color:white;
- cursor:pointer;
-}
-
-@media screen and (max-width:660px) {
-  .btn-container{
-  width:100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top:30px;
-}
-
-.subscribe-btn{
- padding: 8px 20px;
- width:300px;
- border: 1px solid dodgerblue;
- border-radius: 30px;
- background: dodgerblue;
- font-size:17px;
- font-weight: bold;
- color:white;
- cursor:pointer;
-}
-
-}
-
-@media screen and (max-width:432px) {
-  .btn-container{
-  width:100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin:30px 0;
-}
-
-.subscribe-btn{
- padding: 8px 20px;
- width:230px;
- border: 1px solid dodgerblue;
- border-radius: 30px;
- background: dodgerblue;
- font-size:16px;
- font-weight: bold;
- color:white;
- cursor:pointer;
-}
-
-}
-
-.share-btn{
-  background: dodgerblue;
-  color: white;
-  float: right;
-  border: 1px solid dodgerblue;
-  border-radius: 3px;
-  padding: 8px;
-  cursor: pointer;
-  font-size:17px;
-  margin:6px 0;
-  width: 100%;
-}
-
-
-/*loader*/
-
-#loader{
-  
-  width: 100%;
-  position: absolute;
-  min-height: 100vh;
-  background: white;
-}
-
-
-.loader {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  display: block;
-  margin:15px auto;
-  position: absolute;
-  left: 50%;
-  top:50%;
-  transform: translate(-50%, -50%);
-  color: dodgerblue;
-  box-sizing: border-box;
-  animation: animloader 1s linear infinite alternate;
-}
-
-@keyframes animloader {
-  0% {
-    box-shadow: -38px -12px ,  -14px 0,  14px 0, 38px 0;
-  }
-  33% {
-    box-shadow: -38px 0px, -14px -12px,  14px 0, 38px 0;
-  }
-  66% {
-    box-shadow: -38px 0px , -14px 0, 14px -12px, 38px 0;
-  }
-  100% {
-    box-shadow: -38px 0 , -14px 0, 14px 0 , 38px -12px;
-  }
-}
-
 
 	</style>
 </head>
 <body>
-<div class="container" id="yakuniy">
-  <div class="row">
-    <div class="col-md-12 my-5 py-3">
-	    
-          <!------------Yakuniy page----------------->
-          <section  class="container">
-		 <a class="text-decoration-none text-white" href="https://t.me/multilevel_speakApp" target="_blank"><button class="btn btn-primary my-3" style="border-radius: 30px;">Join Our Telegram Channel</button></a>
-              <div class="result">Overall Score: <span id="result"></span></div>
-            <div id="feedback"></div>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">Speaking Result</h2>
+            <p class="card-text">Your speaking performance:</p>
 
-           <a href="https://multiexam.vercel.app/"><button class="home-back" id="home">Home Page</button></a>
-          </section>
+            <!-- Display speaking result here -->
+            <div class="result">
+              <p class="mb-2"><strong>Score:</strong> <span id="result"></span></p>
+              <span class="text-danger" id="error"></span>
+              <p class="mb-2"><i><span id="feedback"></span></i></p>
+            </div>
 
+            <a href="/" class="btn btn-primary mt-3">Exam Page</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -209,155 +76,143 @@ mark{
  <script>
 const transcript = localStorage.getItem('transcript');
      if(transcript===null){
-         document.getElementById("result").innerHTML="You did not provide any response. Please, check your microphone!"
+         document.getElementById("error").innerHTML="You did not provide any response. Please, check your microphone or try to speak louder!"
+         document.getElementById("result").innerHTML=0
      }
      
      
 
 // Counting the number of words in the transcript
 const wordCount = transcript.split(/\s+/).length; 
-     console.log(wordCount)
      
      if(wordCount>0 && wordCount<=30){
       let min = 0;
       let max = 5;
       let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
        document.getElementById("result").innerHTML=randomBand
-       document.getElementById("feedback").innerHTML=`Your speaking level is very low. Practice to imporve your level.`
+       document.getElementById("feedback").innerHTML=`Feedback: Your speaking level is very low. Practice to imporve your level.`
          
      }
      else if(wordCount>31 && wordCount<=60){
       let min = 6;
-      let max = 10;
-      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
-      document.getElementById("result").innerHTML=randomBand
-        document.getElementById("feedback").innerHTML=`Your speaking level is some low. Practice to imporve your level.`
-     }
-     else if(wordCount>61 && wordCount<=80){
-         let min = 11;
-      let max = 15;
-      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
-      document.getElementById("result").innerHTML=randomBand
-         document.getElementById("feedback").innerHTML=`Your speaking level is low. Practice to imporve your level.`
-     }
-     else if(wordCount>81 && wordCount<=100){
-         let min = 16;
-      let max = 20;
-      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
-      document.getElementById("result").innerHTML=randomBand
-         document.getElementById("feedback").innerHTML=`Your speaking level is low. Practice to imporve your level.`
-     }
-     else if(wordCount>101 && wordCount<=110){
-       let min = 21;
-      let max = 25;
-      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
-      document.getElementById("result").innerHTML=randomBand
-         document.getElementById("feedback").innerHTML=`Your speaking level is very low. Practice to imporve your level and learn more vocabulary.`
-     }
-     else if(wordCount>111 && wordCount<=130){
-       let min = 26;
       let max = 30;
       let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
       document.getElementById("result").innerHTML=randomBand
-         document.getElementById("feedback").innerHTML=`Your speaking level is very low. Practice to imporve your level and learn more vocabulary.`
+        document.getElementById("feedback").innerHTML=`
+        <b>Fluency and Coherence:</b>
+
+        Work on maintaining a steady flow of speech. Avoid frequent pauses and hesitations.
+        Practice linking your ideas together to create a more cohesive and organized response.
+        <b>Lexical Resource:</b>
+
+        Expand your vocabulary to express ideas more precisely.
+        Avoid repeating the same words. Try to use synonyms to enhance your speech.
+        <b>Grammatical Range and Accuracy:</b>
+
+        Pay attention to verb tenses and grammatical structures.
+        Practice using a variety of sentence structures to demonstrate a broader command of English.
+        <b>Pronunciation:</b>
+
+        Work on clear pronunciation, especially for commonly mispronounced words.
+        Focus on intonation and stress patterns to sound more natural.
+        <b>Task Response:</b>
+
+        Make sure your responses directly address the questions asked. Avoid going off-topic.
+        Provide more details and examples to support your answers.
+        
+        Remember, consistent practice is key to improvement. Focus on these areas, and you'll likely see an enhancement in your speaking skills. Good luck!
+        `
      }
-     else if(wordCount>131 && wordCount<=250){
-       let min =31;
+     else if(wordCount>61 && wordCount<=120){
+         let min = 31;
       let max = 50;
       let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
       document.getElementById("result").innerHTML=randomBand
-         document.getElementById("feedback").innerHTML=`Your speaking level is very low. Practice to imporve your level and learn more vocabulary.`
+         document.getElementById("feedback").innerHTML=`
+         <b>Fluency and Coherence</b>: While you communicate reasonably well, there are noticeable pauses and hesitations in your speech. Aim for a smoother flow by using linking words and phrases to connect your ideas.
+
+          <b>Vocabulary:</b> Your vocabulary is sufficient to convey your ideas, but there is room for improvement. Try incorporating a wider range of words and expressions to enhance the richness of your language.
+
+          <b>Grammar:</b> You demonstrate a basic grasp of grammar, but there are some errors in sentence structure and verb tenses. Pay attention to these details to convey your message more accurately.
+
+          <b>Pronunciation:</b> Your pronunciation is generally clear and understandable. However, there are occasional mispronunciations. Focus on refining your pronunciation by practicing challenging sounds and words.
+
+          <b>Task Response:</b> You address the topics adequately, but there is a lack of detail in some of your responses. Try to provide more specific examples and details to fully develop your answers.
+
+          Remember to practice regularly, especially in areas where improvement is needed. Good luck with your preparation!
+         `
      }
-     else if(wordCount>251 && wordCount<=280){
-       let min =50;
-      let max = 60;
-      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
-      document.getElementById("result").innerHTML=randomBand;
-      document.getElementById("feedback").innerHTML=`
-<b>Clarity and Pronunciation:</b><br>
-Focus on clear and accurate pronunciation. Make sure your words are understandable, and try to avoid speaking too fast. Enunciate your words properly.
-<br>
-<b>Fluency and Coherence:</b>
-Aim to speak naturally and fluently. Use linking words like "and," "but," "because," etc., to connect your ideas and sentences. Organize your responses logically.
-<br>
-Vocabulary and Language Range:<br>
-Utilize a varied vocabulary to express yourself effectively. Don't hesitate to use synonyms and descriptive words to avoid repetition.
-<br>
-Grammar Accuracy:<br>
-Pay attention to your grammar usage. Aim for correct verb tenses, subject-verb agreement, and sentence structure.
-<br>
-Expand on Your Responses:<br>
-Instead of giving short answers, try to expand on your responses. Provide examples, reasons, and personal experiences to support your points.
-<br>
-Avoid Memorized Answers:<br>
-While preparation is important, avoid sounding overly rehearsed or robotic. Examiners appreciate genuine and spontaneous responses.
-<br>
-Practice:<br>
-Regularly practice speaking English on various topics to improve your confidence and fluency.`
-     }
-     else if(wordCount>281 && wordCount<=320){
-       let min =51;
+     else if(wordCount>121 && wordCount<=300){
+         let min = 51;
       let max = 60;
       let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
       document.getElementById("result").innerHTML=randomBand
          document.getElementById("feedback").innerHTML=`
-<b>Clarity and Pronunciation:</b><br>
-Focus on clear and accurate pronunciation. Make sure your words are understandable, and try to avoid speaking too fast. Enunciate your words properly.
-<br>
-<b>Fluency and Coherence:</b>
-Aim to speak naturally and fluently. Use linking words like "and," "but," "because," etc., to connect your ideas and sentences. Organize your responses logically.
-<br>
-Vocabulary and Language Range:<br>
-Utilize a varied vocabulary to express yourself effectively. Don't hesitate to use synonyms and descriptive words to avoid repetition.
-<br>
-Grammar Accuracy:<br>
-Pay attention to your grammar usage. Aim for correct verb tenses, subject-verb agreement, and sentence structure.
-<br>
-Expand on Your Responses:<br>
-Instead of giving short answers, try to expand on your responses. Provide examples, reasons, and personal experiences to support your points.
-<br>
-Avoid Memorized Answers:<br>
-While preparation is important, avoid sounding overly rehearsed or robotic. Examiners appreciate genuine and spontaneous responses.
-<br>
-Practice:<br>
-Regularly practice speaking English on various topics to improve your confidence and fluency.`
+         <b>Fluency and Coherence:</b>
+
+          Work on maintaining a steadier flow of speech. Avoid long pauses and hesitations.
+          Organize your ideas logically to enhance coherence. Use linking words to connect your thoughts.
+          <b>Lexical Resource (Vocabulary):</b>
+
+          Expand your vocabulary range. Try to incorporate more varied and precise vocabulary.
+          Be cautious about word choice; make sure the words you use fit the context appropriately.
+          <b>Grammatical Range and Accuracy:</b>
+
+          Aim for a wider range of grammatical structures. Don't stick to basic sentence structures only.
+          Pay attention to verb tenses, subject-verb agreement, and the correct use of articles.
+          <b>Pronunciation:</b>
+
+          Work on clear pronunciation. Ensure that your words are easily understandable.
+          Focus on intonation and stress to convey your meaning effectively.
+          <b>Task Response:</b>
+
+          Address the prompt fully and provide detailed responses. Avoid being too brief or too verbose.
+          Practice expressing your opinions clearly and justifying them with relevant examples.
+          Interactive Communication:
+
+          Engage more actively in the conversation. Don't wait for the examiner to prompt you; contribute willingly.
+          Practice asking and answering questions with more depth.
+          Remember, regular practice is key to improvement. Consider recording yourself during practice sessions to identify areas that need attention. Additionally, try to simulate exam conditions to build confidence and familiarity with the test format. Keep up the good work!
+         `
      }
-     else if(wordCount>321 && wordCount<=360){
-       let min =61;
-      let max = 65;
-      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
-      document.getElementById("result").innerHTML=randomBand
-     }
-     else if(wordCount>361 && wordCount<=400){
-       let min =51;
-      let max = 55;
-      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
-      document.getElementById("result").innerHTML=randomBand
-     }
-     else if(wordCount>400 && wordCount<=700){
-       let min =55;
-      let max = 60;
-      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
-      document.getElementById("result").innerHTML=randomBand
-     }
-     else if(wordCount>700 && wordCount<=900){
-       let min =60;
-      let max = 65;
-      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
-      document.getElementById("result").innerHTML=randomBand
-     }
-     else if(wordCount>900 && wordCount<=1000){
-       let min =66;
-      let max = 70;
-      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
-      document.getElementById("result").innerHTML=randomBand
-     }
-     else if(wordCount>=1001){
-       let min =71;
+     else if(wordCount>301 && wordCount<=400){
+       let min = 61;
       let max = 75;
       let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
       document.getElementById("result").innerHTML=randomBand
+         document.getElementById("feedback").innerHTML=`
+        <b> Fluency and Coherence:</b>
+
+        Speak at a steady pace, avoiding long pauses.
+        Try to express your ideas clearly and logically.
+        Use a range of linking words to connect your thoughts.
+        <b>Lexical Resource (Vocabulary):</b>
+
+        Demonstrate a wide range of vocabulary relevant to the topic.
+        Use idiomatic expressions and collocations appropriately.
+        Avoid repeating the same words; showcase variety.
+        <b>Grammatical Range and Accuracy:</b>
+
+        Aim for complex sentence structures but ensure they are grammatically accurate.
+        Show a good command of tenses and use them appropriately.
+        Minimize errors in subject-verb agreement and article usage.
+        <b>Pronunciation:</b>
+
+        Work on clear pronunciation, focusing on both individual sounds and intonation.
+        Aim for a natural and confident tone.
+        Be mindful of word stress within sentences.
+        <b>Task Response:</b>
+
+        Address the examiner's questions directly and thoroughly.
+        Provide detailed and relevant responses.
+        Be prepared to discuss a variety of topics.
+        Remember, practice is key. Record yourself answering Multilevel-style questions and listen for areas of improvement. Additionally, consider seeking feedback from a teacher or language exchange partner. Good luck!
+         `
      }
+    
+     
+     
+     
      
 
 </script>
