@@ -2,7 +2,7 @@ import { BrowserClient, BrowserMicrophone  } from 'https://cdn.jsdelivr.net/npm/
 
   const microphone = new BrowserMicrophone();
 const client = new BrowserClient({
-  appId: '9251b6f0-6c32-4910-8df2-cd832c67494d',
+  appId: '89d6eff7-77b5-4e79-82b7-53450cfb27f8',
   logSegments: true,
   debug: true,
 })
@@ -19,6 +19,7 @@ const attachMicrophone = async () => {
 
 async function stopRecognition(){
     await client.stop();
+    
   }
 
   
@@ -32,7 +33,7 @@ async function startRecognition() {
 
     // Handle client state changes
     client.onStateChange((newState) => {
-      if (newState === 'disconnected') {
+      if (newState === 'Disconnected') {
         console.log('Client disconnected. Restarting...');
         startRecognition(); // Restart the recognition
       }
@@ -52,7 +53,7 @@ client.onSegmentChange((segment) => {
   const text = segment.words.map((word) => word.value).join(' ');
   if (segment.isFinal) {
     const capitalizedText = capitalize(text) + '. ';
-    fullTranscript += capitalizedText;
+    fullTranscript+=capitalizedText
     localStorage.setItem('transcript', fullTranscript);
   }
 });
