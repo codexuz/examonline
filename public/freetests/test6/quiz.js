@@ -686,7 +686,7 @@ function examEnd(){
 		stopRecording();
 		document.querySelector(".uploader").style.display="block"
 		setTimeout(()=>{
-			window.location.href='https://multiexam.vercel.app/result.html'
+			window.location.href='/result.html'
 		}, 4500)
 
 });		
