@@ -44,17 +44,18 @@ async function startRecognition() {
 }
 
 
-let fullTranscript = '';
+let fullTranscript = [];
 
 micBtn.addEventListener('click', startRecognition);
 
 
 client.onSegmentChange((segment) => {
   const text = segment.words.map((word) => word.value).join(' ');
-  localStorage.setItem('transcript', text);
+  localStorage.setItem('transcript', fullTranscript);
   if (segment.isFinal) {
     const capitalizedText = capitalize(text) + '. ';
-    fullTranscript+=capitalizedText
+    var newText+=capitalizedText
+    fullTranscript.push(newText)
   }
 });
 
