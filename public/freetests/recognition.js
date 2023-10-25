@@ -51,10 +51,10 @@ micBtn.addEventListener('click', startRecognition);
 
 client.onSegmentChange((segment) => {
   const text = segment.words.map((word) => word.value).join(' ');
+  localStorage.setItem('transcript', text);
   if (segment.isFinal) {
     const capitalizedText = capitalize(text) + '. ';
     fullTranscript+=capitalizedText
-    localStorage.setItem('transcript', fullTranscript);
   }
 });
 
