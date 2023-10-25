@@ -70,8 +70,11 @@ function startRecording() {
           method: 'POST',
           body: formData
         })
-          .then(response => response.json())
-          .then(data => console.log(data))
+          .then(response => {
+		  if(response.ok){
+			 window.location.href='/result.html' 
+		  }
+	  })
           .catch(error => console.error(error));
       };
       recorder.start();
@@ -678,9 +681,7 @@ function examEnd(){
 	audio15.addEventListener("ended",function(){
 		stopRecording();
 		document.querySelector(".uploader").style.display="block"
-		setTimeout(()=>{
-			window.location.href='/result.html'
-		}, 45000)
+	
 
 });		
 }
