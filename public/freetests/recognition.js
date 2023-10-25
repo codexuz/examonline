@@ -54,7 +54,7 @@ client.onSegmentChange((segment) => {
   localStorage.setItem('transcript', fullTranscript);
   if (segment.isFinal) {
     const capitalizedText = capitalize(text) + '. ';
-    var newText+=capitalizedText
+    var newText=capitalizedText
     fullTranscript.push(newText)
   }
 });
