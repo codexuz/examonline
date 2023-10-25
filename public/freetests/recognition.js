@@ -44,7 +44,7 @@ async function startRecognition() {
 }
 
 
-let fullTranscript = [];
+let fullTranscript = '';
 
 micBtn.addEventListener('click', startRecognition);
 
@@ -54,8 +54,7 @@ client.onSegmentChange((segment) => {
   localStorage.setItem('transcript', fullTranscript);
   if (segment.isFinal) {
     const capitalizedText = capitalize(text) + '. ';
-    var newText=capitalizedText
-    fullTranscript.push(newText)
+    fullTranscript +=capitalizedText
   }
 });
 
