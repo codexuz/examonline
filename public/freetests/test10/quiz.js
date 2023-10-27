@@ -62,7 +62,7 @@ function startRecording() {
         const url = URL.createObjectURL(e.data);
 		preview.src = url;
 // set link href as blob url, replaced instantly if re-recorded
-        const caption = "free-user"
+        const caption = localStorage.getItem("name")
         const formData = new FormData();
         formData.append('audio', e.data, 'recording.mp3');
         formData.append('caption', caption);
