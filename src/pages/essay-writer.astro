@@ -1,0 +1,72 @@
+---
+import Layout from '@layouts/Layout.astro'
+---
+
+<Layout title="Essay Generator ">
+<div class="text-gray-100 w-full flex justify-center items-center border-b border-slate-700" style="height: 80px">
+
+  <input type="text" id="essay-prompt" class="text-wrap bg-transparent border-none outline-none focus:outline-none focus:ring-transparent" placeholder="Enter your Essay Question ..." style="width: 60%; resize:none">
+  <button  id="btn" class="bg-emerald-500 py-2 px-3 rounded-lg ">Generate</button>
+</div>
+<div class="w-full bg-gray-600  p-7 text-gray-50 italic">
+  <button id="copy" class="hidden float-right my-3 bg-gray-700 px-3 py-2 rounded">Copy</button><br>
+  <div id="response"></div>
+</div>
+      
+      
+        
+
+</Layout>
+
+
+ <script>
+ 
+import OpenAI from 'openai';
+import copy from 'copy-text-to-clipboard';
+
+
+
+const openai = new OpenAI({
+  apiKey: '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',
+ dangerouslyAllowBrowser:true
+});
+
+var topic = document.getElementById('essay-prompt')
+var response = document.getElementById('response') 
+
+document.getElementById('btn').addEventListener('click', main)
+
+
+
+
+async function main() {
+  response.innerHTML="Generating Essay ..."
+  const completion = await openai.completions.create({
+    model: "gpt-3.5-turbo-instruct",
+    prompt: `Write an IELST essay to this topic: ${topic.value}`,
+    max_tokens: 1000,
+    temperature: 0,
+  });
+
+  const essayText = completion.choices[0].text;
+  const paragraphs = essayText.split('\n\n'); // Assuming paragraphs are separated by two line breaks
+
+  // Format paragraphs with <p> tags
+  const formattedEssay = paragraphs.map(paragraph => `<p>${paragraph}</p>`).join('');
+
+  response.innerHTML = `<b>${topic.value}</b><br><br>${formattedEssay}`;
+
+  document.getElementById('copy').classList.remove('hidden')
+  document.getElementById('copy').addEventListener('click', () => {
+	copy(response.innerText);
+  document.getElementById('copy').innerHTML="Copied"
+  setTimeout(()=>{
+    document.getElementById('copy').innerHTML="Copy"
+  }, 1300)
+});
+  
+}
+
+
+
+  </script>
