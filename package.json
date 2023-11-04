@@ -3,9 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "tinacms dev -c \"astro dev\"",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "tinacms build && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -13,6 +13,7 @@
     "@astrojs/mdx": "^1.1.1",
     "@astrojs/tailwind": "^5.0.0",
     "@astrojs/vercel": "^5.0.1",
+    "@tinacms/cli": "^1.5.31",
     "astro": "^3.2.2",
     "astro-feelback": "^0.3.4",
     "bootstrap": "^5.0.1",
@@ -26,7 +27,8 @@
     "openai": "^4.14.2",
     "preline": "^1.9.0",
     "swiper": "^10.3.1",
-    "tailwindcss": "^3.3.3"
+    "tailwindcss": "^3.3.3",
+    "tinacms": "^1.5.22"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10"
