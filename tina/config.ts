@@ -45,21 +45,6 @@ export default defineConfig({
         label: 'Full Mock',
         name: 'fullmock',
         path: 'src/pages/full_mock',
-        fields: [
-          {
-            type: "string",
-            name: "title",
-            label: "Title",
-            isTitle: true,
-            required: true,
-          },
-          {
-            type: "rich-text",
-            name: "body",
-            label: "Body",
-            isBody: true,
-          },
-        ],
       },
     ],
   },
