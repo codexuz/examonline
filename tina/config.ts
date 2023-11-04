@@ -39,14 +39,12 @@ export default defineConfig({
         name: "post",
         label: "Posts",
         path: "src/pages/blog",
-        format: 'md',
         fields,
       },
       {
         name: "fullmock",
         label: "Full Mock",
         path: "src/pages/full_mock",
-        format: 'mdx',
         fields,
       }
     ],
