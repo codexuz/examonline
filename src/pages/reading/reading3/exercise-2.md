@@ -1,4 +1,5 @@
 ---
+layout: ../../../layouts/BlogLayout.astro
 title: "Exercise 2"
 date: "2023-06-19"
 ---
@@ -18,7 +19,6 @@ VIII. What are the roles of management and workers?
 IX. Why does a VDU create eye fatigue?  
 X. Where should I place the documents?_
 
-<iframe src="https://xirurgabdukarim.uz/wp-admin/admin-ajax.php?action=h5p_embed&amp;id=10" width="100%" height="291" frameborder="0" allowfullscreen="allowfullscreen" title="Part 3 | Exercise 2"></iframe>
 
 <script src="https://xirurgabdukarim.uz/wp-content/plugins/h5p/h5p-php-library/js/h5p-resizer.js" charset="UTF-8"></script>
 
@@ -38,3 +38,6 @@ E. While keying, it is advisable to have frequent but short pauses of around thi
 F. Generally, the best position for a VDU is at right angles to the window. If this is not possible then glare from the window can be controlled by blinds, curtains or movable screens. Keep the face of the VDU vertical to avoid glare from overhead lighting.  
 
 G. Unsatisfactory work practices or working conditions may result in aches or pain. Symptoms should be reported to your supervisor early on so that the cause of the trouble can be corrected and the operator should seek medical attention
+
+
+
