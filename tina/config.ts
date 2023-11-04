@@ -2,6 +2,21 @@ import { defineConfig } from "tinacms";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch = "main";
+const fields= [
+  {
+    type: "string",
+    name: "title",
+    label: "Title",
+    isTitle: true,
+    required: true,
+  },
+  {
+    type: "rich-text",
+    name: "body",
+    label: "Body",
+    isBody: true,
+  },
+]
 
 export default defineConfig({
   branch,
@@ -25,22 +40,15 @@ export default defineConfig({
         label: "Posts",
         path: "src/pages/blog",
         format: 'md',
-        fields: [
-          {
-            type: "string",
-            name: "title",
-            label: "Title",
-            isTitle: true,
-            required: true,
-          },
-          {
-            type: "rich-text",
-            name: "body",
-            label: "Body",
-            isBody: true,
-          },
-        ],
+        fields,
       },
+      {
+        name: "full-mock",
+        label: "Full Mock",
+        path: "src/pages/full_mock",
+        format: 'mdx',
+        fields,
+      }
     ],
   },
 });
