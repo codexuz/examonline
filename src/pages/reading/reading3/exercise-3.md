@@ -1,4 +1,5 @@
 ---
+layout: ../../../layouts/BlogLayout.astro
 title: "Exercise 3"
 date: "2023-06-19"
 ---
@@ -15,9 +16,6 @@ F) How to solve flooding
 G) Humans' relationship with water  
 H) The destructive force of water in former times
 
-<iframe src="https://xirurgabdukarim.uz/wp-admin/admin-ajax.php?action=h5p_embed&amp;id=11" width="100%" height="387" frameborder="0" allowfullscreen="allowfullscreen" title="Part 3 | Exercise 3"></iframe>
-
-<script src="https://xirurgabdukarim.uz/wp-content/plugins/h5p/h5p-php-library/js/h5p-resizer.js" charset="UTF-8"></script>
 
 **Water and Climate Change**  
 **Q1**  
@@ -32,3 +30,5 @@ Today, we are more aware of climate change around the world. Floods in far-flung
 In 2002, many parts of Europe suffered severe flood damage running into billions of euros. Properties across the continent collapsed into the sea as waves pounded the coastline wreaking havoc with sea defences. But it was not just the seas. Rivers swollen by heavy rains and by the effects of deforestation carried large volumes of water that wrecked manv communities.  
 **Q6**  
 Building stronger and more sophisticated river defenses against flooding is the expensive short-term answer. There are simpler ways. Planting trees in highland areas, not just in Europe but in places like the Himalayas, to protect people living in low-lying regions like the Ganges Delta, is a cheaper and more attractive solution. Progress is already being made in convincing countries that the emission of carbon dioxide and other greenhouse gases is causing considerable damage to the environment. But more effort is needed in this direction.
+
+
