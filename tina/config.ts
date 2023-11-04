@@ -42,8 +42,8 @@ export default defineConfig({
         ],
       },
       {
-        label: 'Full Mock',
         name: 'fullmock',
+        label: 'Full Mock',
         path: 'src/pages/full_mock',
       },
     ],
