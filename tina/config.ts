@@ -43,7 +43,7 @@ export default defineConfig({
         fields,
       },
       {
-        name: "full-mock",
+        name: "fullmock",
         label: "Full Mock",
         path: "src/pages/full_mock",
         format: 'mdx',
