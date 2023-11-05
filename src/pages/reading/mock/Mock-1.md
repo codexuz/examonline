@@ -2,9 +2,7 @@
 title: Mock 1
 ---
 
-Reading Test 11
-
-Part 1
+# Part 1
 
 Read the text. Fill in each gap with ONE word. You must use a word which is somewhere in the rest of the text.
 
@@ -12,7 +10,7 @@ An amazing stay at the Ocean View Hotel
 
 I'm usually sad to say goodbye to my cousins after visiting them Australia. But last June I didn't feel (1)\_\_\_\_\_\_ We had to change planes in the Middle East on the way back and had to stay overnight. I just couldn't wait to get to our hotel. The first thing I noticed in the (2)\_\_\_\_\_\_ was all the glass. It was really bright, so I don't know why all the lights were on in the building! There was also loud rock music playing, which I loved (but my parents didn't such (3)\_\_\_\_\_\_\_ )! There weren't many people waiting at the reception, so we were soon in our rooms. The garden wasn't what | expected. 'Dad', I said, 'you told me there was a pool. You now I love swimming!' He took me back into the reception area and then up in the lift to the 39th floor and out onto the top of the (4)\_\_\_\_\_\_\_\_\_\_ 'Here the (5)\_\_\_\_\_\_\_\_ is,' he said. It was amazing! (6)\_\_\_\_\_\_\_ under the clouds was awesome.
 
-Part 2
+# Part 2
 
 Read the texts and the statements A-J. Decide which text matches with the situation described in the statements.
 
@@ -42,7 +40,7 @@ J) You don't have to make an arrangement in advance for using this service.
 
 ![](</uploads/mock 12 2.png>)
 
-Part 3
+# Part 3
 
 Read the text and choose the correct heading for each paragraph from the list of headings below.
 
@@ -88,7 +86,7 @@ Q6
 
 I'm known as Chase. That's my tag. When started I would go out at night with a few friends and just painted football slogans and things like that on any wall l could find I suppose it was a way of making a statement. Eventually l got caught. I still continue to express my feelings with the help aerosol painting, but these days I get permission first.
 
-Part 4
+# Part 4
 
 Read the following text for questions 1-9.
 
@@ -166,7 +164,7 @@ A) True B) False C) No information
 
 A) True B) False C) No information
 
-Part 5
+# Part 5
 
 Read the following text for questions 1-6.
 
