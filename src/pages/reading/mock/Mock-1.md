@@ -211,8 +211,9 @@ C) reaches its prey in a short time.
 
 D) solves the problem of locating its prey.
 
-Keys for Test 11:
-
+<details>
+  <summary>Answers</summary>
+  
 1. Sad
 2. Hotel
 3. Music
@@ -260,3 +261,4 @@ Part 5
 4. Signals
 5. A
 6. D
+</details>
