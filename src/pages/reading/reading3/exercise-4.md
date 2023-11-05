@@ -1,10 +1,11 @@
 ---
+layout: ../../../layouts/BlogLayout.astro
 title: "Exercise 4"
 date: "2023-06-19"
 ---
 
-**Read the text and choose the correct heading for each paragraph from the list of headings below.  
-There are more headings than paragraphs, so you will not use all of them. You cannot use any heading more than once. Mark your answers on the answer sheet.**
+Read the text and choose the correct heading for each paragraph from the list of headings below.  
+There are more headings than paragraphs, so you will not use all of them. You cannot use any heading more than once. Mark your answers on the answer sheet.
 
 A) Overcoming problems is part of the challenge of sailing  
 B) Sailing tends to run in families  
@@ -15,9 +16,7 @@ F) Some basics about sailing were explained
 G) Sailors are used to waiting around  
 H) These sailors have other talents
 
-<iframe src="https://xirurgabdukarim.uz/wp-admin/admin-ajax.php?action=h5p_embed&amp;id=12" width="100%" height="343" frameborder="0" allowfullscreen="allowfullscreen" title="Part 3 | Exercise 4"></iframe>
 
-<script src="https://xirurgabdukarim.uz/wp-content/plugins/h5p/h5p-php-library/js/h5p-resizer.js" charset="UTF-8"></script>
 
 **Rock the Boat**  
 **Q1**  

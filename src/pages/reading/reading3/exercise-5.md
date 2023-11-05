@@ -1,10 +1,11 @@
 ---
+layout: ../../../layouts/BlogLayout.astro
 title: "Exercise 5"
 date: "2023-06-19"
 ---
 
-**Read the text and choose the correct heading for each paragraph from the list of headings below.  
-There are more headings than paragraphs, so you will not use all of them. You cannot use any heading more than once. Mark your answers on the answer sheet.**
+Read the text and choose the correct heading for each paragraph from the list of headings below.  
+There are more headings than paragraphs, so you will not use all of them. You cannot use any heading more than once. Mark your answers on the answer sheet.
 
 A) With nature  
 B) Time to relax  
@@ -15,9 +16,7 @@ F) Spain as a state
 G) Food: its features  
 H) Population
 
-<iframe src="https://xirurgabdukarim.uz/wp-admin/admin-ajax.php?action=h5p_embed&amp;id=13" width="100%" height="343" frameborder="0" allowfullscreen="allowfullscreen" title="Part 3 | Exercise 5"></iframe>
 
-<script src="https://xirurgabdukarim.uz/wp-content/plugins/h5p/h5p-php-library/js/h5p-resizer.js" charset="UTF-8"></script>
 
 **Food and entertainment**
 

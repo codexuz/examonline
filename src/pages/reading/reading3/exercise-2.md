@@ -7,8 +7,8 @@ date: "2023-06-19"
 **Read the text and choose the correct heading for each paragraph from the list of headings below.  
 There are more headings than paragraphs, so you will not use all of them. You cannot use any heading more than once.**
 
-**List of headings  
-**_I. How can reflection problems be avoided?  
+**List of headings**
+I. How can reflection problems be avoided?  
 II. How long should I work without a break?  
 III. What if I experience any problems?  
 IV. When is the best time to do filing chores?  
@@ -20,10 +20,9 @@ IX. Why does a VDU create eye fatigue?
 X. Where should I place the documents?_
 
 
-<script src="https://xirurgabdukarim.uz/wp-content/plugins/h5p/h5p-php-library/js/h5p-resizer.js" charset="UTF-8"></script>
 
-**BENEFICIAL WORK PRACTICES FOR THE KEYBOARD OPERATOR  
-**
+
+**BENEFICIAL WORK PRACTICES FOR THE KEYBOARD OPERATOR**
 
 A. Sensible work practices are an important factor in the prevention of muscular fatigue; discomfort or pain in the arms, neck, hands or back; or eye strain which can be associated with constant or regular work at a keyboard and visual display unit (VDU).  
 

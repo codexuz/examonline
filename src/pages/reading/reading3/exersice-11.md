@@ -1,10 +1,11 @@
 ---
+layout: ../../../layouts/BlogLayout.astro
 title: "Exersice 11"
 date: "2023-06-21"
 ---
 
-**Read the text and choose the correct heading for each paragraph from the list of headings below.  
-There are more headings than paragraphs, so you will not use all of them. You cannot use any heading more than once. Mark your answers on the answer sheet.**
+Read the text and choose the correct heading for each paragraph from the list of headings below.  
+There are more headings than paragraphs, so you will not use all of them. You cannot use any heading more than once. Mark your answers on the answer sheet.
 
 A) Difficult start  
 B) A visit to the zoo  

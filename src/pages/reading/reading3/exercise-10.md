@@ -1,5 +1,6 @@
 ---
 layout: ../../../layouts/BlogLayout.astro
+layout: ../../../layouts/BlogLayout.astro
 title: "Exercise 10"
 date: "2023-06-21"
 ---
@@ -27,9 +28,4 @@ The seas are in danger. They are filled with poison like industrial, nuclear and
 **Q5**  
 Lots of people all over the world enjoy collecting stamps. Stamps are like little pictures. Very often they show the flowers or the trees which grow in this or that country, or they can show different kinds of transport of the country. Stamps may also have portraits of famous people on them. Some stamps show art work from the history of the country.  
 **Q6**  
-"Friend" is the title of my favourite magazine. It consists of 7O pages, with lots of colourful and bright pictures and provides interesting and useful information for people who love animals. The magazine includes numerous articles devoted to various topics 
-
-
-
-
-connected with domestic animals, ways to take care of them, pet food, animal health and many other topics crucial for any animal lover.
+"Friend" is the title of my favourite magazine. It consists of 7O pages, with lots of colourful and bright pictures and provides interesting and useful information for people who love animals. The magazine includes numerous articles devoted to various topics connected with domestic animals, ways to take care of them, pet food, animal health and many other topics crucial for any animal lover.
