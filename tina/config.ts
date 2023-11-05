@@ -44,7 +44,19 @@ export default defineConfig({
       {
         name: "fullmock",
         label: "Full Mock",
-        path: "src/pages/full_mock",
+        path: "src/pages/fullmock",
+        fields,
+      },
+      {
+        name: "listening",
+        label: "Listening",
+        path: "src/pages/listening",
+        fields,
+      },
+      {
+        name: "reading",
+        label: "Reading",
+        path: "src/pages/reading",
         fields,
       }
     ],
