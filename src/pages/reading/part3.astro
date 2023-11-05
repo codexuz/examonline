@@ -6,7 +6,7 @@ import SkillHeader from '@components/SkillHeader.astro';
 ---
 <Layout title="Reading Part 3">
 <SkillHeader skillTitle="Part 3"/>
-<article class="text-white flex flex-col justify-center items-center">
+<article class="text-white flex flex-col justify-center items-center mt-3">
     {allPosts.map((post) => <div class="post-card flex py-3 px-2 items-center bg-gray-800 shadow-xl  text-gray-100  border-b border-blue-500">
     <a class="text-lg font-semibold mx-2" href={post.url}>{post.frontmatter.title}
         </a></div>)}
