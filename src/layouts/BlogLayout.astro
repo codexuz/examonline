@@ -1,10 +1,4 @@
 ---
-import FeelbackPulse from "astro-feelback/components/FeelbackPulse.astro";
-import "astro-feelback/styles/feelback.css";
-const CONTENT_SET_LIKES = "ce74dd85-eb4d-4177-af50-6e539bb57fe5";
-import FeelbackMessage from "astro-feelback/components/FeelbackMessage.astro";
-
-
 import SkillHeader from "@components/SkillHeader.astro";
 const {
   frontmatter: { title, description, pubDate,author },
@@ -37,10 +31,7 @@ const {
           <h1 class="title">{title}</h1>
         <div class="flex items-center">  
           <em>Written by: {author}</em>
-           <FeelbackPulse contentSetId={CONTENT_SET_LIKES}
-        preset="heart" // <-- shows the Heart icon
-        showCount // <-- shows the likes count
-    />
+           
     </div>
         </div>
         <div class="article-body">
@@ -48,12 +39,6 @@ const {
           <hr />
           <slot />
         </div>
-        <div class="rightbar mt-4">
-        <FeelbackMessage contentSetId="d54e6b0b-17d9-4340-84de-7b82da0e5f15"
-    preset="heart"
-    showCount
-  />
-</div>
       </article>
     </main>
     <div class="footer-container">
