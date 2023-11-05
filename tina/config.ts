@@ -56,7 +56,7 @@ export default defineConfig({
       {
         name: "reading",
         label: "Reading",
-        path: "src/pages/reading",
+        path: "src/pages/reading/mock",
         fields,
       }
     ],
