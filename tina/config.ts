@@ -11,6 +11,18 @@ const fields= [
     required: true,
   },
   {
+            type: "string",
+            name: "description",
+            label: "Description",
+          },{
+            type: "datetime",
+            name: "pubDate",
+            label: "Publish Date",
+            ui: {
+              dateFormat: "DD MMMM YYYY"
+            },
+          },
+  {
     type: "rich-text",
     name: "body",
     label: "Body",
