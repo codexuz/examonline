@@ -1,6 +1,5 @@
 ---
-layout: ../../../layouts/BlogLayout.astro
-title: Mock 1
+title: Mock 12
 ---
 
 # Part 1
@@ -213,7 +212,7 @@ D) solves the problem of locating its prey.
 
 <details>
   <summary>Answers</summary>
-  
+
 1. Sad
 2. Hotel
 3. Music
@@ -261,4 +260,5 @@ Part 5
 4. Signals
 5. A
 6. D
+
 </details>
