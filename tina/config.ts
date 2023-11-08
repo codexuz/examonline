@@ -14,7 +14,13 @@ const fields= [
             type: "string",
             name: "description",
             label: "Description",
-          },{
+          },
+          {
+            type: "string",
+            name: "layout",
+            label: "Layout",
+          },
+          {
             type: "datetime",
             name: "pubDate",
             label: "Publish Date",
