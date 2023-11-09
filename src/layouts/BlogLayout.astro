@@ -1,7 +1,7 @@
 ---
 import SkillHeader from "@components/SkillHeader.astro";
 const {
-  frontmatter: { title, description, pubDate,author },
+  frontmatter: { title, description,author },
 } = Astro.props;
 ---
 <html lang="en">
@@ -35,7 +35,6 @@ const {
     </div>
         </div>
         <div class="article-body">
-          Published on: {pubDate && <time>{pubDate}</time>}
           <hr />
           <slot />
         </div>
