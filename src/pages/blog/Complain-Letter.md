@@ -130,11 +130,8 @@ kerak deb o'ylayman.
 
 4.    Yakunlash qismi:
 
-I hope you will consider the points I have raised very carefully - Men ko'targan fikrlarni juda
-ehtiyotkorlik bilan ko'rib chiqasiz degan umiddaman.
+I hope you will consider the points I have raised very carefully - Men ko'targan fikrlarni juda ehtiyotkorlik bilan ko'rib chiqasiz degan umiddaman.
 
-I hope/assume you will replace... - Umid
-qilamanki, ….ni almashtirib berasiz.
+I hope/assume you will replace... - Umid qilamanki, ….ni almashtirib berasiz.
 
-I hope the matter will be resolved...- Umid
-qilamanki, masala hal bo'ladi
+I hope the matter will be resolved...- Umid qilamanki, masala hal bo'ladi
