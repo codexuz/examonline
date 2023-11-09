@@ -2,16 +2,20 @@
 title: Complain Letter
 description: Multi Level Writing Task 1
 layout: ../../layouts/BlogLayout.astro
-pubDate: 2023-10-22
+pubDate: 2023-10-31T19:00:00.000Z
 ---
 
-<iframe  src="https://www.youtube.com/embed/u6Aiz6d9o2k" title="Complaint Letter" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="w-full aspect-video" src="https://www.youtube.com/embed/u6Aiz6d9o2k" title="Complaint Letter" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-## Complaint Letter (Shikoyat xati)
+Complaint Letter (Shikoyat xati)
 
-Complaint letter- biror bir xizmat va tovarning sifati yomonligi, kechiktirilganligi yuzasidan xizmat ko’rsatuvchi yoki sotuvchiga yoziladigan xat turi hisoblanadi. 
+Complaint letter- biror bir xizmat va tovarning sifati yomonligi, kechiktirilganligi yuzasidan xizmat ko’rsatuvchi yoki sotuvchiga yoziladigan xat turi hisoblanadi.
+
+ 
 
 Ushbu xat quyidagi qismlardan iborat bo’ladi:
+
+ 
 
 1.     Muammo nimada ekanligi haqida xizmat ko’rsatuvchiga shikoyat qilish bilan xatni boshlash;
 
@@ -23,6 +27,9 @@ Ushbu xat quyidagi qismlardan iborat bo’ladi:
 
 5.     Xat yakunida muammo tez orada hal qilinishini aytasiz
 
+ 
+
+ 
 
 Sample
 Letter Analysis
@@ -59,10 +66,13 @@ I hope you will resolve the matter to our satisfaction.
 Yours faithfully,
 
 Larry Smith
+
  
 
-**Namunaviy xat tahlili:
-**
+ 
+
+Namunaviy xat tahlili:
+
 1\. Yozuvchi o'zining xaridi haqidagi barcha muhim faktlarni keltirib o’tadi: kir yuvish mashinasini qachon va qayerdan sotib
 olganligi, shuningdek, u muammoni qachon bilgani va muammo nimada ekanligini aytadi.
 
@@ -76,6 +86,8 @@ olganligi, shuningdek, u muammoni qachon bilgani va muammo nimada ekanligini ayt
 
 Foydalanishingiz
 mumkin bo\`lgan gap qoliplari:
+
+ 
 
 1.     Xatni yozishdan maqsad:
 
@@ -91,12 +103,12 @@ I am writing to draw your attention to... – sizning e’tiboringizni …. ga q
 
 2.     Muammoni tushuntirish:
 
-We ought to discuss the matter... - Biz bu masalani muhokama qilishimiz kerak 
+We ought to discuss the matter... - Biz bu masalani muhokama qilishimiz kerak
 
 I was very disappointed to find that... - Men buni bilib juda xafa bo'ldim
 
 I hope you will understand that I was very dissatisfied ... - Umid qilamanki, siz juda norozi bo'lganimni
- ushunasiz.
+ushunasiz.
 
  
 
