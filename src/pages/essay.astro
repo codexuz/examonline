@@ -7,7 +7,7 @@ import Layout from '../layouts/Layout.astro'
  <form id="essayForm" class="w-full min-h-screen flex flex-col justify-start items-center">
     <textarea class=" focus:ring-transparent w-full sticky top-0 resize-none p-4 text-gray-200 outline-none bg-gray-800 border-b-2 border-gray-700 font-bold" id="question" name="question" placeholder="Essay savolini kiriting..."></textarea>
     <textarea  class="absolute left-0 top-0 w-full bg-gray-800 text-gray-200 italic outline-none p-4 border-t-2 border-gray-700 focus:ring-transparent" id="essay" name="essay" placeholder="Essay matnini kiriting..."></textarea>
-    <button id="btn" class="absolute mt-4 bottom-3 px-6 bg-rose-500 text-white text-lg rounded-2xl py-2 px-4" type="button" onclick="submitEssay()">Check Essay</button>
+    <button disabled id="btn" class="absolute mt-4 bottom-3 px-6 bg-rose-500 text-white text-lg rounded-2xl py-2 px-4" type="button" onclick="submitEssay()">Check Essay</button>
   </form>
 
   <div class="hidden w-full absolute bg-gray-900 top-0 left-0 text-white flex flex-col justify-center items-center" id="resultContainer">
@@ -50,6 +50,7 @@ import Layout from '../layouts/Layout.astro'
 
 <script is:inline>
     async function submitEssay() {
+    
     document.getElementById('btn').innerText="Evaluating..."
     document.getElementById("question").setAttribute('disabled','disabled')
 
@@ -62,7 +63,9 @@ import Layout from '../layouts/Layout.astro'
 
       const essay = document.getElementById("essay").value;
       const question = document.getElementById("question").value
-
+      document.getElementById("essay").addEventListener('input', ()=>{
+	document.getElementById('btn').removeAttribute("disabled")
+      }
       const response = await fetch('/api/check', {
         method: 'POST',
         headers: {
