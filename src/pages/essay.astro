@@ -64,7 +64,7 @@ import Layout from '../layouts/Layout.astro'
       const essay = document.getElementById("essay").value;
       const question = document.getElementById("question").value
       document.getElementById("essay").addEventListener('input', ()=>{
-	document.getElementById('btn').removeAttribute("disabled")
+	document.getElementById('btn').removeAttribute("disabled", "disabled")
       })
 
       const response = await fetch('/api/check', {
