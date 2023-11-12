@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro'
 import OpenAI from 'openai';
-const Api = import.meta.env.Api
+const Api = import.meta.env.Api;
 const openai = new OpenAI({
   apiKey: Api, 
 });
