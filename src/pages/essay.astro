@@ -65,7 +65,8 @@ import Layout from '../layouts/Layout.astro'
       const question = document.getElementById("question").value
       document.getElementById("essay").addEventListener('input', ()=>{
 	document.getElementById('btn').removeAttribute("disabled")
-      }
+      })
+
       const response = await fetch('/api/check', {
         method: 'POST',
         headers: {
