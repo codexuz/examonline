@@ -1,7 +1,8 @@
 import type { APIRoute } from 'astro'
 import OpenAI from 'openai';
+const Api = import.meta.env.Api
 const openai = new OpenAI({
-  apiKey: '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', 
+  apiKey: Api, 
 });
 
 export const POST: APIRoute = async ({request }) => {
