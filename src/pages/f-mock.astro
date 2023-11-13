@@ -59,8 +59,8 @@ audio:'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.co
 
 <Layout title="Full Mock tests">
     <SkillHeader skillTitle='Full Mock'/>
-   {mocktest.map(t=>(<div class="mt-4 bg-gray-700 rounded mx-auto px-4">
-	<div class="text-center">
+   {mocktest.map(t=>(<div class="mt-4 bg-gray-700 flex flex-col justify-start items-center rounded mx-auto px-4">
+	<div class="text-center flex flex-col">
 		<a href={t.pdf} class="text-gray-blue bg-gray-800 rounded-xl shadow-lg py-2 px-8">📚 Download {t.tag}</a>
     <a href={t.audio} class="text-gray-blue bg-gray-800 rounded-xl shadow-lg py-2 px-8">🎵 Download</a>
 	</div>
