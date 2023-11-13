@@ -5,15 +5,16 @@ import Layout from '../layouts/Layout.astro'
 
 <Layout title="Essay">
  <form id="essayForm" class="w-full min-h-screen flex flex-col justify-start items-center">
-    <textarea class=" focus:ring-transparent w-full sticky top-0 resize-none p-4 text-gray-200 outline-none bg-gray-800 border-b-2 border-gray-700 font-bold" id="question" name="question" placeholder="Essay savolini kiriting..."></textarea>
-    <textarea  class="absolute left-0 top-0 w-full bg-gray-800 text-gray-200 italic outline-none p-4 border-t-2 border-gray-700 focus:ring-transparent" id="essay" name="essay" placeholder="Essay matnini kiriting..."></textarea>
-    <button id="btn" class="absolute mt-4 bottom-3 px-6 bg-rose-500 text-white text-lg rounded-2xl py-2 px-4" type="button" onclick="submitEssay()">Check Essay</button>
+    <div contenteditable="true" class="w-full p-4 text-gray-200 outline-none bg-gray-800 border-b-2 border-green-500 font-bold" id="question" name="question" data-text="Essay savolini kiriting...">
+    </div>
+    <div contenteditable="true" class="w-full bg-gray-800 text-gray-200 italic outline-none p-4 border-b-2 border-green-500" id="essay" name="essay" data-text="Essay matnini kiriting..." style="min-height: 150px"></div>
+    <button id="btn" class="mt-4 mb-3 bottom-3 px-8 bg-emerald-500 text-white text-lg rounded-2xl py-2 px-4" type="button" onclick="submitEssay()" disabled>Check Essay</button>
   </form>
 
-  <div class="hidden w-full absolute bg-gray-900 top-0 left-0 text-white flex flex-col justify-center items-center" id="resultContainer">
+  <div class="hidden w-full  bg-gray-900 text-white flex flex-col justify-center items-center" id="resultContainer">
 
  
- <svg id="close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-emerald-500 absolute top-4 right-7">
+ <svg id="close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-emerald-500  mr-6">
   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
 </svg>
 
@@ -26,13 +27,12 @@ import Layout from '../layouts/Layout.astro'
 
 </Layout>
 <style>
-#essay{
-    top: 10%;
-	height: 80%;
-}
 
-#resultContainer{
-	height:100%
+
+
+
+[contentEditable=true]:empty:not(:focus):before {
+  content: attr(data-text)
 }
 
  .paragraph { margin-bottom: 10px; }
@@ -49,20 +49,25 @@ import Layout from '../layouts/Layout.astro'
 
 
 <script is:inline>
-    async function submitEssay() {
-    
-    document.getElementById('btn').innerText="Evaluating..."
-    document.getElementById("question").setAttribute('disabled','disabled')
+       document.getElementById("essay").addEventListener('click', ()=>{
+        document.getElementById('btn').removeAttribute("disabled")
 
-    document.getElementById("essay").setAttribute('disabled','disabled')
+    })
+    async function submitEssay() {
+    document.getElementById('btn').innerText="Evaluating..."
+    document.getElementById("question").setAttribute('contenteditable','false')
+
+    document.getElementById("essay").setAttribute('contenteditable','false')
 
     document.getElementById("close").addEventListener('click', ()=>{
         document.getElementById('resultContainer').classList.add('hidden')
         document.getElementById('btn').classList.add('hidden')
+        document.getElementById('essayForm').classList.remove('hidden')
     })
 
-      const essay = document.getElementById("essay").value;
-      const question = document.getElementById("question").value
+      const essay = document.getElementById("essay").innerText;
+      const question = document.getElementById("question").innerText
+      
 
       const response = await fetch('/api/check', {
         method: 'POST',
@@ -75,16 +80,18 @@ import Layout from '../layouts/Layout.astro'
       const result = await response.json();
 
       const resultContainer = document.getElementById('resultContainer');
+      document.getElementById('essayForm').classList.add('hidden')
       const resultDiv = document.getElementById('result');
 
       resultContainer.classList.remove('hidden');
       resultDiv.innerHTML = "";
 
-      // Split the text into paragraphs and assign unique colors
+      
       result.choices[0].text.split('\n').forEach((paragraph, index) => {
         const paragraphElement = document.createElement('p');
-        paragraphElement.textContent = paragraph;
+        paragraphElement.innerHTML = paragraph;
         resultDiv.appendChild(paragraphElement);
       });
+      
     }
   </script>
