@@ -1,0 +1,140 @@
+---
+import { app } from "../lib/firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import Layout from "../layouts/Layout.astro";
+import { getFirestore } from "firebase-admin/firestore";
+
+
+const auth = getAuth(app);
+const db = getFirestore(app)
+
+/* Check current session 
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+
+const userRef = db.collection("users").doc(user.uid)
+const userSnapshot = await userRef.get();
+const userData = userSnapshot.data();
+
+const {name, email, status, tariff, joined, expiresAt} = userData
+
+ const d = new Date();
+    const y=d.getFullYear()
+    const m=d.getMonth()+1
+    const s=d.getDate()
+    const today=`${s}-${m}-${y}`
+
+if (today === expiresAt) {
+  // Update user status to "unpaid" if today is greater than or equal to expiresAt
+  userRef.update({
+    status: "unpaid",
+    expiresAt: "expired"
+  }).then(() => {
+    console.log("User status updated to 'unpaid'");
+  }).catch((error) => {
+    console.error("Error updating user status:", error);
+  });
+}
+*/
+---
+
+<Layout title="Letter">
+ <form id="essayForm" class="w-full min-h-screen flex flex-col justify-start items-center">
+    <div contenteditable="true" class="w-full p-4 text-gray-200 outline-none bg-gray-800 border-b-2 border-orange-500 font-bold" id="question" name="question" data-text="Xat savolini kiriting...">
+    </div>
+    <div contenteditable="true" class="w-full bg-gray-800 text-gray-200 italic outline-none p-4 border-b-2 border-orange-500" id="essay" name="essay" data-text="Xat matnini kiriting..." style="min-height: 150px"></div>
+    <button id="btn" class="mt-4 mb-3 bottom-3 px-8 bg-orange-500 text-white text-lg rounded-2xl py-2 px-4" type="button" onclick="submitEssay()" disabled>Tekshirish</button>
+  </form>
+
+  <div class="hidden w-full  bg-gray-900 text-white flex flex-col justify-center items-center" id="resultContainer">
+
+ 
+ <svg id="close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-emerald-500  mr-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+</svg>
+
+
+  <h1 class="my-4 text-3xl font-bold">Letter Assessment</h1>
+   <ul class="my-4 container mx-auto px-4">
+    <li id="result"><li>
+   </ul>
+  </div>
+
+</Layout>
+<style>
+
+
+
+
+[contentEditable=true]:empty:not(:focus):before {
+  content: attr(data-text)
+}
+
+ .paragraph { margin-bottom: 10px; }
+    .color-1 { color: blue; }
+    .color-2 { color: green; }
+    .color-3 { color: purple; }
+    .color-4 { color: orange; }
+    .color-5 { color: red; }
+    .color-6 { color: brown; }
+    .color-7 { color: teal; }
+
+</style>
+
+
+
+<script is:inline>
+       document.getElementById("essay").addEventListener('click', ()=>{
+        document.getElementById('btn').removeAttribute("disabled")
+
+    })
+    async function submitEssay() {
+    document.getElementById('btn').innerText="Checking letter..."
+    document.getElementById("question").setAttribute('contenteditable','false')
+
+    document.getElementById("essay").setAttribute('contenteditable','false')
+
+    document.getElementById("close").addEventListener('click', ()=>{
+        document.getElementById('resultContainer').classList.add('hidden')
+        document.getElementById('btn').classList.add('hidden')
+        document.getElementById('essayForm').classList.remove('hidden')
+    })
+
+      const letter = document.getElementById("essay").innerText;
+      const question = document.getElementById("question").innerText
+      
+
+      const response = await fetch('/api/letter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ letter, question }),
+      });
+
+      const result = await response.json();
+      const resultContainer = document.getElementById('resultContainer');
+      document.getElementById('essayForm').classList.add('hidden')
+      const resultDiv = document.getElementById('result');
+
+      resultContainer.classList.remove('hidden');
+      resultDiv.innerHTML = "";
+
+            result.choices[0].text.split('\n').forEach((paragraph, index) => {
+        const paragraphElement = document.createElement('p');
+        paragraphElement.innerHTML = paragraph;
+        resultDiv.appendChild(paragraphElement);
+      });
+      
+      
+    }
+  </script>
