@@ -8,7 +8,7 @@ import { getFirestore } from "firebase-admin/firestore";
 const auth = getAuth(app);
 const db = getFirestore(app)
 
-/* Check current session 
+/* Check current session */
 if (!Astro.cookies.has("session")) {
   return Astro.redirect("/signin");
 }
@@ -44,7 +44,7 @@ if (today === expiresAt) {
     console.error("Error updating user status:", error);
   });
 }
-*/
+
 ---
 
 <Layout title="Letter">
