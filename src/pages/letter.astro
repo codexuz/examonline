@@ -27,6 +27,10 @@ const userData = userSnapshot.data();
 
 const {name, email, status, tariff, joined, expiresAt} = userData
 
+if(!tariff=="pro"){
+return Astro.redirect("/pay");
+}
+
  const d = new Date();
     const y=d.getFullYear()
     const m=d.getMonth()+1
