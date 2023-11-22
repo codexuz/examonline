@@ -27,7 +27,7 @@ const userRef = db.collection("users").doc(user.uid)
 const userSnapshot = await userRef.get();
 const userData = userSnapshot.data();
 
-const {name, email, status, tariff, joined, expiresAt} = userData
+const {picture, name, email, status, tariff, joined, expiresAt} = userData
 
  const d = new Date();
     const y=d.getFullYear()
@@ -57,6 +57,7 @@ if (today === expiresAt) {
 
   <div class="flex flex-col items-center justify-center">
     <Account
+picture={picture}
   name={name}
   email={email}
   status={status}
