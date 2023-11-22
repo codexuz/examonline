@@ -1,0 +1,106 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BackHome from "@components/BackHome.astro";
+
+
+
+---
+
+<Layout title="Edit profile">
+ <div class="flex items-center">
+  <BackHome/>
+  <p class="text-2xl font-bold text-white mx-3">Edit profile</p>
+  </div> 
+
+  <div class="flex flex-col items-center justify-center text-gray-50">
+   <h1 class="text-2xl text-gray-300">Upload Photo</h1>
+   <input type="file" id="photo" name="mainimage" class="my-2" accept="image/*">
+   <img id="demo" width="200px" height="200px" class="rounded hidden">
+   <div class="w-72 my-2 border-b border-gray-600"></div>
+   <h1 class="text-2xl text-gray-300">Change Your Name</h1>
+   <input type="text" class="bg-gray-800 border-2 border-blue-600 rounded-2xl my-3 px-6" id="fullname" placeholder="Change Your Name">
+   <button id="save" class="bg-blue-600 border  border-blue-600 text-gray-50 rounded-full py-2 px-7">Save Changes</button>
+   <p id="toast" class="text-sm text-emerald-500 hidden">Saving Changes...</p>
+  </div>
+  
+ 
+</Layout>
+
+
+<script>
+import { app } from "../lib/firebase/client";
+import { getFirestore, doc, updateDoc } from "firebase/firestore";
+const db = getFirestore(app)
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
+const storage = getStorage(app);
+const uid=localStorage.getItem("storeId")
+let file;
+var newName = document.getElementById("fullname")
+
+document.getElementById("photo").addEventListener('change', ()=>{
+  file = document.getElementById("photo").files[0]
+  console.log(file)
+  document.getElementById("demo").classList.remove('hidden')
+  document.getElementById("demo").src= URL.createObjectURL(file)
+})
+document.getElementById("demo").classList.add('hidden')
+document.getElementById("toast").classList.add('hidden')
+
+//Save Changes 
+
+document.getElementById("save").addEventListener('click', async ()=>{
+document.getElementById("toast").classList.remove('hidden')
+const storageRef = ref(storage, '/images/' + file.name);
+const uploadTask = uploadBytesResumable(storageRef, file);
+
+// Listen for state changes, errors, and completion of the upload.
+uploadTask.on('state_changed',
+  (snapshot) => {
+    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Upload is ' + progress + '% done');
+    switch (snapshot.state) {
+      case 'paused':
+        console.log('Upload is paused');
+        break;
+      case 'running':
+        console.log('Upload is running');
+        break;
+    }
+  }, 
+  (error) => {
+    // A full list of error codes is available at
+    // https://firebase.google.com/docs/storage/web/handle-errors
+    switch (error.code) {
+      case 'storage/unauthorized':
+        // User doesn't have permission to access the object
+        break;
+      case 'storage/canceled':
+        // User canceled the upload
+        break;
+
+      // ...
+
+      case 'storage/unknown':
+        // Unknown error occurred, inspect error.serverResponse
+        break;
+    }
+  }, 
+  () => {
+    // Upload completed successfully, now we can get the download URL
+    getDownloadURL(uploadTask.snapshot.ref).then( async (downloadURL) => {
+      const profilePicRef = doc(db, "users", uid );
+      await updateDoc(profilePicRef, {
+      picture: downloadURL,
+      name: newName.value
+});
+     window.location.href="/dashboard"
+    });
+  }
+); 
+
+
+})
+
+</script>
