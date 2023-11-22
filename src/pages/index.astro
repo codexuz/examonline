@@ -25,13 +25,14 @@ const userRef = db.collection("users").doc(user.uid)
 const userSnapshot = await userRef.get();
 const userData = userSnapshot.data();
 
-const {name} = userData
+const {picture, name} = userData
 ---
 <Layout title="Exam Online - Multilevel imtihoniga tayyorlovchi platforma">
   <Intro/>
 <section class="hidden" id="main-screen" transition:animate="slide">
 <TopUser
 name={name || "Guest"}
+picture={picture || "/static/img/avatar.png"}
 />
 <Modules/>
 <main class="w-full flex flex-col justify-center items-center mt-4">
