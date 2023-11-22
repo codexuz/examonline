@@ -1,9 +1,10 @@
 ---
 interface Props {
+    picture: string, 
     name: string
 }
 
-const {name} = Astro.props
+const {picture, name} = Astro.props
 ---
 
 <div class="user-top-profile w-full bg-blue-600 sticky top-0">
@@ -14,7 +15,7 @@ const {name} = Astro.props
 <p class="text-sm font-thin">Let's start practicing</p>
 </div>
 <a href="/dashboard">
-    <img src="/static/img/avatar.png">
+    <img src={picture} class="rounded-full" width="60px" height="60px">
 </a>
 </div>
 </div>
