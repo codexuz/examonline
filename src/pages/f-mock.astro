@@ -25,9 +25,13 @@ const userRef = db.collection("users").doc(user.uid)
 const userSnapshot = await userRef.get();
 const userData = userSnapshot.data();
 
-const {status} = userData
+const {status, tariff} = userData
 
-if(status ==="unpaid" || status ===""){
+if(!tariff=="pro"){
+return Astro.redirect("/pay");
+}
+
+if(status ==="unpaid" || status ==="" || status ===null){
   return Astro.redirect("/pay");	
 }
 
