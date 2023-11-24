@@ -1,0 +1,23 @@
+---
+const allPosts = await Astro.glob('../pages/task2/**');
+
+---
+<article class="text-white flex flex-col justify-center items-center">
+    {allPosts.map((post) => <div class="post-card flex py-3 px-2 items-center bg-gray-800 shadow-xl  text-gray-100  border-b border-emerald-500">
+    <a class="text-lg font-semibold mx-2" href={post.url}>{post.frontmatter.title}
+        <p class="text-sm font-normal  text-gray-400">{post.frontmatter.description}</p>
+        </a></div>)}
+</article>
+<div style="height:50px"></div>
+
+<style>
+    .post-card{
+        width:400px
+    }
+
+    @media screen and (max-width:660px) {
+        .post-card{
+        width:100%
+    }
+    }
+</style>
