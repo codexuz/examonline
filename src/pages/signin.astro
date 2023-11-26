@@ -30,6 +30,13 @@ if (Astro.cookies.has("session")) {
   // This will prevent the browser from storing session data
   auth.setPersistence(inMemoryPersistence);
 
+  var emailData = document.getElementById("email");
+  var passData = document.getElementById("password");
+  localStorage.setItem('email', emailData.value)
+  localStorage.setItem('pass', passData.value)
+  emailData.value= localStorage.getItem('email')
+  passData.value= localStorage.getItem('pass')
+
   const form = document.querySelector("form") as HTMLFormElement;
   const loadingElement = document.getElementById("loading");
   const errorElement = document.getElementById("error");
