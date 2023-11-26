@@ -19,6 +19,7 @@ if (Astro.cookies.has("session")) {
   <SignIn />
 </Layout>
 <script>
+import telegramAuth from "@use-telegram-auth/client";
   import {
     getAuth,
     inMemoryPersistence,
@@ -33,6 +34,15 @@ if (Astro.cookies.has("session")) {
   const form = document.querySelector("form") as HTMLFormElement;
   const loadingElement = document.getElementById("loading");
   const errorElement = document.getElementById("error");
+  const tgAuth = document.getElementById("tg_auth")
+
+   tgAuth.addEventListener("click", async ()=>{
+  const BOT_ID = "6765226432:AAGBnCx0esy2dbhTpdeMixRUf8mjT2jm8Ao";
+  const result = await telegramAuth(BOT_ID, { windowFeatures: { popup: true } }); 
+  console.log(result)
+
+  }) 
+
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
