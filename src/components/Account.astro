@@ -6,7 +6,8 @@ interface Props {
     status:string,
     tariff:string,
     joined: string,
-    expiresAt:string
+    expiresAt:string,
+    balance: string
 }
 
 const {picture,name, email, status, tariff, joined, expiresAt} = Astro.props
@@ -62,6 +63,15 @@ const {picture,name, email, status, tariff, joined, expiresAt} = Astro.props
         </div>  
         
           <h1 class="mx-2">{status}</h1> 
+    </div>
+
+   <div class="flex items-center border-b  border-b-gray-500 py-1">
+        <div class="flex">
+        💳
+          <p class="font-bold ml-2">Credit: </p>
+        </div>  
+        
+          <h1 class="mx-2">{balance}</h1> 
     </div>
 
 
