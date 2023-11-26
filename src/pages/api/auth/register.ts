@@ -42,9 +42,10 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       email,
       status:"unpaid",
       joined: joined,
-      tariff:null,
-      expiresAt:null,
-      picture: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/2048px-Circle-icons-profile.svg.png"
+      tariff:"",
+      expiresAt:"",
+      picture: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
+      balance: "5000 UZS"
     });
 
     return redirect("/signin");
