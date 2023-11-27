@@ -20,10 +20,12 @@ $('#loader').addClass('hidden')
 }, 2000)
    if(telegramUsername){
    $('.verify').addClass('hidden')
+   $('#loader').addClass('hidden')
    $('#main').removeClass('hidden')
    }
    else{
     $('#main').addClass('hidden');
+    $('#loader').addClass('hidden')
     $('.verify').removeClass('hidden')
    }
 
