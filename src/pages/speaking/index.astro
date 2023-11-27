@@ -1,6 +1,57 @@
 ---
 import Layout from '@layouts/Layout.astro'
 import TelegramVerify from '@components/Telegram-Verify.astro';
+
+var topics=[
+{
+    title:"1. Festival",
+    link:"/speaking/test-1/"
+},
+{
+    title:"2. Environmental Problem",
+    link:"/speaking/test-2/"
+},
+{
+    title:"3. Time Management",
+    link:"/speaking/test-3/"
+},
+{
+    title:"4. Math",
+    link:"/speaking/test-4/"
+},
+{
+    title:"5. Technology",
+    link:"/speaking/test-5/"
+},
+{
+    title:"6. Neighbors and Animals",
+    link:"/speaking/test-6/"
+},
+{
+    title:"7. Website and Internet",
+    link:"/speaking/test-7/"
+},
+{
+    title:"8. Environmental Issues",
+    link:"/speaking/test-8/"
+},
+{
+    title:"9. Buildings",
+    link:"/speaking/test-9/"
+},
+{
+    title:"10. Weather & Seasons",
+    link:"/speaking/test-10/"
+},
+{
+    title:"11. Transports",
+    link:"/speaking/test-11/"
+},
+{
+    title:"12. Animals & Zoo",
+    link:"/speaking/test-12/"
+}
+]
 ---
 
 <Layout title="Speaking Main">
@@ -11,6 +62,17 @@ import TelegramVerify from '@components/Telegram-Verify.astro';
     <h1>ExamOnline Edumo</h1>
     <p class="text-lg" id="user"></p>
     </header>
+
+<section class="container mx-auto px-4 flex flex-wrap justify-center">
+    {topics.map(t=>(<a href={t.link} class="rounded-lg bg-gray-700 text-gray-100 mt-4 m-2 py-2 px-6 shadow-xl">
+    <div class="flex items-center justify-around">
+        <span class="title">{t.title}</span>
+        <ons-icon style="color: dodgerblue; padding: 0 10px;" icon="md-mic"></ons-icon>
+    </div>
+</a>
+))}
+</section>
+
 </main>  
 </Layout>
 
