@@ -15,7 +15,7 @@
     const tgAuth = document.getElementById("telegram")
     var telegramUsername = localStorage.getItem('telegramUsername')
     document.getElementById("user").innerText="@"+telegramUsername
-   if(telegramId){
+   if(telegramUsername){
    $('.verify').addClass('hidden')
    $('#main').removeClass('hidden')
    $('#loader').addClass('hidden')
