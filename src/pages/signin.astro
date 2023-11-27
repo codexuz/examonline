@@ -29,13 +29,26 @@ if (Astro.cookies.has("session")) {
   const auth = getAuth(app);
   // This will prevent the browser from storing session data
   auth.setPersistence(inMemoryPersistence);
+  
+var emailData = document.getElementById("email")
+var passData = document.getElementById("password")
+  document.getElementById("email").addEventListener("input", () => {
+   localStorage.setItem('email', emailData.value)
+  })
 
-  var emailData = document.getElementById("email");
-  var passData = document.getElementById("password");
-  localStorage.setItem('email', emailData.value)
-  localStorage.setItem('pass', passData.value)
+   document.getElementById("password").addEventListener("input", () => {
+   localStorage.setItem('password', passData.value)
+  })
+
+    const formData = new FormData(form);
+    const email = formData.get("email")?.toString();
+    const password = formData.get("password")?.toString();
+   
+window.addEventListener("load", (event) => {
   emailData.value= localStorage.getItem('email')
-  passData.value= localStorage.getItem('pass')
+    passData.value= localStorage.getItem('pass')
+});
+    
 
   const form = document.querySelector("form") as HTMLFormElement;
   const loadingElement = document.getElementById("loading");
