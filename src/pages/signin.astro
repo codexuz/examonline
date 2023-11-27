@@ -18,22 +18,6 @@ if (Astro.cookies.has("session")) {
 <Layout title="Sign in">
   <SignIn />
 </Layout>
-<script is:inline>
-var emailData = document.getElementById("email")
-var passData = document.getElementById("password")
-
-  document.getElementById("email").addEventListener("input", () => {
-   localStorage.setItem('email', emailData.value)
-  })
-
-   document.getElementById("password").addEventListener("input", () => {
-   localStorage.setItem('password', passData.value)
-  })
-
-  emailData.value= localStorage.getItem('email')
-    passData.value= localStorage.getItem('pass')
-
-</script>
 <script>
   import {
     getAuth,
