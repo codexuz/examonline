@@ -1,10 +1,10 @@
 ---
-import Layout from '@layouts/SpeakingLayout.astro'
+import SpeakingLayout from '@layouts/SpeakingLayout.astro'
 import AudioLoader from '@components/AudioLoader.astro';
 
 ---
 
-<Layout title="Speaking">
+<SpeakingLayout title="Speaking">
     <AudioLoader/>
     <header class="header sticky top-0 py-4 w-full flex items-center justify-between  bg-blue-500 text-white">
         <h2 class="mx-3 font-bold text-xl">Speaking Mock Exam</h2>
@@ -47,7 +47,7 @@ import AudioLoader from '@components/AudioLoader.astro';
         </div>
 
     </main>
-</Layout>
+</SpeakingLayout>
 
 <style>
     .recording{
