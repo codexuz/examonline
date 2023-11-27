@@ -15,17 +15,13 @@
     const tgAuth = document.getElementById("telegram")
     var telegramUsername = localStorage.getItem('telegramUsername')
     document.getElementById("user").innerText="@"+telegramUsername
-    setTimeout(()=>{
-$('#loader').addClass('hidden')
-}, 2000)
+   
    if(telegramUsername){
    $('.verify').addClass('hidden')
-   $('#loader').addClass('hidden')
    $('#main').removeClass('hidden')
    }
    else{
     $('#main').addClass('hidden');
-    $('#loader').addClass('hidden')
     $('.verify').removeClass('hidden')
    }
 
