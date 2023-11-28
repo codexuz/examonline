@@ -451,11 +451,11 @@ function step6() {
 	audio.addEventListener("ended", startCountdown)
     
     function startCountdown() {
-	let count = 5;
-	$('#timer').text(` 00:0${count}`);
+	let count = 60;
+	$('#timer').text(` 00:${count}`);
 	const interval = setInterval(() => {
 	  count--;
-	  $('#timer').text(` 00:0${count}`);
+	  $('#timer').text(` 00:${count}`);
 	  if (count <= 0) {
 		playBeep()
 		clearInterval(interval);
@@ -468,7 +468,7 @@ function step6() {
 
   function start30SecondCountdown() {
     $('#recorder-blink').removeClass('hidden')
-		let count = 30;
+		let count = 120;
 		$('#timer').text(` 00:${count}`);
 		const interval = setInterval(() => {
 		  count--;
