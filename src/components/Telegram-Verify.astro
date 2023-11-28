@@ -1,5 +1,5 @@
-<div class="hidden verify min-h-screen w-full bg-gray-100 text-gray-800 flex flex-col justify-center items-center">
-    <p class="text-lg font-semibold text-center">Javobingizni audiolarini olish uchun <u>telegram hisobingizni</u> tasdiqlang!</p>
+<div class="verify min-h-screen w-full bg-gray-100 text-gray-800 flex flex-col justify-center items-center">
+    <p class="text-lg font-semibold text-center">Javobingizni olish uchun <u>telegram hisobingizni</u> tasdiqlang!</p>
     <p class="text-xl font-semibold">Tasdiqlash uchun:</p>
     <ol class="bg-gray-200 p-5 rounded my-3">
         <li>1. Pastdagi tugmani bosing;</li>
@@ -11,29 +11,25 @@
 
 <script>
     import telegramAuth from "@use-telegram-auth/client";
+    import { app } from "@lib/firebase/client";
+    import { getFirestore, doc, updateDoc } from "firebase/firestore";
+    const db = getFirestore(app)
+const uid=localStorage.getItem("storeId")
 
     const tgAuth = document.getElementById("telegram")
-    var telegramUsername = localStorage.getItem('telegramUsername')
-    document.getElementById("user").innerText="@"+telegramUsername
-   
-   if(telegramUsername){
-   $('.verify').addClass('hidden')
-   $('#main').removeClass('hidden')
-   }
-   else{
-    $('#main').addClass('hidden');
-    $('.verify').removeClass('hidden')
-   }
 
     tgAuth.addEventListener("click", async ()=>{
   const BOT_ID = "6765226432:AAGBnCx0esy2dbhTpdeMixRUf8mjT2jm8Ao";
   const result = await telegramAuth(BOT_ID, { windowFeatures: { popup: true } }); 
   console.log(result)
-  var telegramId=`${result.id}`
-  telegramUsername=`${result.username}`
-  localStorage.setItem('telegramUsername', telegramUsername)
-   localStorage.setItem('telegramId', telegramId)
-  window.location.reload()
-
+  telegramId=`${result.id}` 
+  telegramUsername=`${result.username}` 
+  localStorage.setItem('telegramId', telegramId)
+  const telegramData = doc(db, "users", uid );
+      await updateDoc(telegramData, {
+      telegram: telegramUsername,
+      telegramId: telegramId
+});
+window.location.href="/speaking"
   }) 
 </script>
