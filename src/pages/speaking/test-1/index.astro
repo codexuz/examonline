@@ -1,140 +1,733 @@
 ---
-import SpeakingLayout from '@layouts/SpeakingLayout.astro'
-import AudioLoader from '@components/AudioLoader.astro';
+import Layout from '../../../layouts/Layout.astro'
+import AudioLoader from '../../../components/AudioLoader.astro';
+import Speaking from '@components/Speaking.astro';
 
 ---
 
-<SpeakingLayout title="Speaking">
+<Layout title="Speaking">
     <AudioLoader/>
-    <header class="header sticky top-0 py-4 w-full flex items-center justify-between  bg-blue-500 text-white">
-        <h2 class="mx-3 font-bold text-xl">Speaking Mock Exam</h2>
-        <svg id="fullscreen"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer mx-3">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
-          </svg>          
-          
-          
-    </header>
+     <Speaking/>
 
-    <div class="flex text-center items-center justify-center mt-7 text-white">
-        <div class="rounded py-1 px-5 active flex items-center justify-center border-2 border-emerald-600 shadow-lg mx-2" id="indicator-1">Part 1</div> 
-        <div class="rounded py-1 px-5 bg-blue-500 flex items-center justify-center border-2 border-blue-600 shadow-lg mx-2" id="indicator-2">Part 2</div> 
-        <div class="rounded py-1 px-5  bg-blue-500 flex items-center justify-center border-2 border-blue-600 shadow-lg mx-2" id="indicator-3">Part 3</div> 
-    </div>
+     <audio src="/mock-tests/test01/1.mp3" id="audio1"></audio>
+     <audio src="/mock-tests/test01/2.mp3" id="audio2"></audio>
+     <audio src="/mock-tests/test01/3.mp3" id="audio3"></audio>
+     <audio src="/mock-tests/test01/4.mp3" id="audio4"></audio>
+     <audio src="/mock-tests/test01/5.mp3" id="audio5"></audio>
+     <audio src="/mock-tests/test01/6.mp3" id="audio6"></audio>
+     <audio src="/mock-tests/test01/part2/intro.mp3" id="audio7"></audio>
+     <audio src="/mock-tests/test01/part2/1.mp3" id="audio8"></audio>
+	 <audio src="/mock-tests/test01/part3/intro.mp3" id="audio9"></audio>
+	 <audio src="/mock-tests/test01/part3/1.mp3" id="audio10"></audio>
+	 <audio src="/mock-tests/test01/part3/2.mp3" id="audio11"></audio>
+	 <audio src="/mock-tests/test01/part3/3.mp3" id="audio12"></audio>
+	 <audio src="/mock-tests/test01/part3/4.mp3" id="audio13"></audio>
+	 <audio src="/mock-tests/test01/part3/5.mp3" id="audio14"></audio>
+	 <audio src="/mock-tests/test01/part3/end.mp3" id="audio15"></audio>
+                        
+</Layout>
 
-    <main class="main bg-gray-700 container mx-auto px-4 mt-8 mb-4 py-6 shadow-xl rounded justify-between items-start">
-        <div class="right-side bg-gray-800 rounded-lg p-6 my-4">
-          <div class="flex justify-bewteen items-center">
-            <button class="bg-blue-600 text-white rounded-xl py-1 font-bold px-4 w-full">Question#<span id="q-number">1</span></button>
-          </div>
-          <div class="my-3 border-b border-gray-600"></div>
-          <div class="flex justify-center items-center text-white font-bold">
-            <button id="shrink" class="bg-blue-600 py-2 px-3 rounded-lg text-center mx-3">A-</button>
-            <button id="zoom" class="bg-blue-600 py-2 px-3 rounded-lg text-center mx-3">A+</button> 
-          </div>
-          <div class="my-3 border-b border-gray-600"></div>
-          <h3 id="question" class="text-gray-100 text-center font-semibold">How do you celebrate the festival?</h3>
-          <textarea id="izoh" rows="4" class="hidden my-3 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Take some notes..."></textarea>
-        </div>
-        
-        <!----Left side-->
-        <div class="left-side bg-gray-800 rounded-lg p-6 ">
-            <button class="w-full rounded py-2 text-white text-xl bg-gray-700" id="timer" style="font-family:monospace;">00:00</button>
-            <div class="w-full my-3 bg-gray-600 p-4 rounded flex justify-center items-center" id="recorder-blink">
-                <button class="px-5 py-3 rounded-lg bg-gray-700">
-                    <div class="recording w-6 h-6 rounded-full bg-red-600 border shadow-lg border-red-700"></div>
-                </button>
-            </div>
-        </div>
+<script is:inline>
+    var q=[
+  "What is your favourite festival?",
+  "How do you celebrate the festival?",
+  "What is the most popular festival in your country?",
+  "Do you like western festivals?",
+  "Where do people usually go during festivals?",
+  "With whom do you like to celebrate festivals?",
+  '<p><b>Describe a piece of technology that you use a lot.</b></p><p>You should say:</p><ul><li>What is it?</li><li>What you use it for</li><li>how long you have been using it</li><li>and say how you would feel without it</li></ul><br><textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Izoh yozish uchun"></textarea>',
+  "In your opinion, is technology making people's lives easier?",
+  "What kinds of modern technology do people rely on their daily life?",
+  "How much has technology improved and how we communicate with each other?",
+  "Do you think that the advance of technology has improved standards of education in schools?",
+  "Do you think people rely too much on technology today?"
+]
 
-    </main>
-</SpeakingLayout>
-
-<style>
-    .recording{
-        animation-name: blink;
-        animation-duration: 1s;
-        animation-timing-function: ease-in-out;
-        animation-iteration-count: infinite;
-    }
-
-   @keyframes blink{
-    0%{
-        opacity: 100%;
-
-    }
-    50%{
-        opacity: 0%;
-    }
-
-    100%{
-        opacity: 100%;
-    }
-   }
-
-    .main{
-        display: flex;
-    }
-
-    .right-side{
-        width:40%;
-
-    }
-
-    .left-side{
-        width:50%
-    }
-
-    @media screen and (max-width: 660px){
-        .main{
-        display: block;
-    }
-        .right-side{
-            width: 100%;
-        }
-
-        .left-side{
-        width:100%
-    }
-    }
-
-    .active{
-        background-color: rgb(17, 193, 134);
-        border: 1px solid rgb(16, 155, 108);
-    }
-
-    
-</style>
+</script>
 
 <script>
+  let recorder, audioChunks = [];
+  const question = document.getElementById("question")
+  var loader = document.querySelector('.transition-loader')
+  import { app } from "@lib/firebase/client";
+import { getFirestore, doc, updateDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-var TextSize=document.getElementById("question");
-document.getElementById("zoom").addEventListener('click', ()=>{
-    var style = window.getComputedStyle(TextSize, null).getPropertyValue('font-size');
-    var fontSize = parseFloat(style);
-    TextSize.style.fontSize=(fontSize+1)+'px'
-})
-    
- 
-document.getElementById("shrink").addEventListener('click', ()=>{
-    var style = window.getComputedStyle(TextSize, null).getPropertyValue('font-size');
-    var fontSize = parseFloat(style);
-    TextSize.style.fontSize=(fontSize-1)+'px'
-})
- 
+const storage = getStorage(app);
+const db = getFirestore(app)
+const uid=localStorage.getItem("storeId")
+// Get the current date
+const currentDate = new Date();
 
+// Format the date as YYYY-MM-DD
+const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
 
-document.getElementById('fullscreen')?.addEventListener('click', ()=>{
-    const element = document.documentElement;
+const formattedTime = `${currentDate.getHours().toString().padStart(2, '0')}-${currentDate.getMinutes().toString().padStart(2, '0')}`;
 
-if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-  if (element.requestFullscreen) {
-    element.requestFullscreen();
-  } else if (element.webkitRequestFullscreen) {
-    element.webkitRequestFullscreen();
-  }
-}
-})
+// Generate the audio file name
+const fileName = `audio_${formattedDate}_${formattedTime}`;
+
+const storageRef = ref(storage, '/answers/' + fileName);
   
 
+  function startRecording() {
+	navigator.mediaDevices.getUserMedia({ audio: true })
+	  .then(function (stream) {
+		recorder = new MediaRecorder(stream); 
+		recorder.ondataavailable = (event) => {
+
+if (event.data.size > 0) {
+  audioChunks.push(event.data);
+}
+
+let audioAnswer = new Blob(audioChunks, { type: 'audio/mp3' });
+
+
+const formData = new FormData();
+		  formData.append('audio', audioAnswer, 'audio.wav');
+		  formData.append('caption', question.innerText);
+		  formData.append('title', "Multilevel Mock");
+		  fetch(`https://api.telegram.org/bot6124695087:AAG2TZUf4KjJrBQUM9OiO8DV6dSUwScqZ2A/sendAudio?chat_id=1483919112`, {
+			method: 'POST',
+			body: formData
+		  })
+			.then(response => {
+				console.log(response)
+                if (response.ok) {
+					// 'file' comes from the Blob or File API
+uploadBytes(storageRef, audioAnswer).then((snapshot) => {
+  console.log('Uploaded a blob or file!');
+
+  // Get the download URL
+  getDownloadURL(storageRef).then( async (downloadURL) => {
+    console.log('File available at', downloadURL);
+	const AudioRef = doc(db, "users", uid );
+      await updateDoc(AudioRef, {
+      audio: downloadURL,
+});
+window.location.href='/speaking'
+loader.classList.add('hidden')
+  }).catch((error) => {
+    // Handle any errors that occurred during the download URL generation
+    console.error('Error getting download URL', error);
+  });
+});
+					
+                    } else {
+                        // Handle non-ok response (optional)
+                        alert('Failed to send audio:', response.status, response.statusText);
+                        // You can show an error message or take other actions as needed
+                    }
+			})
+			.catch(error => console.error(error));
+ 
+};  
+		recorder.start();
+  
+	  });
+  }
+
+const playBeep = ()=>{
+   var beep = new Audio('/mock-tests/beep.m4a')
+   beep.play()
+}
+
+function stopRecording() {
+    recorder.stop();
+  }
+
+  function pauseRecording() {
+    recorder.pause();
+  }
+
+  function resumeRecording() {
+    recorder.resume();
+  }
+
+
+
+
+
+
+document.getElementById('start').addEventListener('click', step0)
+
+    function step0() {
+	$('#question').text(q[0]);
+	$('#q-number').text(1)
+	var audio = document.getElementById('audio1')
+    audio.play()
+	audio.addEventListener("ended", startCountdown)
+    
+    function startCountdown() {
+	let count = 5;
+	$('#timer').text(` 00:0${count}`);
+	const interval = setInterval(() => {
+	  count--;
+	  $('#timer').text(` 00:0${count}`);
+	  if (count <= 0) {
+		playBeep()
+		clearInterval(interval);
+		start30SecondCountdown();
+        startRecording()
+	  }
+	}, 1000);
+  }
+
+
+  function start30SecondCountdown() {
+    $('#recorder-blink').removeClass('hidden')
+		let count = 30;
+		$('#timer').text(` 00:${count}`);
+		const interval = setInterval(() => {
+		  count--;
+		  $('#timer').text(`00:${count}`);
+		  if (count <= 0) {
+			$('#timer').text(`00:00`)
+			clearInterval(interval);
+            $('#recorder-blink').addClass('hidden')
+			step1()
+			pauseRecording()
+            
+
+  }
+		  
+		}, 1000);
+	  }
+
+}
+
+
+function step1() {
+	$('#question').text(q[1]);
+	$('#q-number').text(2)
+	var audio = document.getElementById('audio2')
+    audio.play()
+	audio.addEventListener("ended", startCountdown)
+    
+    function startCountdown() {
+	let count = 5;
+	$('#timer').text(` 00:0${count}`);
+	const interval = setInterval(() => {
+	  count--;
+	  $('#timer').text(` 00:0${count}`);
+	  if (count <= 0) {
+		playBeep()
+		clearInterval(interval);
+		start30SecondCountdown();
+        resumeRecording()
+	  }
+	}, 1000);
+  }
+
+
+  function start30SecondCountdown() {
+    $('#recorder-blink').removeClass('hidden')
+		let count = 30;
+		$('#timer').text(` 00:${count}`);
+		const interval = setInterval(() => {
+		  count--;
+		  $('#timer').text(`00:${count}`);
+		  if (count <= 0) {
+			$('#timer').text(`00:00`)
+			clearInterval(interval);
+            $('#recorder-blink').addClass('hidden')
+			step2()
+			pauseRecording()
+  }
+		  
+		}, 1000);
+	  }
+
+
+}
+
+
+
+function step2() {
+	$('#question').text(q[2]);
+	$('#q-number').text(3)
+	var audio = document.getElementById('audio3')
+    audio.play()
+	audio.addEventListener("ended", startCountdown)
+    
+    function startCountdown() {
+	let count = 5;
+	$('#timer').text(` 00:0${count}`);
+	const interval = setInterval(() => {
+	  count--;
+	  $('#timer').text(` 00:0${count}`);
+	  if (count <= 0) {
+		playBeep()
+		clearInterval(interval);
+		start30SecondCountdown();
+		resumeRecording()
+	  }
+	}, 1000);
+  }
+
+
+  function start30SecondCountdown() {
+    $('#recorder-blink').removeClass('hidden')
+		let count = 30;
+		$('#timer').text(` 00:${count}`);
+		const interval = setInterval(() => {
+		  count--;
+		  $('#timer').text(`00:${count}`);
+		  if (count <= 0) {
+			$('#timer').text(`00:00`)
+			clearInterval(interval);
+            $('#recorder-blink').addClass('hidden')
+            step3()
+			pauseRecording()
+  }
+		  
+		}, 1000);
+	  }
+
+
+}
+
+
+function step3() {
+	$('#question').text(q[3]);
+	$('#q-number').text(4)
+	var audio = document.getElementById('audio4')
+    audio.play()
+	audio.addEventListener("ended", startCountdown)
+    
+    function startCountdown() {
+	let count = 5;
+	$('#timer').text(` 00:0${count}`);
+	const interval = setInterval(() => {
+	  count--;
+	  $('#timer').text(` 00:0${count}`);
+	  if (count <= 0) {
+		playBeep()
+		clearInterval(interval);
+		start30SecondCountdown();
+		resumeRecording()
+	  }
+	}, 1000);
+  }
+
+
+  function start30SecondCountdown() {
+    $('#recorder-blink').removeClass('hidden')
+		let count = 30;
+		$('#timer').text(` 00:${count}`);
+		const interval = setInterval(() => {
+		  count--;
+		  $('#timer').text(`00:${count}`);
+		  if (count <= 0) {
+			$('#timer').text(`00:00`)
+			clearInterval(interval);
+            $('#recorder-blink').addClass('hidden')
+            step4()
+			pauseRecording()
+  }
+		  
+		}, 1000);
+	  }
+
+
+}
+
+
+
+function step4() {
+	$('#question').text(q[4]);
+	$('#q-number').text(5)
+	var audio = document.getElementById('audio5')
+    audio.play()
+	audio.addEventListener("ended", startCountdown)
+    
+    function startCountdown() {
+	let count = 5;
+	$('#timer').text(` 00:0${count}`);
+	const interval = setInterval(() => {
+	  count--;
+	  $('#timer').text(` 00:0${count}`);
+	  if (count <= 0) {
+		playBeep()
+		clearInterval(interval);
+		start30SecondCountdown();
+		resumeRecording()
+	  }
+	}, 1000);
+  }
+
+
+  function start30SecondCountdown() {
+    $('#recorder-blink').removeClass('hidden')
+		let count = 30;
+		$('#timer').text(` 00:${count}`);
+		const interval = setInterval(() => {
+		  count--;
+		  $('#timer').text(`00:${count}`);
+		  if (count <= 0) {
+			$('#timer').text(`00:00`)
+			clearInterval(interval);
+            $('#recorder-blink').addClass('hidden')
+            step5()
+			pauseRecording()
+  }
+		  
+		}, 1000);
+	  }
+
+
+}
+
+
+
+function step5() {
+	$('#question').text(q[5]);
+	$('#q-number').text(6)
+	var audio = document.getElementById('audio6')
+    audio.play()
+	audio.addEventListener("ended", startCountdown)
+    
+    function startCountdown() {
+	let count = 5;
+	$('#timer').text(` 00:0${count}`);
+	const interval = setInterval(() => {
+	  count--;
+	  $('#timer').text(` 00:0${count}`);
+	  if (count <= 0) {
+		playBeep()
+		clearInterval(interval);
+		start30SecondCountdown();
+		resumeRecording()
+	  }
+	}, 1000);
+  }
+
+
+  function start30SecondCountdown() {
+    $('#recorder-blink').removeClass('hidden')
+		let count = 30;
+		$('#timer').text(` 00:${count}`);
+		const interval = setInterval(() => {
+		  count--;
+		  $('#timer').text(`00:${count}`);
+		  if (count <= 0) {
+			$('#timer').text(`00:00`)
+			clearInterval(interval);
+            $('#recorder-blink').addClass('hidden')
+            part2()
+			pauseRecording()
+  }
+		  
+		}, 1000);
+	  }
+
+
+}
+
+
+function part2(){
+    $('#question').text('');
+	$('#q-number').text('')
+	var audio = document.getElementById('audio7')
+    audio.play()
+	audio.addEventListener("ended", step6)
+    $('#indicator-2').removeClass('bg-blue-500')
+    $('#indicator-2').addClass('active')
+    
+
+}
+
+function step6() {
+	$('#question').html(q[6]);
+	$('#q-number').text(7)
+	var audio = document.getElementById('audio8')
+    audio.play()
+	audio.addEventListener("ended", startCountdown)
+    
+    function startCountdown() {
+	let count = 5;
+	$('#timer').text(` 00:0${count}`);
+	const interval = setInterval(() => {
+	  count--;
+	  $('#timer').text(` 00:0${count}`);
+	  if (count <= 0) {
+		playBeep()
+		clearInterval(interval);
+		start30SecondCountdown();
+		resumeRecording()
+	  }
+	}, 1000);
+  }
+
+
+  function start30SecondCountdown() {
+    $('#recorder-blink').removeClass('hidden')
+		let count = 30;
+		$('#timer').text(` 00:${count}`);
+		const interval = setInterval(() => {
+		  count--;
+		  $('#timer').text(`00:${count}`);
+		  if (count <= 0) {
+			$('#timer').text(`00:00`)
+			clearInterval(interval);
+            $('#recorder-blink').addClass('hidden')
+			part3()
+			pauseRecording()
+  }
+		  
+		}, 1000);
+	  }
+
+
+}
+
+
+function part3(){
+    $('#question').text('');
+	$('#q-number').text('')
+	var audio = document.getElementById('audio9')
+    audio.play()
+	audio.addEventListener("ended", step7)
+    $('#indicator-3').removeClass('bg-blue-500')
+    $('#indicator-3').addClass('active')
+    
+
+}
+
+
+function step7() {
+	$('#question').html(q[7]);
+	$('#q-number').text(8)
+	var audio = document.getElementById('audio10')
+    audio.play()
+	audio.addEventListener("ended", startCountdown)
+    
+    function startCountdown() {
+	let count = 5;
+	$('#timer').text(` 00:0${count}`);
+	const interval = setInterval(() => {
+	  count--;
+	  $('#timer').text(` 00:0${count}`);
+	  if (count <= 0) {
+		playBeep()
+		clearInterval(interval);
+		start30SecondCountdown();
+		resumeRecording()
+	  }
+	}, 1000);
+  }
+
+
+  function start30SecondCountdown() {
+    $('#recorder-blink').removeClass('hidden')
+		let count = 30;
+		$('#timer').text(` 00:${count}`);
+		const interval = setInterval(() => {
+		  count--;
+		  $('#timer').text(`00:${count}`);
+		  if (count <= 0) {
+			$('#timer').text(`00:00`)
+			clearInterval(interval);
+            $('#recorder-blink').addClass('hidden')
+			step8()
+			pauseRecording()
+  }
+		  
+		}, 1000);
+	  }
+
+
+}
+
+
+function step8() {
+	$('#question').html(q[8]);
+	$('#q-number').text(9)
+	var audio = document.getElementById('audio11')
+    audio.play()
+	audio.addEventListener("ended", startCountdown)
+    
+    function startCountdown() {
+	let count = 5;
+	$('#timer').text(` 00:0${count}`);
+	const interval = setInterval(() => {
+	  count--;
+	  $('#timer').text(` 00:0${count}`);
+	  if (count <= 0) {
+		playBeep()
+		clearInterval(interval);
+		start30SecondCountdown();
+		resumeRecording()
+	  }
+	}, 1000);
+  }
+
+
+  function start30SecondCountdown() {
+    $('#recorder-blink').removeClass('hidden')
+		let count = 30;
+		$('#timer').text(` 00:${count}`);
+		const interval = setInterval(() => {
+		  count--;
+		  $('#timer').text(`00:${count}`);
+		  if (count <= 0) {
+			$('#timer').text(`00:00`)
+			clearInterval(interval);
+            $('#recorder-blink').addClass('hidden')
+			step9()
+			pauseRecording()
+  }
+		  
+		}, 1000);
+	  }
+
+
+}
+ 
+
+
+function step9() {
+	$('#question').html(q[9]);
+	$('#q-number').text(10)
+	var audio = document.getElementById('audio12')
+    audio.play()
+	audio.addEventListener("ended", startCountdown)
+    
+    function startCountdown() {
+	let count = 5;
+	$('#timer').text(` 00:0${count}`);
+	const interval = setInterval(() => {
+	  count--;
+	  $('#timer').text(` 00:0${count}`);
+	  if (count <= 0) {
+		playBeep()
+		clearInterval(interval);
+		start30SecondCountdown();
+		resumeRecording()
+	  }
+	}, 1000);
+  }
+
+
+  function start30SecondCountdown() {
+    $('#recorder-blink').removeClass('hidden')
+		let count = 30;
+		$('#timer').text(` 00:${count}`);
+		const interval = setInterval(() => {
+		  count--;
+		  $('#timer').text(`00:${count}`);
+		  if (count <= 0) {
+			$('#timer').text(`00:00`)
+			clearInterval(interval);
+            $('#recorder-blink').addClass('hidden')
+			step10()
+			pauseRecording()
+  }
+		  
+		}, 1000);
+	  }
+
+
+}
+
+
+function step10() {
+	$('#question').html(q[10]);
+	$('#q-number').text(11)
+	var audio = document.getElementById('audio13')
+    audio.play()
+	audio.addEventListener("ended", startCountdown)
+    
+    function startCountdown() {
+	let count = 5;
+	$('#timer').text(` 00:0${count}`);
+	const interval = setInterval(() => {
+	  count--;
+	  $('#timer').text(` 00:0${count}`);
+	  if (count <= 0) {
+		playBeep()
+		clearInterval(interval);
+		start30SecondCountdown();
+		resumeRecording()
+	  }
+	}, 1000);
+  }
+
+
+  function start30SecondCountdown() {
+    $('#recorder-blink').removeClass('hidden')
+		let count = 30;
+		$('#timer').text(` 00:${count}`);
+		const interval = setInterval(() => {
+		  count--;
+		  $('#timer').text(`00:${count}`);
+		  if (count <= 0) {
+			$('#timer').text(`00:00`)
+			clearInterval(interval);
+            $('#recorder-blink').addClass('hidden')
+			step11()
+			pauseRecording()
+  }
+		  
+		}, 1000);
+	  }
+
+
+}
+ 
+
+function step11() {
+	$('#question').html(q[11]);
+	$('#q-number').text(12)
+	var audio = document.getElementById('audio14')
+    audio.play()
+	audio.addEventListener("ended", startCountdown)
+    
+    function startCountdown() {
+	let count = 5;
+	$('#timer').text(` 00:0${count}`);
+	const interval = setInterval(() => {
+	  count--;
+	  $('#timer').text(` 00:0${count}`);
+	  if (count <= 0) {
+		playBeep()
+		clearInterval(interval);
+		start30SecondCountdown();
+		resumeRecording()
+	  }
+	}, 1000);
+  }
+
+
+  function start30SecondCountdown() {
+    $('#recorder-blink').removeClass('hidden')
+		let count = 30;
+		$('#timer').text(` 00:${count}`);
+		const interval = setInterval(() => {
+		  count--;
+		  $('#timer').text(`00:${count}`);
+		  if (count <= 0) {
+			$('#timer').text(`00:00`)
+			clearInterval(interval);
+            $('#recorder-blink').addClass('hidden')
+			examEnd()
+  }
+		  
+		}, 1000);
+	  }
+
+
+}
+
+function examEnd(){
+    $('#question').text('');
+	$('#q-number').text('')
+	var audio = document.getElementById('audio15')
+    audio.play()
+	audio.addEventListener("ended", ()=>{
+		stopRecording()
+		loader.classList.remove('hidden')
+	})	
+}
  
 </script>
