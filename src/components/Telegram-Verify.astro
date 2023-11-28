@@ -22,7 +22,7 @@ const uid=localStorage.getItem("storeId")
   const BOT_ID = "6765226432:AAGBnCx0esy2dbhTpdeMixRUf8mjT2jm8Ao";
   const result = await telegramAuth(BOT_ID, { windowFeatures: { popup: true } }); 
   console.log(result)
-  telegramId=`${result.id}` 
+  var telegramId=`${result.id}` 
   telegramUsername=`${result.username}` 
   localStorage.setItem('telegramId', telegramId)
   const telegramData = doc(db, "users", uid );
