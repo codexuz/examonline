@@ -23,11 +23,13 @@ const uid=localStorage.getItem("storeId")
   const result = await telegramAuth(BOT_ID, { windowFeatures: { popup: true } }); 
   console.log(result)
   var telegramId=`${result.id}` 
-  telegramUsername=`${result.username}` 
+  var telegramName=`${result.first_name}` 
+  var telegramUsername=`${result.username}` 
   localStorage.setItem('telegramId', telegramId)
   const telegramData = doc(db, "users", uid );
       await updateDoc(telegramData, {
       telegram: telegramUsername,
+      telegramName: telegramName,
       telegramId: telegramId
 });
 window.location.href="/speaking"
