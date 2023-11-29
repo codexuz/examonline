@@ -20,13 +20,15 @@ if (!user) {
   return Astro.redirect("/signin");
 }
 
-
 const userRef = db.collection("users").doc(user.uid)
 const userSnapshot = await userRef.get();
 const userData = userSnapshot.data();
 
-const {telegram, telegramName} = userData
+const {telegram, telegramName, status} = userData
 
+if(status ==="unpaid" || status ===""){
+  return Astro.redirect("/pay");	
+}
 
 if (!telegram) {
     return Astro.redirect("/telegram");
