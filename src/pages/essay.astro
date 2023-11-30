@@ -109,7 +109,8 @@ if (today === expiresAt) {
     })
 
 if(document.getElementById("essay").innerHTML===""){
-alert("No essay provided")
+document.getElementById("essay").classList.remove('border-gray-800')
+document.getElementById("essay").classList.add('border-rose-500')
 }
 
     async function submitEssay() {
