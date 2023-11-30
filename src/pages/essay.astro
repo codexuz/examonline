@@ -108,12 +108,16 @@ if (today === expiresAt) {
         document.getElementById('btn').removeAttribute("disabled")
     })
 
-if(document.getElementById("essay").innerHTML===""){
-document.getElementById("essay").classList.remove('border-gray-800')
-document.getElementById("essay").classList.add('border-rose-500')
+ if(document.getElementById("essay").innerHTML===""){
+    document.getElementById('btn').disabled=true
 }
 
+
     async function submitEssay() {
+     if(document.getElementById("essay").innerHTML===""){
+    document.getElementById("essay").classList.remove('border-gray-800')
+    document.getElementById("essay").classList.add('border-rose-500')
+}
     document.getElementById('btn').innerText="Evaluating..."
     document.getElementById("question").setAttribute('contenteditable','false')
 
