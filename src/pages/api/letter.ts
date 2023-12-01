@@ -28,7 +28,7 @@ export const POST: APIRoute = async ({request }) => {
     Essay: ${body.letter}
     `
     ,
-    max_tokens: 800,
+    max_tokens: 1200,
     temperature: 0,
   });
 
