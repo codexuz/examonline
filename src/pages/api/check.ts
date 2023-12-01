@@ -14,7 +14,7 @@ export const POST: APIRoute = async ({request }) => {
     prompt: `You know everything about scoring IELTS essays. You assess the given essay of the given question in terms of IELTS Writing Criteria and essay words count, sentences count and paragraphs count, and list the used academic words, and provide feedback and show grammar and spelling errors.Your output must  follow this structure: "Band": the band, "Word Count":word count,"Sentences":sentences, "Paragraphs":paragraphs, “Feedback”: your feedback, "Taskachievement": task achievement, "Coherence&Cohesion": coherence and cohesion, "Grammar": grammar, "Lexical Resource": lexical resources,"Academic Words":academic words
     Question: ${body.question}
     Essay: ${body.essay}`,
-    max_tokens: 800,
+    max_tokens: 1200,
     temperature: 0,
   });
 
