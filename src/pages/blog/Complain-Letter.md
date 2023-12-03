@@ -1,9 +1,20 @@
 ---
-title: Complaint Letter (Shikoyat xati)
-description: Multi Level Writing Task 1 (Letter)
+title: Complain Letter
+description: Multi Level Writing Task 1
 layout: ../../layouts/BlogLayout.astro
 pubDate: 2023-10-31T19:00:00.000Z
 ---
+<center><h1>I. Xatning asosiy formati</h1></center>
+1. Greeting or salutation (salomlashish yoki kutib olish): Haqiqiy imtihonda ma`lum bir ismga emas, “Dear Sir or Madam” dan foydalaning xatingizni boshlashda;
+2. Introduction (kirish qismi): Bu qismda, xatingizni o'qishda davom ettirish istagini uyg'otishingiz va oluvchiga nima uchun yozayotganingiz haqida tushuncha berishingiz kerak. Bularning barchasi bitta paragrafda bo'lishi ham mumkin.
+3. Body (ma'no qismi) : Bu qism xatning asosiy fikrlarni o'z ichiga olgan va eng uzun qismi hisoblanadi. Har safar bir fikringizni yoritib bo`lganingizda, keying fikringizni abzasdan yozib davom ettiring.
+4. Conclusion (xulosalash): Xatni tugatayotganingizda mos uslub yoki ohangda xushmuomalalik bilan tugatishingiz kerak.
+5. Closing (yakuniy qism): Siz yozgan xatingizga mos keladigan yakunlavchi iboradan (an exit expression) foydalanishingiz kerak. 
+Misol uchun, Yours faithfully/sincerely (formal) - Hurmat bilan (rasmiy xatlarda)
+Best wishes,  All the best (personal) – Eng yaxshi talaklar bilan (shaxsiy xatlarda)
+ 
+
+# Complain Letter
 
 <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/u6Aiz6d9o2k" title="Complaint Letter" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
