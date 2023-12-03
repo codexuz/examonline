@@ -1,15 +1,13 @@
 ---
-title: Complain Letter
-description: Multi Level Writing Task 1
+title: Complaint Letter (Shikoyat xati)
+description: Multi Level Writing Task 1 (Letter)
 layout: ../../layouts/BlogLayout.astro
 pubDate: 2023-10-31T19:00:00.000Z
 ---
 
 <iframe class="w-full aspect-video" src="https://www.youtube.com/embed/u6Aiz6d9o2k" title="Complaint Letter" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-Complaint Letter (Shikoyat xati)
-
-Complaint letter- biror bir xizmat va tovarning sifati yomonligi, kechiktirilganligi yuzasidan xizmat ko’rsatuvchi yoki sotuvchiga yoziladigan xat turi hisoblanadi.
+>Complaint letter- biror bir xizmat va tovarning sifati yomonligi, kechiktirilganligi yuzasidan xizmat ko’rsatuvchi yoki sotuvchiga yoziladigan xat turi hisoblanadi.
 
 Ushbu xat quyidagi qismlardan iborat bo’ladi:
 
