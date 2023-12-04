@@ -25,7 +25,7 @@ const userRef = db.collection("users").doc(user.uid)
 const userSnapshot = await userRef.get();
 const userData = userSnapshot.data();
 
-const {status, tariff} = userData
+const {status, tariff, telegramName} = userData
 
 if(tariff==="basic" || tariff==="" || tariff===null || status==="unpaid" || status===""){
 return Astro.redirect("/pay");
