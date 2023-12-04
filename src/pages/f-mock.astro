@@ -27,7 +27,7 @@ const userData = userSnapshot.data();
 
 const {status, tariff} = userData
 
-if(tariff==="basic" || tariff==="" || tariff===null){
+if(tariff==="basic"){
 return Astro.redirect("/pay");
 }
 
