@@ -25,25 +25,9 @@ const userRef = db.collection("users").doc(user.uid)
 const userSnapshot = await userRef.get();
 const userData = userSnapshot.data();
 
-const {name, email, status, tariff, joined, expiresAt, telegramName} = userData
+const {status, tariff, telegramName} = userData
 
- const d = new Date();
-    const y=d.getFullYear()
-    const m=d.getMonth()+1
-    const s=d.getDate()
-    const today=`${s}-${m}-${y}`
 
-if (today === expiresAt) {
-  // Update user status to "unpaid" if today is greater than or equal to expiresAt
-  userRef.update({
-    status: "unpaid",
-    expiresAt: "expired"
-  }).then(() => {
-    console.log("User status updated to 'unpaid'");
-  }).catch((error) => {
-    console.error("Error updating user status:", error);
-  });
-}
 
 ---
 
@@ -125,30 +109,33 @@ if (today === expiresAt) {
       const essay = document.getElementById("essay").innerText;
       const question = document.getElementById("question").innerText
       
+      try {
+    const letterObject = { essay, question }; // Create a valid JSON object
+    const jsonString = JSON.stringify(letterObject);
+    console.log(jsonString)
+    const response = await fetch('/api/letter', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: jsonString,
+    });
 
-      const response = await fetch('/api/check', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ essay, question }),
-      });
+    const result = await response.json();
+    const resultContainer = document.getElementById('resultContainer');
+    document.getElementById('essayForm').classList.add('hidden');
+    const resultDiv = document.getElementById('result');
 
-      const result = await response.json();
+    resultContainer.classList.remove('hidden');
+    resultDiv.innerHTML = "";
 
-      const resultContainer = document.getElementById('resultContainer');
-      document.getElementById('essayForm').classList.add('hidden')
-      const resultDiv = document.getElementById('result');
-
-      resultContainer.classList.remove('hidden');
-      resultDiv.innerHTML = "";
-
-      
-      result.choices[0].text.split('\n').forEach((paragraph, index) => {
-        const paragraphElement = document.createElement('p');
-        paragraphElement.innerHTML = paragraph;
-        resultDiv.appendChild(paragraphElement);
-      });
-      
-    }
+    result.choices[0].text.split('\n').forEach((paragraph, index) => {
+      const paragraphElement = document.createElement('p');
+      paragraphElement.innerHTML = paragraph;
+      resultDiv.appendChild(paragraphElement);
+    });
+  } catch (error) {
+    console.error("Error sending JSON data:", error);
+  }
+}
   </script>
