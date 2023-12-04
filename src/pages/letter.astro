@@ -47,6 +47,24 @@ return Astro.redirect("/pay");
      Check Letter</button>
   </form>
 
+ <!-- Toast -->
+  <div id="alert" class="hidden absolute bottom-2 start-1/2 transform -translate-y-1/2 -translate-x-1/2">
+
+<div class="max-w-xs bg-gray-900 text-sm text-white rounded-xl shadow-lg dark:bg-gray-900" role="alert">
+  <div class="flex p-4">
+    You did not provide any essay or essay words is lower than expected
+
+    <div class="ms-auto">
+      <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-5 w-5 rounded-lg text-white hover:text-white opacity-50 hover:opacity-100 focus:outline-none focus:opacity-100">
+        <span class="sr-only">Close</span>
+        <svg id="toggle-close" class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+<!-- End Toast -->
+
   <div class="hidden w-full  min-h-screen absolute top-0 left-0 bg-gray-900 text-white text-xl flex flex-col justify-center items-center" id="resultContainer">
 
  
@@ -85,11 +103,48 @@ return Astro.redirect("/pay");
 
 
 <script is:inline>
-       document.getElementById("essay").addEventListener('click', ()=>{
-        document.getElementById('btn').removeAttribute("disabled")
+    $('#alert').click(()=>{
+    $("#alert").fadeOut('2000')
+   })
+   
+    function validateForm() {
+    var questionText = document.getElementById("question").innerText.trim();
+    var essayText = document.getElementById("essay").innerText.trim();
+    var btn = document.getElementById("btn");
 
-    })
+    if (questionText !== "" && essayText !== "") {
+        btn.disabled = false;
+
+    } else {
+        btn.disabled = true;
+    }
+}
+
+
     async function submitEssay() {
+    var questionText = document.getElementById("question").innerText.trim();
+    var essayText = document.getElementById("essay").innerText.trim();
+    var btn = document.getElementById("btn");
+
+    // Count the number of words in the essay
+    var wordCount = essayText.split(/\s+/).filter(function (word) {
+        return word.length > 0;
+    }).length;
+
+    if (questionText !== "" && essayText !== "") {
+        btn.disabled = false;
+
+        // Check if the essay has fewer than 80 words and show a toast
+        if (wordCount < 80) {
+            showToast();
+            return
+        }
+    } else {
+        btn.disabled = true;
+        return
+    }
+
+
     document.getElementById('btn').innerText="Checking letter..."
     document.getElementById("question").setAttribute('contenteditable','false')
 
@@ -133,4 +188,12 @@ return Astro.redirect("/pay");
     console.error("Error sending JSON data:", error);
   }
 }
+
+function showToast() {
+    $("#alert").fadeIn('1000')
+}
+
+// Attach the validateForm function to the input events of the question and essay fields
+document.getElementById("question").addEventListener("input", validateForm);
+document.getElementById("essay").addEventListener("input", validateForm);
   </script>
