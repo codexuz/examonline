@@ -24,10 +24,10 @@ const userRef = db.collection("users").doc(user.uid)
 const userSnapshot = await userRef.get();
 const userData = userSnapshot.data();
 
-const {telegram, telegramName, status} = userData
+const {tariff, telegram, telegramName, status} = userData
 
 if(status ==="unpaid" || status ===""){
-  return Astro.redirect("/pay");	
+  return Astro.redirect("/price");	
 }
 
 if (!telegram) {
