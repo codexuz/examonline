@@ -1,10 +1,10 @@
-<div class="form">
+<div class="form md:items-center text-left">
      <div class="form-title text-gray-50">
       <h1 class="text-2xl font-bold">Sign Up</h1>
       <small>Enter your details below & Sign Up</small>
      </div>
 
-     <form class="form-body rounded-t-2xl" action="/api/auth/register" method="post">
+     <form class="form-body  md:p-5 flex flex-col justify-start sm:w-full bg-white  md:rounded-lg md:static sm:absolute sm:bottom-0 sm:left-0  md:w-1/2 ">
       <div class="mt-6 mb-1 flex flex-col w-full px-4">
         <label class="text-gray-500 font-thin">Your Email</label>
         <input name="email" id="email" class="rounded-lg border border-gray-400 bg-white" type="email" required placeholder="yourname@gmail.com">
@@ -20,18 +20,18 @@
         <input name="password" id="password" class="rounded-lg border border-gray-400 bg-white" type="password" required placeholder="******">
       </div>
 
-      <div class="mt-3 mb-1 flex flex-col w-full px-4">
-        <button class="rounded-2xl bg-blue-600 font-medium text-white py-3 ">Create account</button>
+      <div class="mt-3 mb-1 flex flex-col w-full md:justify-center md:items-center  px-4"">
+        <button class="sm:w-full md:w-96 rounded-2xl bg-blue-600 font-medium text-white py-3">Create account</button>
       </div>
-      <div class="flex items-start mb-6 px-4 my-2">
+      <div class="flex sm:items-start md:justify-center mb-6 px-4 my-2">
         <div class="flex items-center h-5">
           <input id="terms" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required>
         </div>
         <label for="terms" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">By creating an account you have to agree
-            with <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">our them & condication.</a></label>
+            with <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">our terms & conditions.</a></label>
       </div>
       
-      <div class="text-gray-600 font-thin">
+      <div class="text-gray-600 font-thin text-center">
         <span>Already have an account？ <a  class="text-blue-600 font-bold" href="/signin">Log in</a></span>
       </div>
 
@@ -40,30 +40,37 @@
 
 
 <style>
-    .form{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-    }
+     .form{
+       width: 100%;
+       display: flex;
+       justify-content: center;
+       flex-direction: column;
+   }
 
-    .form-title{
-        margin: 30px 40px;
-        display: block;
-        text-align: left;
-    }
+   .form-title{
+       margin: 30px 40px;
+       display: block;
+       text-align: left;
+   }
 
-    .form-body{
-        width: 100%;
-        background-color: white;
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        height: 82vh;
-        left: 0;
-        bottom: 0;
-        overflow: auto;
-    }
+   .form-body{
+       height: 86vh;
+       border-top-left-radius:15px;
+       border-top-right-radius:15px
+
+   }
+
+  #loading {
+    display: none;
+  }
+
+  #error {
+    display: none;
+  }
+
+@media screen and (min-width:660px){
+  .form-body{
+       height: auto;
+   }
+}
 </style>
