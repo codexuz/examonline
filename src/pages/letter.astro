@@ -33,22 +33,29 @@ return Astro.redirect("/pay");
 ---
 
 <Layout title="Letter">
- <form id="essayForm" class="w-full min-h-screen flex flex-col justify-start items-center">
-    <div contenteditable="true" class="w-full p-4 text-gray-200 outline-none bg-gray-800 border-b-2 border-orange-500 font-bold" id="question" name="question" data-text="Xat savolini kiriting...">
+   <header class="py-4 w-full sticky top-0 bg-orange-500 shadow-lg flex justify-between items-center px-5 text-lg font-semibold text-gray-50">
+    <h1>Edumo Letter Checker</h1>
+    <p>{telegramName}</p>
+    </header>
+  <form id="essayForm" class=" flex flex-col justify-start items-center">
+    <h1 class="text-3xl font-semibold py-4 text-gray-100">Check IELTS Writing</h1>
+    <div contenteditable="true" class="container mt-5 mx-auto px-4 p-4 text-gray-200 outline-none bg-gray-900 rounded-lg border-2 border-gray-800 font-bold" id="question" name="question" data-text="Essay savolini kiriting...">
     </div>
-    <div contenteditable="true" class="w-full bg-gray-800 text-gray-200 italic outline-none p-4 border-b-2 border-orange-500" id="essay" name="essay" data-text="Xat matnini kiriting..." style="min-height: 150px"></div>
-    <button id="btn" class="mt-4 mb-3 bottom-3 px-8 bg-orange-500 text-white text-lg rounded-2xl py-2 px-4" type="button" onclick="submitEssay()" disabled>Tekshirish</button>
+    <div contenteditable="true" class="mt-5 container mx-auto px-4 bg-gray-900 text-gray-200 italic outline-none p-4 border-2 border-gray-800 rounded-lg" id="essay" name="essay" data-text="Essayni yozing yoki tashlang..." style="min-height: 150px"></div>
+    <button id="btn" class="flex items-center mt-4 mb-3 bottom-3 px-8 bg-orange-500 text-white text-lg rounded-lg py-2 px-4 font-semibold shadow-xl" type="button" onclick="submitEssay()" disabled>
+    <svg xmlns="http://www.w3.org/2000/svg" class="fill-white w-6 h-6 x-2" viewBox="0 0 24 24"><path fill="currentColor" d="m11.602 13.76l1.412 1.412l8.466-8.466l1.414 1.415l-9.88 9.88l-6.364-6.365l1.414-1.414l2.125 2.125l1.413 1.412Zm.002-2.828l4.952-4.953l1.41 1.41l-4.952 4.953l-1.41-1.41Zm-2.827 5.655L7.364 18L1 11.636l1.414-1.414l1.413 1.413l-.001.001l4.951 4.951Z"/></svg>
+     Check Letter</button>
   </form>
 
-  <div class="hidden w-full  bg-gray-900 text-white flex flex-col justify-center items-center" id="resultContainer">
+  <div class="hidden w-full  min-h-screen absolute top-0 left-0 bg-gray-900 text-white text-xl flex flex-col justify-center items-center" id="resultContainer">
 
  
- <svg id="close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-emerald-500  mr-6">
+ <svg id="close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-emerald-500 float-right">
   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
 </svg>
 
 
-  <h1 class="my-4 text-3xl font-bold">Letter Assessment</h1>
+  <h1 class="my-4 text-3xl font-bold">Writing Assessment</h1>
    <ul class="my-4 container mx-auto px-4">
     <li id="result"><li>
    </ul>
