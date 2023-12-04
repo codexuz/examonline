@@ -27,8 +27,9 @@ const userData = userSnapshot.data();
 
 const {status, tariff, telegramName} = userData
 
-
-
+if(tariff==="basic" || tariff==="" || tariff===null || status==="unpaid" || status===""){
+return Astro.redirect("/pay");
+}
 ---
 
 <Layout title="Essay">
