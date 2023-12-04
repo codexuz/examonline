@@ -31,7 +31,7 @@ if(status==="unpaid" || status===""){
 return Astro.redirect("/price");
 }
 
-if(tariff==="basic" || tariff==="" || tariff===null){
+if(tariff==="basic"){
 return Astro.redirect("/pay");
 }
 ---
