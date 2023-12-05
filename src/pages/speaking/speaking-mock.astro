@@ -1,0 +1,113 @@
+---
+import Layout from '@layouts/SpeakingLayout.astro'
+import { app } from "@lib/firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+
+
+const auth = getAuth(app);
+const db = getFirestore(app)
+
+/* Check current session */
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+const userRef = db.collection("users").doc(user.uid)
+const userSnapshot = await userRef.get();
+const userData = userSnapshot.data();
+
+const {tariff, telegram, telegramName, status} = userData
+
+if(status ==="unpaid" || status ===""){
+  return Astro.redirect("/price");	
+}
+
+if (!telegram) {
+    return Astro.redirect("/telegram");
+}
+var topics=[
+{
+    title:"1. Festival",
+    link:"/speaking/test-1"
+},
+{
+    title:"2. Environmental Problem",
+    link:"/speaking/test-2"
+},
+{
+    title:"3. Time Management",
+    link:"/speaking/test-3"
+},
+{
+    title:"4. Math",
+    link:"/speaking/test-4"
+},
+{
+    title:"5. Technology",
+    link:"/speaking/test-5"
+},
+{
+    title:"6. Neighbors and Animals",
+    link:"/speaking/test-6"
+},
+{
+    title:"7. Website and Internet",
+    link:"/speaking/test-7"
+},
+{
+    title:"8. Environmental Issues",
+    link:"/speaking/test-8"
+},
+{
+    title:"9. Buildings",
+    link:"/speaking/test-9"
+},
+{
+    title:"10. Weather & Seasons",
+    link:"/speaking/test-10"
+},
+{
+    title:"11. Transports",
+    link:"/speaking/test-11"
+},
+{
+    title:"12. Animals & Zoo",
+    link:"/speaking/test-12"
+}
+]
+---
+
+<Layout title="Speaking Main">
+<main id="main">
+<p style="display:none" id="telegramName">{telegramName}</p>
+<p style="display:none" id="telegram">{telegram}</p>
+    <header class="sticky top-0 w-full bg-blue-600 shadow-lg text-white flex justify-between items-center font-bold px-5 py-4">
+    <h1>ExamOnline Edumo</h1>
+    <p class="text-lg" id="user">{telegramName || telegram}</p>
+    </header>
+<section class="container mx-auto px-4 flex flex-wrap justify-center my-5">
+    {topics.map(t=>(<a href={t.link} class="rounded-lg bg-gray-700 text-gray-100 mt-4 m-2 py-2 px-6 shadow-xl">
+    <div class="flex items-center justify-around">
+        <span class="title">{t.title}</span>
+        <ons-icon style="color: dodgerblue; padding: 0 10px;" icon="md-mic"></ons-icon>
+    </div>
+</a>
+))}
+</section>
+</main>  
+</Layout>
+
+<script is:inline>
+var telegram=document.getElementById("telegram").innerHTML
+var telegramName=document.getElementById("telegramName").innerHTML
+localStorage.setItem("telegram", telegram)
+localStorage.setItem("telegramName", telegramName)
+</script>
