@@ -12,11 +12,11 @@ const {audioUrl, examName, examDate, feedback} = Astro.props
    <audio type="audio/mp3" download src={audioUrl} controls class="container mx-auto px-4 my-2">
    </audio> 
    <div class="my-3">
-       <h1 class="text-xl text-blue-600 font-bold py-2">Exam: {examName}</h1>
+       <h1 class="text-xl text-blue-600 font-bold py-2">Exam: {examName || ""}</h1>
        <span class="text-white font-medium mx-2">Exam Date:</span>
-       <span class="text-white italic">{examDate}</span>
+       <span class="text-white italic">{examDate || ""}</span>
     </div>
-    <p class="text-white text-lg">{feedback}</p>
+    <p class="text-white text-lg">{feedback || "Nothing to show"}</p>
     </section>
  
    
