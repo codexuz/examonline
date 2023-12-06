@@ -13,6 +13,7 @@
     "@astrojs/mdx": "^1.1.1",
     "@astrojs/tailwind": "^5.0.0",
     "@astrojs/vercel": "^5.0.1",
+    "@deepgram/sdk": "^3.0.1",
     "@tinacms/cli": "^1.5.31",
     "@use-telegram-auth/client": "^1.0.5",
     "astro": "^3.2.2",
@@ -25,11 +26,14 @@
     "flowbite": "^1.8.1",
     "mdbootstrap": "^4.20.0",
     "micro-slider": "^1.1.0",
+    "nodejs": "^0.0.0",
     "onsenui": "^2.12.8",
     "openai": "^4.14.2",
     "preline": "^1.9.0",
     "swiper": "^10.3.1",
     "tailwindcss": "^3.3.3",
+    "three-dots": "^0.3.2",
+    "tiktok-tts": "^1.1.14",
     "tinacms": "^1.5.22"
   },
   "devDependencies": {
