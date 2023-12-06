@@ -1,4 +1,5 @@
 ---
+layout: ../../../layouts/BlogLayout.astro
 title: "Exercise 9"
 date: "2023-06-25"
 ---
