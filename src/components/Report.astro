@@ -1,0 +1,22 @@
+---
+interface Props{
+   audioUrl:string,
+   examName:string,
+   examDate: string,
+   feedback:string
+}
+
+const {audioUrl, examName, examDate, feedback} = Astro.props
+---
+<section class="p-4 mx-auto md:container sm:w-full rounded-md bg-gray-900 mt-5 shadow-xl">
+   <audio type="audio/mp3" download src={audioUrl} controls class="container mx-auto px-4 my-2">
+   </audio> 
+   <div class="my-3">
+       <h1 class="text-xl text-blue-600 font-bold py-2">Exam: {examName}</h1>
+       <span class="text-white font-medium mx-2">Exam Date:</span>
+       <span class="text-white italic">{examDate}</span>
+    </div>
+    <p class="text-white text-lg">{feedback}</p>
+    </section>
+ 
+   
