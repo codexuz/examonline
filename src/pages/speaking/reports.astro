@@ -1,0 +1,102 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Back from '@components/Back.astro'
+import { app } from "@lib/firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+import Report from '@components/Report.astro'
+import { createClient } from "@deepgram/sdk";
+import OpenAI from "openai"
+
+const openai = new OpenAI({
+  apiKey: import.meta.env.Api, 
+});
+
+const auth = getAuth(app);
+const db = getFirestore(app)
+
+/* Check current session */
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+
+const userRef = db.collection("users").doc(user.uid)
+const userSnapshot = await userRef.get();
+const userData = userSnapshot.data();
+
+const {telegram, telegramName, audio, submitTime, textNo, feedback} = userData
+
+
+const deepgram = createClient("7e152e9866bbc69d6487e1bea4b6c250aeeab7ca");
+
+if(!feedback){
+
+const { result, error } = await deepgram.listen.prerecorded.transcribeUrl(
+  {
+    url:  audio
+  },
+  {
+    model: "nova",
+  }
+);
+
+if (error) {
+  console.error(error);
+}
+
+const text= result.results.channels[0].alternatives[0].transcript
+if(text==="" || text===null){
+    return new Response('You did not provide any responses')
+}
+
+const completion = await openai.completions.create({
+    model: "gpt-3.5-turbo-instruct",
+    prompt: `check the following IELTS speaking transcript result and assess it in terms of grammar, lexical resources and fluency and prononciation and give score out of 75:${text}. You should follow this structure: 
+    Feedback: feedback<br>, 
+    Lexical Resources: lexical resources<br>, 
+    Grammar: grammar<br>, 
+    Fluency": fluency<br>,
+    Pronunciation:pronunciation<br>, 
+    Overall Score: score/75
+    
+    `,
+    max_tokens: 800,
+    temperature: 0,
+  });
+
+
+const feedback=completion.choices[0].text
+userRef.update({
+    feedback: feedback,
+  }).then(() => {
+    console.log("feedback saved");
+  }).catch((error) => {
+    console.error("Error saving feedback:", error);
+  });
+}
+else{
+   console.log('Feedback saqlangan')
+}
+---
+<Layout title="Speaking Report">
+   <header class="bg-gray-900 w-full sticky top-0 flex items-center justify-between">
+    <div class="flex items-center"> <Back/> <h1 class="text-2xl text-gray-50">  Report</h1></div>
+      <div class="flex items-center my-3">
+         <span class="text-white bg-blue-600 rounded-full font-semibold py-1 px-5 mx-2">{telegram || telegramName}</span>
+      </div>
+   </header>
+   <Report
+   audioUrl={audio}
+   examName={textNo}
+   examDate={submitTime}
+   feedback={feedback}
+   />
+</Layout>
