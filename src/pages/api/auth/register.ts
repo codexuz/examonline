@@ -2,7 +2,6 @@ import type { APIRoute } from "astro";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 import { app } from "../../../lib/firebase/server";
-const ip = Astro.clientAddress;
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   const auth = getAuth(app);
@@ -47,7 +46,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       expiresAt:"",
       picture: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
       balance: "5000 UZS",
-      ipAddress: ip
     });
 
     return redirect("/signin");
