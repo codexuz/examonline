@@ -57,23 +57,16 @@ if(text==="" || text===null){
     return new Response('You did not provide any responses')
 }
 
-const completion = await openai.completions.create({
-    model: "gpt-3.5-turbo-instruct",
-    prompt: `check the following IELTS speaking transcript result and assess it in terms of grammar, lexical resources and fluency and prononciation:${text}. You should follow this structure: 
-    Feedback: feedback<br>, 
-    Lexical Resources: lexical resources<br>, 
-    Grammar: grammar<br>, 
-    Fluency": fluency<br>,
-    Pronunciation:pronunciation<br>, 
-    Overall Score: score/75
-    
-    `,
-    max_tokens: 800,
-    temperature: 0,
-  });
+ const response = await fetch('https://examonline-rouge.vercel.app/api/report', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({text}),
+      });
 
+      const feedback = await response.json();
 
-const feedback=completion.choices[0].text
 userRef.update({
     feedback: feedback,
   }).then(() => {
