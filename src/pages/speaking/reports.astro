@@ -7,6 +7,7 @@ import { getFirestore } from "firebase-admin/firestore";
 import Report from '@components/Report.astro'
 import { createClient } from "@deepgram/sdk";
 
+
 const auth = getAuth(app);
 const db = getFirestore(app)
 
@@ -40,7 +41,10 @@ const { result, error } = await deepgram.listen.prerecorded.transcribeUrl(
   },
   {
     model: "nova",
+    filler_words:true,
+    punctuate:true
   }
+  
 );
 
 if (error) {
@@ -52,23 +56,14 @@ if(text==="" || text===null){
     return new Response('You did not provide any responses')
 }
 
- const response = await fetch('https://examonline-rouge.vercel.app/api/report', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({text}),
-      });
-
-      const feedback = await response.json();
-
 userRef.update({
-    feedback: feedback,
+    transcript: text,
   }).then(() => {
-    console.log("feedback saved");
+    console.log("transcript saved");
   }).catch((error) => {
-    console.error("Error saving feedback:", error);
+    console.error("Error saving transcript:", error);
   });
+
 }
 else{
    console.log('Feedback saqlangan')
@@ -88,3 +83,35 @@ else{
    feedback={feedback}
    />
 </Layout>
+
+<script>
+import { app } from "@lib/firebase/client";
+import { getFirestore, doc, updateDoc, getDoc} from "firebase/firestore";
+
+const db = getFirestore(app)
+const uid=localStorage.getItem("storeId")
+
+const docRef = doc(db, "users", uid);
+const docSnap = await getDoc(docRef);
+const res=docSnap.data()
+const {transcript} = res
+
+const response = await fetch('http://localhost:4321/api/report', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({transcript}),
+      });
+
+      const feedback = await response.json();
+      await updateDoc(docRef, {
+      feedback: feedback
+      }).then(() => {
+      $('#loader').addClass('hidden')
+      $('#feedback').removeClass('hidden')
+    }).catch((error) => {
+    console.error("Error saving transcript:", error);
+  });
+
+</script>
