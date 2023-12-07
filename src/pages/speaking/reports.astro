@@ -6,11 +6,6 @@ import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 import Report from '@components/Report.astro'
 import { createClient } from "@deepgram/sdk";
-import OpenAI from "openai"
-
-const openai = new OpenAI({
-  apiKey: import.meta.env.Api, 
-});
 
 const auth = getAuth(app);
 const db = getFirestore(app)
