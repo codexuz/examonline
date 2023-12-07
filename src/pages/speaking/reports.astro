@@ -94,8 +94,9 @@ const uid=localStorage.getItem("storeId")
 const docRef = doc(db, "users", uid);
 const docSnap = await getDoc(docRef);
 const res=docSnap.data()
-const {transcript} = res
+const {transcript, feedback} = res
 
+if(transcript){
 const response = await fetch('http://localhost:4321/api/report', {
         method: 'POST',
         headers: {
@@ -110,8 +111,9 @@ const response = await fetch('http://localhost:4321/api/report', {
       }).then(() => {
       $('#loader').addClass('hidden')
       $('#feedback').removeClass('hidden')
+      $('#feedback').html(feedback)
     }).catch((error) => {
     console.error("Error saving transcript:", error);
   });
-
+}
 </script>
