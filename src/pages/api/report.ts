@@ -11,13 +11,13 @@ export const POST: APIRoute = async ({request }) => {
     try{
     const completion = await openai.completions.create({
     model: "gpt-3.5-turbo-instruct",
-    prompt: `check the following IELTS speaking transcript result and assess it in terms of grammar, lexical resources and fluency and prononciation and give score out of 75:${body.text}. You should follow this structure: 
-    Feedback: feedback<br>, 
-    Lexical Resources: lexical resources<br>, 
-    Grammar: grammar<br>, 
-    Fluency": fluency<br>,
-    Pronunciation:pronunciation<br>, 
-    Overall Score: score/75
+    prompt: `Please provide a detailed analysis of the candidate's performance in the following CEFR speaking transcript result: ${body.text} and assess it in terms of fluency, coherence, pronunciation, lexical resource, grammatical range and accuracy and give score out of 75. Additionally, comment on the candidate's ability to express ideas clearly, provide relevant examples, and handle questions effectively. Identify strengths and areas for improvement, and suggest ways the candidate can enhance their overall speaking proficiency.You should follow this structure with html tags: 
+    <b>Overall Score:</b> score/75<br>\n,
+    <b>Feedback:</b> feedback<br>, 
+    <b>Lexical Resources:</b> lexical resources<br>, 
+    <b>Grammar:</b> grammar<br>, 
+    <b>Fluency":</b> fluency<br>,
+    <b>Pronunciation:</b>pronunciation<br><br>
     `
     ,
     max_tokens: 800,
