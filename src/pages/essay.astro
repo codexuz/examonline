@@ -25,15 +25,9 @@ const userRef = db.collection("users").doc(user.uid)
 const userSnapshot = await userRef.get();
 const userData = userSnapshot.data();
 
-const {status, tariff, telegramName} = userData
+const {name, email, status, tariff, joined, expiresAt, telegramName} = userData
 
-if(status==="unpaid" || status===""){
-return Astro.redirect("/price");
-}
 
-if(tariff==="basic"){
-return Astro.redirect("/pay");
-}
 ---
 
 <Layout title="Essay">
@@ -43,15 +37,16 @@ return Astro.redirect("/pay");
 </header>
  <form id="essayForm" class="md:colums-2 flex flex-col justify-start items-center">
     <h1 class="text-3xl font-semibold py-4 text-gray-100">Check IELTS Writing</h1>
-    <div contenteditable="true" class="container mt-5 mx-auto px-4 p-4 text-gray-200 outline-none bg-gray-900 rounded-lg border-2 border-gray-800 font-bold" id="question" name="question" data-text="Essay savolini kiriting...">
+    <div  class="container mt-5 mx-auto px-4 p-4 text-gray-200 outline-none bg-gray-900 rounded-lg border-2 border-gray-800 font-bold" id="question" name="question" placeholder="Essay savolini kiriting...">
     </div>
-    <div contenteditable="true" class="mt-5 container mx-auto px-4 bg-gray-900 text-gray-200 italic outline-none p-4 border-2 border-gray-800 rounded-lg" id="essay" name="essay" data-text="Essayni yozing yoki tashlang..." style="min-height: 150px"></div>
-    <button disabled="true" id="btn" class="flex items-center mt-4 mb-3 bottom-3 px-8 bg-blue-600 text-white text-lg rounded-lg py-2 px-4 font-semibold shadow-xl" type="button" onclick="submitEssay()">
+    <div  class="mt-5 container mx-auto px-4 bg-gray-900 text-gray-200 italic outline-none p-4 border-2 border-gray-800 rounded-lg" id="essay" name="essay" placeholder="Essayni yozing yoki tashlang..." style="min-height: 150px"></div>
+
+    <button id="btn" class="flex items-center mt-4 mb-3 bottom-3 px-8 bg-blue-600 text-white text-lg rounded-lg py-2 px-4 font-semibold shadow-xl" type="button" disabled>
     <svg xmlns="http://www.w3.org/2000/svg" class="fill-white w-6 h-6 x-2" viewBox="0 0 24 24"><path fill="currentColor" d="m11.602 13.76l1.412 1.412l8.466-8.466l1.414 1.415l-9.88 9.88l-6.364-6.365l1.414-1.414l2.125 2.125l1.413 1.412Zm.002-2.828l4.952-4.953l1.41 1.41l-4.952 4.953l-1.41-1.41Zm-2.827 5.655L7.364 18L1 11.636l1.414-1.414l1.413 1.413l-.001.001l4.951 4.951Z"/></svg>
      Check Essay</button>
   </form>
 
- <!-- Toast -->
+   <!-- Toast -->
   <div id="alert" class="hidden absolute bottom-2 start-1/2 transform -translate-y-1/2 -translate-x-1/2">
 
 <div class="max-w-xs bg-gray-900 text-sm text-white rounded-xl shadow-lg dark:bg-gray-900" role="alert">
@@ -85,30 +80,19 @@ return Astro.redirect("/pay");
   </div>
 
 </Layout>
-<style>
+  
 
 
 
+<script is:inline src="/uploads/jquery.toTextarea.js"></script>
+<script is:inline >
+  
+$(function () {
 
-[contentEditable=true]:empty:not(:focus):before {
-  content: attr(data-text)
-}
-
- .paragraph { margin-bottom: 10px; }
-    .color-1 { color: blue; }
-    .color-2 { color: green; }
-    .color-3 { color: purple; }
-    .color-4 { color: orange; }
-    .color-5 { color: red; }
-    .color-6 { color: brown; }
-    .color-7 { color: teal; }
-
-</style>
+ $("#essay").toTextarea({allowHTML: true, allowImg: true});
+$("#question").toTextarea({allowHTML: false, allowImg: false});
 
 
-
-<script is:inline>
- 
 $('#alert').click(()=>{
     $("#alert").fadeOut('2000')
    })
@@ -126,9 +110,8 @@ $('#alert').click(()=>{
     }
 }
 
-    async function submitEssay() {
-
-    var questionText = document.getElementById("question").innerText.trim();
+$('#btn').click(async()=>{
+  var questionText = document.getElementById("question").innerText.trim();
     var essayText = document.getElementById("essay").innerText.trim();
     var btn = document.getElementById("btn");
 
@@ -161,14 +144,14 @@ $('#alert').click(()=>{
         document.getElementById('essayForm').classList.remove('hidden')
     })
 
-      const essay = document.getElementById("essay").innerText;
-      const question = document.getElementById("question").innerText
+      const question = $("#question").text()
+      const essay= $("#essay").text()
       
       try {
     const letterObject = { essay, question }; // Create a valid JSON object
     const jsonString = JSON.stringify(letterObject);
     console.log(jsonString)
-    const response = await fetch('/api/letter', {
+    const response = await fetch('/api/check', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -192,7 +175,11 @@ $('#alert').click(()=>{
   } catch (error) {
     console.error("Error sending JSON data:", error);
   }
-}
+})
+    
+
+    
+
 
 function showToast() {
     $("#alert").fadeIn('1000')
@@ -201,4 +188,6 @@ function showToast() {
 // Attach the validateForm function to the input events of the question and essay fields
 document.getElementById("question").addEventListener("input", validateForm);
 document.getElementById("essay").addEventListener("input", validateForm);
-  </script>
+
+});
+</script>
