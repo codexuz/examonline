@@ -11,18 +11,18 @@ export const POST: APIRoute = async ({request }) => {
     try{
     const completion = await openai.completions.create({
     model: "gpt-3.5-turbo-instruct",
-    prompt: `Analyze the below letter type: formal, informal, semi-formal. Check grammar, punctuation, spelling errors. And provide suggestions for improvement, offer explanations for corrections. Give feedback and assess the letter. Send result like the below format:
-    Letter type: ['formal', 'informal', 'semi-formal'];
-    Word Count: word count;
-    Sentences: sentences;
-    Paragraphs: paragraphs;
-    Grammar Errors: grammar mistakes;
-    Spelling errors: spelling errors;
-    Overall Score: score/12
+    prompt: `Analyze the below letter type: formal, informal, semi-formal. Check grammar, punctuation, spelling errors. And provide suggestions for improvement, offer explanations for corrections. Give feedback and assess the letter. Send result like the below format with html tags:
+    <b>Letter type:</b> ['formal', 'informal', 'semi-formal'] <br>;
+    <b>Word Count:</b> word count <br>;
+    <b>Sentences:</b> sentences <br>;
+    <b>Paragraphs:</b> paragraphs <br>;
+    <b>Grammar Errors:</b> grammar mistakes <br>;
+    <b>Spelling errors:</b> spelling errors <br>;
+    <b>Overall Score:</b> score/12<br>
     <hr>
-    Corrected version: <i>corrected letter</i>;
+    <b>Corrected version:</b> <i>corrected letter</i><br>;
     <hr>
-    Explanation: explanations
+    <b>Explanation:</b> explanations<br>
 
     Question: ${body.question}
     Essay: ${body.letter}
