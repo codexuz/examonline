@@ -16,6 +16,7 @@
     "@deepgram/sdk": "^3.0.1",
     "@tinacms/cli": "^1.5.31",
     "@use-telegram-auth/client": "^1.0.5",
+    "@vercel/analytics": "^1.1.1",
     "astro": "^3.2.2",
     "astro-feelback": "^0.3.4",
     "bootstrap": "^5.0.1",
