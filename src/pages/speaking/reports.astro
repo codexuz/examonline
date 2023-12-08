@@ -1,6 +1,5 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Back from '@components/Back.astro'
 import { app } from "@lib/firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
@@ -70,8 +69,15 @@ else{
 }
 ---
 <Layout title="Speaking Report">
-   <header class="bg-gray-900 w-full sticky top-0 flex items-center justify-between">
-    <div class="flex items-center"> <Back/> <h1 class="text-2xl text-gray-50">  Report</h1></div>
+   <header class="bg-gray-900 w-full sticky top-0 flex items-center justify-start">
+
+   <button class="bg-gray-900 py-2 px-3 flex items-center justify-center text-white"> 
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+   </svg>
+    Back to Topics
+    </button>
+
       <div class="flex items-center my-3">
          <span class="text-white bg-blue-600 rounded-full font-semibold py-1 px-5 mx-2">{telegramName || telegram}</span>
       </div>
