@@ -22,13 +22,14 @@ if (Astro.cookies.has("session")) {
   import {
     getAuth,
     inMemoryPersistence,
+   browserSessionPersistence,
     signInWithEmailAndPassword
   } from "firebase/auth";
   import { app } from "../lib/firebase/client";
 
   const auth = getAuth(app);
   // This will prevent the browser from storing session data
-  auth.setPersistence(inMemoryPersistence);
+  auth.setPersistence(browserSessionPersistence);
   
 
   const form = document.querySelector("form") as HTMLFormElement;
