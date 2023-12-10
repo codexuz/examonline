@@ -25,19 +25,7 @@ const {audioUrl, examName, examDate, feedback} = Astro.props
     <span class="sr-only">Loading...</span>
 </div>
 
-    <p id="feedback" class="hidden text-white text-lg">{feedback}</p>
+    <p id="feedback" class="text-white text-lg" set:html={feedback}/>
     </section>
  
-   <script>
-    setTimeout(()=>{
-     $('#loader').addClass('hidden')
-     $('#feedback').removeClass('hidden')
-    },2000)    
-
-    var feedback=document.getElementById('feedback')
-    if(feedback.innerHTML===""){
-    window.location.reload()
-    feedback.innerHTML='You did not attempt a test'
-    }
-
-   </script>
+   
