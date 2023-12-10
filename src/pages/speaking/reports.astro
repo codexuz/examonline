@@ -113,7 +113,8 @@ const response = await fetch('https://examonline-rouge.vercel.app/api/report', {
 
       const feedback = await response.json();
       await updateDoc(docRef, {
-      feedback: feedback
+      feedback: feedback,
+      javob: {audio: "audio", text: "text"}
       }).then(() => {
       $('#loader').addClass('hidden')
       $('#feedback').removeClass('hidden')
