@@ -83,9 +83,8 @@ const {name, email, status, tariff, joined, expiresAt, telegramName} = userData
   
 
 
-
 <script is:inline src="/uploads/jquery.toTextarea.js"></script>
-<script is:inline >
+<script>
   
 $(function () {
 
@@ -180,14 +179,11 @@ $('#btn').click(async()=>{
 
     
 
+validateForm()
 
 function showToast() {
     $("#alert").fadeIn('1000')
 }
-
-// Attach the validateForm function to the input events of the question and essay fields
-document.getElementById("question").addEventListener("input", validateForm);
-document.getElementById("essay").addEventListener("input", validateForm);
 
 });
 </script>
