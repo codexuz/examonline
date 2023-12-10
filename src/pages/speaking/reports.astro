@@ -102,6 +102,11 @@ const docSnap = await getDoc(docRef);
 const res=docSnap.data()
 const {transcript, feedback} = res
 
+if(feedback){
+console.log('Feedback is avaible')
+return
+}
+
 if(transcript){
 const response = await fetch('https://examonline-rouge.vercel.app/api/report', {
         method: 'POST',
