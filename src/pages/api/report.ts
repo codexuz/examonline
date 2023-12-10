@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({request }) => {
     try{
     const completion = await openai.completions.create({
     model: "gpt-3.5-turbo-instruct",
-    prompt: `Please provide a detailed analysis of the candidate's performance in the following CEFR speaking transcript result: ${body.transcript}. Count speaking transcript's words and if words are lower than 150, then score it between 20 and 40, if words are higher than 250, then score it between 40 and 75 and consider in terms of fluency, coherence, pronunciation, lexical resource, grammatical range and accuracy and give score out of 75. Additionally, comment on the candidate's ability to express ideas clearly, provide relevant examples, and handle questions effectively. Identify areas for improvement, and suggest ways the candidate can enhance their overall speaking proficiency.You should follow this structure with html tags: 
+    prompt: `Please provide a detailed analysis of the candidate's performance in the following CEFR speaking transcript result: ${body.transcript}. Consider factors such as fluency, coherence, pronunciation, lexical resource, grammatical range and accuracy and give score out of 75. Additionally, comment on the candidate's ability to express ideas clearly, provide relevant examples, and handle questions effectively. Identify areas for improvement, and suggest ways the candidate can enhance their overall speaking proficiency.You should follow this structure with html tags: 
     <b>Overall Score:</b> score/75<br>\n,
     <b>Feedback:</b> feedback<br>, 
     <b>Lexical Resources:</b> lexical resources<br>, 
