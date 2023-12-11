@@ -2,11 +2,10 @@
 interface Props{
    audioUrl:string,
    examName:string,
-   examDate: string,
-   feedback:string
+   examDate: string
 }
 
-const {audioUrl, examName, examDate, feedback} = Astro.props
+const {audioUrl, examName, examDate} = Astro.props
 ---
 <section class="p-4 mx-auto md:container sm:w-full rounded-md bg-gray-900 mt-5 shadow-xl">
    <audio type="audio/mp3" download src={audioUrl} controls class="container mx-auto px-4 my-2">
@@ -25,7 +24,7 @@ const {audioUrl, examName, examDate, feedback} = Astro.props
     <span class="sr-only">Loading...</span>
 </div>
 
-    <p id="feedback" class="text-white text-lg" set:html={feedback}/>
+   <!--- <p id="feedback" class="text-white text-lg" set:html={feedback}/>--->
     </section>
  
    

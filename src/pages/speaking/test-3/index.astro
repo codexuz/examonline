@@ -141,7 +141,7 @@ uploadBytes(storageRef, audioAnswer).then((snapshot) => {
       await updateDoc(AudioRef, {
       audio: downloadURL,
 });
-window.location.href='/speaking'
+window.location.href='/speaking/reports'
 loader.classList.add('hidden')
   }).catch((error) => {
     // Handle any errors that occurred during the download URL generation
