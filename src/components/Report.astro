@@ -6,7 +6,7 @@ interface Props{
    telegram: string
 }
 
-const {audioUrl, examName, examDate} = Astro.props
+const {audioUrl, examName, examDate, telegram} = Astro.props
 ---
 <section class="p-4 mx-auto md:container sm:w-full rounded-md bg-gray-900 mt-5 shadow-xl">
    <audio type="audio/mp3" download src={audioUrl} controls class="container mx-auto px-4 my-2">
