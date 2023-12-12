@@ -167,12 +167,8 @@ $('#btn').click(async()=>{
     const resultDiv = document.getElementById('result');
 
     resultContainer.classList.remove('hidden');
-    resultDiv.innerHTML = "";
+    resultDiv.innerHTML=result.choices[0].text
 
-    result.choices[0].text.split('\n').forEach((paragraph, index) => {
-      const paragraphElement = document.createElement('p');
-      paragraphElement.innerHTML = paragraph;
-      resultDiv.appendChild(paragraphElement);
     });
   } catch (error) {
     console.error("Error sending JSON data:", error);
