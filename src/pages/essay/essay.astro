@@ -86,8 +86,8 @@ const {name, email, status, tariff, joined, expiresAt, telegramName} = userData
 <script>
 $(function () {
 
-    $("#essay").toTextarea({allowHTML: true, allowImg: true});
-    $("#question").toTextarea({allowHTML: false, allowImg: false});
+    $("#essay").toTextarea({ allowHTML: true, allowImg: true });
+    $("#question").toTextarea({ allowHTML: false, allowImg: false });
 
     $('#alert').click(() => {
         $("#alert").fadeOut('2000');
@@ -145,9 +145,7 @@ $(function () {
             const resultDiv = document.getElementById('result');
 
             resultContainer.classList.remove('hidden');
-            resultDiv.innerHTML=result.choices[0].text
-            
-            });
+            resultDiv.innerHTML = result.choices[0].text;
         } catch (error) {
             console.error("Error sending JSON data:", error);
         }
@@ -158,4 +156,5 @@ $(function () {
     }
 
 }); // Closes the $(function () {
+
 </script>
