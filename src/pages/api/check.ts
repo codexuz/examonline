@@ -13,14 +13,13 @@ export const POST: APIRoute = async ({request }) => {
     model: "gpt-3.5-turbo-instruct",
     prompt: `You know everything about scoring IELTS essays. You assess the given essay  ${body.essay} of the given question ${body.question} in terms of IELTS Writing Criteria and essay words count, count the exact number of words in the essay and paragraphs count, and list the used academic words, and provide feedback and show grammar and spelling errors and provide high level essay sample to the essay's question.Your output must  follow this structure with html tags and show the grammar and spelling errors with <mark> tag: 
     <b>Band:</b> band <br>;
-    <b>WordCount:</b> wordcount <br>;
     <b>Sentences:</b> sentences <br>;
     <b>Paragraphs:</b> paragraphs <br>;
     <b>Feedback</b>: feedback<br>;
-    <b>Taskachievement</b>:  task achievement<br>;
-    <b>Coherence&Cohesion:</b> coherence and cohesion<br>;
-    <b>GrammarRange:</b> grammar range <br>;
-    <b>LexicalResource:</b> lexical resources <br>;
+    <b>Task Achievement</b>:  task achievement<br>;
+    <b>Coherence and Cohesion:</b> coherence and cohesion<br>;
+    <b>Grammar Range:</b> grammar range <br>;
+    <b>Lexical Resource:</b> lexical resources <br>;
     <b>Academic Word:</b>academic words<br>
     <hr>
     <b>Sample Essay </b><br> <i>sample essay</i><br>;
