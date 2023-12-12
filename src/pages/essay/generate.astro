@@ -46,30 +46,9 @@ const {name, email, status, tariff, joined, expiresAt, telegramName} = userData
    </ul>
   </div>
 
-    <button id="btn" class="flex items-center mt-4 mb-3 bottom-3 px-8 bg-gray-900 text-white text-lg rounded-lg py-2 px-4 font-semibold shadow-xl" type="button" disabled>
+    <button id="btn" class="flex items-center mt-4 mb-3 bottom-3 px-8 bg-gray-900 text-white text-lg rounded-lg py-2 px-4 font-semibold shadow-xl" type="button">
      ⚙️ Generate an essay</button>
   </form>
-
-   <!-- Toast -->
-  <div id="alert" class="hidden absolute bottom-2 start-1/2 transform -translate-y-1/2 -translate-x-1/2">
-
-<div class="max-w-xs bg-gray-900 text-sm text-white rounded-xl shadow-lg dark:bg-gray-900" role="alert">
-  <div class="flex p-4">
-    You did not enter essay question!
-
-    <div class="ms-auto">
-      <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-5 w-5 rounded-lg text-white hover:text-white opacity-50 hover:opacity-100 focus:outline-none focus:opacity-100">
-        <span class="sr-only">Close</span>
-        <svg id="toggle-close" class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-      </button>
-    </div>
-  </div>
-</div>
-</div>
-<!-- End Toast -->
-
-
-  
 
 </Layout>
   
@@ -83,34 +62,10 @@ $(function () {
 $("#question").toTextarea({allowHTML: true, allowImg: true});
 
 
-$('#alert').click(()=>{
-    $("#alert").fadeOut('2000')
-   })
-   
-    function validateForm() {
-    var questionText = document.getElementById("question").innerText.trim();
 
-    if (questionText !== "") {
-        btn.disabled = false;
-
-    } else {
-        btn.disabled = true;
-    }
-}
 
 $('#btn').click(async()=>{
-  var questionText = document.getElementById("question").innerText.trim();
-    var btn = document.getElementById("btn");
-
-
-    if (questionText !== "") {
-        btn.disabled = false;
-
-    } else {
-        btn.disabled = true;
-        return
-    }
-
+ 
     document.getElementById('btn').innerText="⏳ Generating..."
     
 
@@ -150,14 +105,5 @@ $('#btn').click(async()=>{
     
 
     
-
-
-function showToast() {
-    $("#alert").fadeIn('1000')
-}
-
-// Attach the validateForm function to the input events of the question and essay fields
-document.getElementById("question").addEventListener("click", validateForm);
-
 });
 </script>
