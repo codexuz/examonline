@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({request }) => {
     try{
     const completion = await openai.completions.create({
     model: "gpt-3.5-turbo-instruct",
-    prompt: `You know everything about scoring IELTS essays. You assess the given essay of the given question in terms of IELTS Writing Criteria and essay words count, sentences count and paragraphs count, and list the used academic words, and provide feedback and show grammar and spelling errors and provide high level essay sample to the following essay's topic.Your output must  follow this structure with html tags: 
+    prompt: `You know everything about scoring IELTS essays. You assess the given essay  ${body.essay} of the given question ${body.question} in terms of IELTS Writing Criteria and essay words count, sentences count and paragraphs count, and list the used academic words, and provide feedback and show grammar and spelling errors and provide high level essay sample to the essay's question.Your output must  follow this structure with html tags and show the grammar and spelling errors with <mark> tag: 
     <b>Band:</b> band <br>;
     <b>WordCount:</b> wordcount <br>;
     <b>Sentences:</b> sentences <br>;
@@ -24,9 +24,7 @@ export const POST: APIRoute = async ({request }) => {
     <b>Academic Word:</b>academic words<br>
     <hr>
     <b>Sample Essay </b><br> <i>sample essay</i><br>;
-    <hr>
-    Question: ${body.question}
-    Essay: ${body.essay}`,
+    `,
     max_tokens: 1200,
     temperature: 0,
   });
