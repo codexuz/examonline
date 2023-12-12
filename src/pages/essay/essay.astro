@@ -124,8 +124,8 @@ $(function () {
             document.getElementById('essayForm').classList.remove('hidden');
         });
 
-        const question = $("#question").text();
-        const essay = $("#essay").text();
+        const question = encodeURIComponent($("#question").text());
+        const essay = encodeURIComponent($("#essay").text());
 
         try {
             const letterObject = { essay, question }; // Create a valid JSON object
