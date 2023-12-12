@@ -101,28 +101,7 @@ $(function () {
   })
 
   $('#btn').click(async () => {
-    var questionText = document.getElementById("question").innerText.trim();
-    var essayText = document.getElementById("essay").innerText.trim();
-    var btn = document.getElementById("btn");
-
-    // Count the number of words in the essay
-    var wordCount = essayText.split(/\s+/).filter(function (word) {
-      return word.length > 0;
-    }).length;
-
-    if (questionText !== "" && essayText !== "") {
-      btn.disabled = false;
-
-      // Check if the essay has fewer than 80 words and show a toast
-      if (wordCount < 80) {
-        showToast();
-        return
-      }
-    } else {
-      btn.disabled = true;
-      return
-    }
-
+  
     document.getElementById('btn').innerText = "Evaluating..."
 
     document.getElementById("close").addEventListener('click', () => {
@@ -157,11 +136,13 @@ $(function () {
     } catch (error) {
       console.error("Error sending JSON data:", error);
     }
-  });
 
   function showToast() {
     $("#alert").fadeIn('1000')
   }
+
+});
+
 });
   
 
