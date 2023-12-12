@@ -85,100 +85,85 @@ return Astro.redirect("/price");
   </div>
 
 </Layout>
-<style>
- .paragraph { margin-bottom: 10px; }
-    .color-1 { color: blue; }
-    .color-2 { color: green; }
-    .color-3 { color: purple; }
-    .color-4 { color: orange; }
-    .color-5 { color: red; }
-    .color-6 { color: brown; }
-    .color-7 { color: teal; }
 
-</style>
 
 
 
 
 
 <script>
-  
 $(function () {
+  $("#essay").toTextarea({ allowHTML: true, allowImg: true });
+  $("#question").toTextarea({ allowHTML: false, allowImg: false });
 
- $("#essay").toTextarea({allowHTML: true, allowImg: true});
-$("#question").toTextarea({allowHTML: false, allowImg: false});
-
-
-$('#alert').click(()=>{
+  $('#alert').click(() => {
     $("#alert").fadeOut('2000')
-   })
-   
-  
+  })
 
-$('#btn').click(async()=>{
-  var questionText = document.getElementById("question").innerText.trim();
+  $('#btn').click(async () => {
+    var questionText = document.getElementById("question").innerText.trim();
     var essayText = document.getElementById("essay").innerText.trim();
     var btn = document.getElementById("btn");
 
     // Count the number of words in the essay
     var wordCount = essayText.split(/\s+/).filter(function (word) {
-        return word.length > 0;
+      return word.length > 0;
     }).length;
 
     if (questionText !== "" && essayText !== "") {
-        btn.disabled = false;
+      btn.disabled = false;
 
-        // Check if the essay has fewer than 80 words and show a toast
-        if (wordCount < 80) {
-            showToast();
-            return
-        }
-    } else {
-        btn.disabled = true;
+      // Check if the essay has fewer than 80 words and show a toast
+      if (wordCount < 80) {
+        showToast();
         return
+      }
+    } else {
+      btn.disabled = true;
+      return
     }
 
-    document.getElementById('btn').innerText="Evaluating..."
+    document.getElementById('btn').innerText = "Evaluating..."
 
-    document.getElementById("close").addEventListener('click', ()=>{
-        document.getElementById('resultContainer').classList.add('hidden')
-        document.getElementById('btn').classList.add('hidden')
-        document.getElementById('essayForm').classList.remove('hidden')
+    document.getElementById("close").addEventListener('click', () => {
+      document.getElementById('resultContainer').classList.add('hidden')
+      document.getElementById('btn').classList.add('hidden')
+      document.getElementById('essayForm').classList.remove('hidden')
     })
 
+    try {
       const question = $("#question").text()
-      const letter= $("#essay").text()
-      
-      try {
-    const letterObject = { letter, question }; // Create a valid JSON object
-    const jsonString = JSON.stringify(letterObject);
-    console.log(jsonString)
-    const response = await fetch('/api/letter', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: jsonString,
-    });
+      const letter = $("#essay").text()
 
-    const result = await response.json();
-    const resultContainer = document.getElementById('resultContainer');
-    document.getElementById('essayForm').classList.add('hidden');
-    const resultDiv = document.getElementById('result');
+      const letterObject = { letter, question }; // Create a valid JSON object
+      const jsonString = JSON.stringify(letterObject);
+      console.log(jsonString)
+      const response = await fetch('/api/letter', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonString,
+      });
 
-    resultContainer.classList.remove('hidden');
-    resultDiv.innerHTML=result.choices[0].text
+      const result = await response.json();
+      const resultContainer = document.getElementById('resultContainer');
+      document.getElementById('essayForm').classList.add('hidden');
+      const resultDiv = document.getElementById('result');
 
-    });
-  } catch (error) {
-    console.error("Error sending JSON data:", error);
-  }
-})
-    
-function showToast() {
+      resultContainer.classList.remove('hidden');
+      resultDiv.innerHTML = result.choices[0].text;
+
+    } catch (error) {
+      console.error("Error sending JSON data:", error);
+    }
+  });
+
+  function showToast() {
     $("#alert").fadeIn('1000')
-}
-
+  }
 });
+  
+
 </script>
 
