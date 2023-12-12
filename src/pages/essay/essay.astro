@@ -95,18 +95,7 @@ $('#alert').click(()=>{
     $("#alert").fadeOut('2000')
    })
    
-    function validateForm() {
-    var questionText = document.getElementById("question").innerText.trim();
-    var essayText = document.getElementById("essay").innerText.trim();
-    var btn = document.getElementById("btn");
-
-    if (questionText !== "" && essayText !== "") {
-        btn.disabled = false;
-
-    } else {
-        btn.disabled = true;
-    }
-}
+    
 
 $('#btn').click(async()=>{
   var questionText = document.getElementById("question").innerText.trim();
@@ -132,9 +121,6 @@ $('#btn').click(async()=>{
     }
 
     document.getElementById('btn').innerText="Evaluating..."
-    document.getElementById("question").setAttribute('contenteditable','false')
-
-    document.getElementById("essay").setAttribute('contenteditable','false')
 
     document.getElementById("close").addEventListener('click', ()=>{
         document.getElementById('resultContainer').classList.add('hidden')
@@ -181,10 +167,7 @@ $('#btn').click(async()=>{
 
 function showToast() {
     $("#alert").fadeIn('1000')
-}
 
-document.getElementById("question").addEventListener('click', validateForm)
-document.getElementById("essay").addEventListener('click', validateForm)
 
 });
 </script>
