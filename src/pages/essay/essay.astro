@@ -84,91 +84,82 @@ const {name, email, status, tariff, joined, expiresAt, telegramName} = userData
 
 
 <script>
-  
 $(function () {
 
- $("#essay").toTextarea({allowHTML: true, allowImg: true});
-$("#question").toTextarea({allowHTML: false, allowImg: false});
+    $("#essay").toTextarea({allowHTML: true, allowImg: true});
+    $("#question").toTextarea({allowHTML: false, allowImg: false});
 
+    $('#alert').click(() => {
+        $("#alert").fadeOut('2000');
+    });
 
-$('#alert').click(()=>{
-    $("#alert").fadeOut('2000')
-   })
-   
-    
+    $('#btn').click(async () => {
+        var questionText = document.getElementById("question").innerText.trim();
+        var essayText = document.getElementById("essay").innerText.trim();
+        var btn = document.getElementById("btn");
 
-$('#btn').click(async()=>{
-  var questionText = document.getElementById("question").innerText.trim();
-    var essayText = document.getElementById("essay").innerText.trim();
-    var btn = document.getElementById("btn");
+        // Count the number of words in the essay
+        var wordCount = essayText.split(/\s+/).filter(function (word) {
+            return word.length > 0;
+        }).length;
 
-    // Count the number of words in the essay
-    var wordCount = essayText.split(/\s+/).filter(function (word) {
-        return word.length > 0;
-    }).length;
+        if (questionText !== "" && essayText !== "") {
+            btn.disabled = false;
 
-    if (questionText !== "" && essayText !== "") {
-        btn.disabled = false;
-
-        // Check if the essay has fewer than 80 words and show a toast
-        if (wordCount < 80) {
-            showToast();
-            return
+            // Check if the essay has fewer than 80 words and show a toast
+            if (wordCount < 80) {
+                showToast();
+                return;
+            }
+        } else {
+            btn.disabled = true;
+            return;
         }
-    } else {
-        btn.disabled = true;
-        return
+
+        document.getElementById('btn').innerText = "Evaluating...";
+
+        document.getElementById("close").addEventListener('click', () => {
+            document.getElementById('resultContainer').classList.add('hidden');
+            document.getElementById('btn').classList.add('hidden');
+            document.getElementById('essayForm').classList.remove('hidden');
+        });
+
+        const question = $("#question").text();
+        const essay = $("#essay").text();
+
+        try {
+            const letterObject = { essay, question }; // Create a valid JSON object
+            const jsonString = JSON.stringify(letterObject);
+            console.log(jsonString);
+            const response = await fetch('/api/check', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: jsonString,
+            });
+
+            const result = await response.json();
+            const resultContainer = document.getElementById('resultContainer');
+            document.getElementById('essayForm').classList.add('hidden');
+            const resultDiv = document.getElementById('result');
+
+            resultContainer.classList.remove('hidden');
+            resultDiv.innerHTML = "";
+
+            result.choices[0].text.split('\n').forEach((paragraph, index) => {
+                const paragraphElement = document.createElement('p');
+                paragraphElement.innerHTML = paragraph;
+                resultDiv.appendChild(paragraphElement);
+            });
+        } catch (error) {
+            console.error("Error sending JSON data:", error);
+        }
+    });
+
+    function showToast() {
+        $("#alert").fadeIn('1000');
     }
 
-    document.getElementById('btn').innerText="Evaluating..."
-
-    document.getElementById("close").addEventListener('click', ()=>{
-        document.getElementById('resultContainer').classList.add('hidden')
-        document.getElementById('btn').classList.add('hidden')
-        document.getElementById('essayForm').classList.remove('hidden')
-    })
-
-      const question = $("#question").text()
-      const essay= $("#essay").text()
-      
-      try {
-    const letterObject = { essay, question }; // Create a valid JSON object
-    const jsonString = JSON.stringify(letterObject);
-    console.log(jsonString)
-    const response = await fetch('/api/check', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: jsonString,
-    });
-
-    const result = await response.json();
-    const resultContainer = document.getElementById('resultContainer');
-    document.getElementById('essayForm').classList.add('hidden');
-    const resultDiv = document.getElementById('result');
-
-    resultContainer.classList.remove('hidden');
-    resultDiv.innerHTML = "";
-
-    result.choices[0].text.split('\n').forEach((paragraph, index) => {
-      const paragraphElement = document.createElement('p');
-      paragraphElement.innerHTML = paragraph;
-      resultDiv.appendChild(paragraphElement);
-    });
-  } catch (error) {
-    console.error("Error sending JSON data:", error);
-  }
-
-})
-    
-
-    
-
-
-function showToast() {
-    $("#alert").fadeIn('1000')
-
-
-
+}); // Closes the $(function () {
 </script>
