@@ -145,12 +145,8 @@ $(function () {
             const resultDiv = document.getElementById('result');
 
             resultContainer.classList.remove('hidden');
-            resultDiv.innerHTML = "";
-
-            result.choices[0].text.split('\n').forEach((paragraph, index) => {
-                const paragraphElement = document.createElement('p');
-                paragraphElement.innerHTML = paragraph;
-                resultDiv.appendChild(paragraphElement);
+            resultDiv.innerHTML=result.choices[0].text
+            
             });
         } catch (error) {
             console.error("Error sending JSON data:", error);
