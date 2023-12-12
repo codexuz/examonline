@@ -111,8 +111,8 @@ $(function () {
     })
 
     try {
-      const question = $("#question").text()
-      const letter = $("#essay").text()
+      const question = encodeURIComponent($("#question").text());
+      const letter = encodeURIComponent($("#essay").text());
 
       const letterObject = { letter, question }; // Create a valid JSON object
       const jsonString = JSON.stringify(letterObject);
