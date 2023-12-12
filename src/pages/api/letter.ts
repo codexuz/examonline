@@ -13,7 +13,6 @@ export const POST: APIRoute = async ({request }) => {
     model: "gpt-3.5-turbo-instruct",
     prompt: `Analyze the below letter type: formal, informal, semi-formal. Check grammar, punctuation, spelling errors and count the exact number of words in the letter. And provide suggestions for improvement, offer explanations for corrections. Give feedback and assess the letter. Send result like the below format with html tags:
     <b>Letter type:</b> ['formal', 'informal', 'semi-formal'] <br>;
-    <b>Word Count:</b> word count <br>;
     <b>Sentences:</b> sentences <br>;
     <b>Paragraphs:</b> paragraphs <br>;
     <b>Grammar Errors:</b> grammar mistakes <br>;
