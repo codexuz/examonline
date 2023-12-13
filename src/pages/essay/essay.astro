@@ -27,6 +27,13 @@ const userData = userSnapshot.data();
 
 const {name, email, status, tariff, joined, expiresAt, telegramName} = userData
 
+if(status==="unpaid"){
+return Astro.redirect("/price");
+}
+
+if(tariff==="basic"){
+return Astro.redirect("/pay");
+}
 
 ---
 
