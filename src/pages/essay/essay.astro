@@ -37,6 +37,7 @@ return Astro.redirect("/pay");
 
 ---
 
+
 <Layout title="Essay">
 <header class="py-4 w-full sticky top-0 bg-blue-600 shadow-lg flex justify-between items-center px-5 text-2xl font-semibold text-gray-100">
 <h1>Edumo Essay Checker</h1>
@@ -44,57 +45,60 @@ return Astro.redirect("/pay");
 </header>
  <form id="essayForm" class="md:colums-2 flex flex-col justify-start items-center">
     <h1 class="text-3xl font-semibold py-4 text-gray-100">Check IELTS Writing</h1>
-    <div class="container mt-5 mx-auto px-4 p-4 text-gray-200 outline-none bg-gray-900 rounded-lg border-2 border-gray-800 font-bold" id="question" name="question" placeholder="Essay savolini kiriting...">
-    </div>
-    <div class="mt-5 container mx-auto px-4 bg-gray-900 text-gray-200 italic outline-none p-4 border-2 border-gray-800 rounded-lg" id="essay" name="essay" placeholder="Essayni yozing yoki tashlang..." style="min-height: 150px"></div>
+    <textarea class="md:h-[60px] sm:h-[120px] container mt-5 mx-auto px-4 p-4 text-gray-200 outline-none bg-gray-900 rounded-lg border-2 border-gray-800 font-bold" id="question" name="question" placeholder="Essay savolini kiriting..."></textarea>
+    
+    <textarea class="md:h-[500px] sm:h-[700px]  mt-5 container mx-auto px-4 bg-gray-900 text-gray-200 italic outline-none p-4 border-2 border-gray-800 rounded-lg" id="essay" name="essay" placeholder="Essayni yozing yoki tashlang..." style="min-height: 150px"></textarea>
 
     <button id="btn" class="flex items-center mt-4 mb-3 bottom-3 px-8 bg-blue-600 text-white text-lg rounded-lg py-2 px-4 font-semibold shadow-xl" type="button">
     <svg xmlns="http://www.w3.org/2000/svg" class="fill-white w-6 h-6 x-2" viewBox="0 0 24 24"><path fill="currentColor" d="m11.602 13.76l1.412 1.412l8.466-8.466l1.414 1.415l-9.88 9.88l-6.364-6.365l1.414-1.414l2.125 2.125l1.413 1.412Zm.002-2.828l4.952-4.953l1.41 1.41l-4.952 4.953l-1.41-1.41Zm-2.827 5.655L7.364 18L1 11.636l1.414-1.414l1.413 1.413l-.001.001l4.951 4.951Z"/></svg>
      Check Essay</button>
   </form>
 
-   <!-- Toast -->
-  <div id="alert" class="hidden absolute bottom-2 start-1/2 transform -translate-y-1/2 -translate-x-1/2">
+<div id="resultContainer" class="hidden mt-7 container mx-auto p-4">
 
-<div class="max-w-xs bg-gray-900 text-sm text-white rounded-xl shadow-lg dark:bg-gray-900" role="alert">
-  <div class="flex p-4">
-    You did not provide any essay or essay words is lower than expected
+<div class="md:w-[120px] sm:container band-box my-8 p-7 text-center bg-gray-900 border-2 border-blue-600 rounded-2xl text-white text-4xl font-semibold"><span id="band"></span></div>
 
-    <div class="ms-auto">
-      <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-5 w-5 rounded-lg text-white hover:text-white opacity-50 hover:opacity-100 focus:outline-none focus:opacity-100">
-        <span class="sr-only">Close</span>
-        <svg id="toggle-close" class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-      </button>
-    </div>
-  </div>
+<div class="flex flex-col justify-center">
+
+<div class="p-4 bg-gray-900 border-2 border-blue-600 my-1 text-white rounded-lg  text-lg"><b>Feedback:</b>  <span id="feedback"></span></div>
+
+<div class="p-4 bg-gray-900 border-2 border-blue-600 my-1 text-white rounded-lg  text-lg"><b>Task Achievement: </b> <span id="task"></span></div>
+
+<div class="p-4 bg-gray-900 border-2 border-blue-600 my-1 text-white rounded-lg  text-lg"><b>Coherence & Cohesion:</b>  <span id="coh"></span></div>
+
+<div class="p-4 bg-gray-900 border-2 border-blue-600 my-1 text-white rounded-lg  text-lg"><b>Grammar Range:</b>  <span id="grammar"></span></div>
+
+<div class="p-4 bg-gray-900 border-2 border-blue-600 my-1 text-white rounded-lg  text-lg"><b>Lexical Resources:</b>  <span id="lexical"></span></div>
+
+<div class="p-4 bg-gray-900 border-2 border-blue-600 my-1 text-blue-600 rounded-lg  text-lg"><b>Academic Words:</b>  <div id="academic" class="flex flex-wrap items-center"></div>
 </div>
+
 </div>
-<!-- End Toast -->
+
+</div>   
 
 
-  <div class="hidden w-full  min-h-screen absolute top-0 left-0 bg-gray-900 text-white text-xl flex flex-col justify-center items-center" id="resultContainer">
 
- 
- <svg id="close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-emerald-500 float-right">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-</svg>
-
-
-  <h1 class="my-4 text-3xl font-bold">Writing Assessment</h1>
-   <ul class="my-4 container mx-auto px-4">
-    <li id="result"><li>
-   </ul>
-  </div>
+<div style="height:50px"></div>
 
 </Layout>
-  
+ 
+ <style>
+
+@media screen and (max-width:660px){
+  #essay{
+    height:600px
+  }
+}
+
+
+ </style> 
+
 
 
 <script>
 $(function () {
 
-    $("#essay").toTextarea({ allowHTML: true, allowImg: true });
-    $("#question").toTextarea({ allowHTML: false, allowImg: false });
 
     $('#alert').click(() => {
         $("#alert").fadeOut('2000');
@@ -102,21 +106,15 @@ $(function () {
 
     $('#btn').click(async () => {
       
-        document.getElementById('btn').innerText = "Evaluating...";
+        document.getElementById('btn').innerHTML = "Checking...";
 
-        document.getElementById("close").addEventListener('click', () => {
-            document.getElementById('resultContainer').classList.add('hidden');
-            document.getElementById('btn').classList.add('hidden');
-            document.getElementById('essayForm').classList.remove('hidden');
-        });
 
-        const question = encodeURIComponent($("#question").text());
-        const essay = encodeURIComponent($("#essay").text());
+        const question = $("#question").val();
+        const essay = $("#essay").val();
 
         try {
             const letterObject = { essay, question }; // Create a valid JSON object
             const jsonString = JSON.stringify(letterObject);
-            console.log(jsonString);
             const response = await fetch('/api/check', {
                 method: 'POST',
                 headers: {
@@ -126,12 +124,32 @@ $(function () {
             });
 
             const result = await response.json();
-            const resultContainer = document.getElementById('resultContainer');
-            document.getElementById('essayForm').classList.add('hidden');
-            const resultDiv = document.getElementById('result');
+            const essayRes=JSON.parse(result)
+            console.log(essayRes)
 
-            resultContainer.classList.remove('hidden');
-            resultDiv.innerHTML = result.choices[0].text;
+            document.getElementById('resultContainer').classList.remove('hidden')
+
+            document.getElementById('essayForm').classList.add('hidden')
+
+            document.getElementById('band').innerText=essayRes.Band+"/9";
+            document.getElementById('feedback').innerText=essayRes.Feedback;
+            document.getElementById('task').innerText=essayRes.TaskAchievement;
+            document.getElementById('coh').innerText=essayRes.CoherenceCohesion;
+            document.getElementById('grammar').innerText=essayRes.GrammarRange;
+            document.getElementById('lexical').innerText=essayRes.LexicalResource;
+
+            const parentNode = document.getElementById('academic')
+            for(var i=0; i<essayRes.AcademicWord.length; i++){
+                const childDiv= document.createElement('div')
+                childDiv.classList.add('bg-slate-800', 'py-2', 'px-4', 'rounded-2xl', 'text-emerald-500', 'mx-2', 'my-2')
+              childDiv.textContent=essayRes.AcademicWord[i]
+              parentNode.appendChild(childDiv)
+            }
+              
+          
+
+
+
         } catch (error) {
             console.error("Error sending JSON data:", error);
         }
