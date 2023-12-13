@@ -3,10 +3,10 @@ interface Props{
    audioUrl:string,
    examName:string,
    examDate: string, 
-   telegram: string
+   feedback:string
 }
 
-const {audioUrl, examName, examDate, telegram} = Astro.props
+const {audioUrl, examName, examDate, feedback} = Astro.props
 ---
 <section class="p-4 mx-auto md:container sm:w-full rounded-md bg-gray-900 mt-5 shadow-xl">
    <audio type="audio/mp3" download src={audioUrl} controls class="container mx-auto px-4 my-2">
@@ -25,8 +25,8 @@ const {audioUrl, examName, examDate, telegram} = Astro.props
     <span class="sr-only">Loading...</span>
 </div>
 
-   <!--- <p id="feedback" class="text-white text-lg" set:html={feedback}/>--->
-   <p class="text-white text-lg">Javobingiz serverga yuborildi. Tez orada telegram orqali sizga yuboriladi. Ushbu telegram akkaunt sizniki ekanligiga ishonch hosil qiling: <span class="text-blue-600 underline">{telegram}</span></p>
+   <p id="feedback" class="text-white text-lg" set:html={feedback}/>
+   
     </section>
  
    

@@ -29,7 +29,7 @@ const userData = userSnapshot.data();
 
 const {telegram, telegramName, audio, submitTime, textNo, feedback} = userData
 
-/*
+
 const deepgram = createClient("7e152e9866bbc69d6487e1bea4b6c250aeeab7ca");
 
 if(!feedback){
@@ -67,7 +67,6 @@ else{
    console.log('Feedback saqlangan')
 }
 
-*/
 ---
 <Layout title="Speaking Report">
    <header class="bg-gray-900 w-full sticky top-0 flex items-center justify-between" style="z-index:999">
@@ -88,12 +87,12 @@ else{
    audioUrl={audio}
    examName={textNo}
    examDate={submitTime}
-   telegram={telegram || "Siz hali speaking topshirmagansiz"}
+   feedback={feedback}
    />
 </Layout>
 
 <script>
-/*
+
 import { app } from "@lib/firebase/client";
 import { getFirestore, doc, updateDoc, getDoc} from "firebase/firestore";
 
@@ -130,5 +129,5 @@ const response = await fetch('https://examonline-rouge.vercel.app/api/report', {
   });
 }
 
-*/
+
 </script>
