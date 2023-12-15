@@ -2,6 +2,7 @@
 import { app } from "../lib/firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import Layout from "../layouts/Layout.astro";
+import Back from "@components/Back.astro";
 import { getFirestore } from "firebase-admin/firestore";
 
 
@@ -39,7 +40,11 @@ return Astro.redirect("/price");
 
 <Layout title="Letter">
    <header class="py-4 w-full sticky top-0 bg-orange-500 shadow-lg flex justify-between items-center px-5 text-lg font-semibold text-gray-50">
-    <h1>Edumo Letter Checker</h1>
+
+    <div class="flex items-center">
+   <Back/>
+   <h1 class="mx-2">Edumo Letter Checker</h1>
+    </div>
     <p>{telegramName}</p>
     </header>
   <form id="essayForm" class=" flex flex-col justify-start items-center">
