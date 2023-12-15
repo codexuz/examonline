@@ -2,6 +2,7 @@
 import { app } from "@lib/firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import Layout from "@layouts/Layout.astro";
+import Back from "@components/Back.astro";
 import { getFirestore } from "firebase-admin/firestore";
 
 
@@ -31,8 +32,11 @@ const {name, email, status, tariff, joined, expiresAt, telegramName} = userData
 ---
 
 <Layout title="Essay">
-<header class="py-4 w-full sticky top-0 bg-slate-700 shadow-lg flex justify-between items-center px-5 text-xl font-semibold text-gray-100">
+<header class="w-full sticky top-0 bg-slate-700 shadow-lg flex justify-between items-center px-5 text-xl font-semibold text-gray-100">
+<div class="flex items-center">
+    <Back/>
 <h1>Essay Generator</h1>
+</div>
 <p>{telegramName}</p>
 </header>
  <form id="essayForm" class="md:colums-2 flex flex-col justify-start items-center">
