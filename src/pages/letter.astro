@@ -28,7 +28,7 @@ const userData = userSnapshot.data();
 
 const {status, tariff, telegramName} = userData
 
-if(tariff==="basic" || tariff==="" || tariff===null){
+if(tariff==="basic"){
 return Astro.redirect("/pay");
 }
 
@@ -46,15 +46,17 @@ return Astro.redirect("/price");
     </div>
     <p>{telegramName}</p>
     </header>
-  <form id="essayForm" class=" flex flex-col justify-start items-center">
-    <h1 class="text-3xl font-semibold py-4 text-gray-100">Check Your Letter</h1>
-    <div  class="container mt-5 mx-auto px-4 p-4 text-gray-200 outline-none bg-gray-900 rounded-lg border-2 border-gray-800 font-bold" id="question" name="question" placeholder="Xat savolini kiriting...">
-    </div>
-    <div   class="mt-5 container mx-auto px-4 bg-gray-900 text-gray-200 italic outline-none p-4 border-2 border-gray-800 rounded-lg" id="essay" name="essay" placeholder="Xatni yozing yoki tashlang..." style="min-height: 150px"></div>
-    <button id="btn" class="flex items-center mt-4 mb-3 bottom-3 px-8 bg-orange-500 text-white text-lg rounded-lg py-2 px-4 font-semibold shadow-xl" type="button">
+   <form id="essayForm" class="md:colums-2 flex flex-col justify-start items-center">
+    <h1 class="text-3xl font-semibold py-4 text-gray-100">Check IELTS Writing</h1>
+    <textarea class="md:h-[60px] sm:h-[120px] container mt-5 mx-auto px-4 p-4 text-gray-200 outline-none bg-gray-900 rounded-lg border-2 border-gray-800 font-bold" id="question" name="question" placeholder="Essay savolini kiriting..."></textarea>
+    
+    <textarea class="md:h-[500px] sm:h-[700px]  mt-5 container mx-auto px-4 bg-gray-900 text-gray-200 italic outline-none p-4 border-2 border-gray-800 rounded-lg" id="essay" name="essay" placeholder="Essayni yozing yoki tashlang..." style="min-height: 150px"></textarea>
+
+    <button id="btn" class="flex items-center mt-4 mb-3 bottom-3 px-8 bg-blue-600 text-white text-lg rounded-lg py-2 px-4 font-semibold shadow-xl" type="button">
     <svg xmlns="http://www.w3.org/2000/svg" class="fill-white w-6 h-6 x-2" viewBox="0 0 24 24"><path fill="currentColor" d="m11.602 13.76l1.412 1.412l8.466-8.466l1.414 1.415l-9.88 9.88l-6.364-6.365l1.414-1.414l2.125 2.125l1.413 1.412Zm.002-2.828l4.952-4.953l1.41 1.41l-4.952 4.953l-1.41-1.41Zm-2.827 5.655L7.364 18L1 11.636l1.414-1.414l1.413 1.413l-.001.001l4.951 4.951Z"/></svg>
      Check Letter</button>
   </form>
+
 
  <!-- Toast -->
   <div id="alert" class="hidden absolute bottom-2 start-1/2 transform -translate-y-1/2 -translate-x-1/2">
@@ -87,25 +89,33 @@ return Astro.redirect("/price");
     <li id="result"><li>
    </ul>
   </div>
-
 </Layout>
 
+<style>
+
+@media screen and (max-width:660px){
+  #essay{
+    height:600px
+  }
+}
 
 
+ </style>
 
 
 
 <script>
 $(function () {
-  $("#essay").toTextarea({ allowHTML: true, allowImg: true });
-  $("#question").toTextarea({ allowHTML: false, allowImg: false });
-
   $('#alert').click(() => {
     $("#alert").fadeOut('2000')
   })
 
   $('#btn').click(async () => {
   
+if($("#question").val('') && $("#essay").val('')){
+   showToast()
+   return
+  }
     document.getElementById('btn').innerText = "Evaluating..."
 
     document.getElementById("close").addEventListener('click', () => {
@@ -115,8 +125,8 @@ $(function () {
     })
 
     try {
-      const question = encodeURIComponent($("#question").text());
-      const letter = encodeURIComponent($("#essay").text());
+      const question = $("#question").val();
+      const letter =  $("#essay").val();
 
       const letterObject = { letter, question }; // Create a valid JSON object
       const jsonString = JSON.stringify(letterObject);
