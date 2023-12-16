@@ -108,8 +108,11 @@ $(function () {
 
     $('#btn').click(async () => {
   
-if($("#question").val('') && $("#essay").val('')){
-   alert('No essay or question provided!')
+    var q=document.getElementById('question')
+var e=document.getElementById('essay')
+
+  if(q.value==="" && e.value===""){
+   alert('No question or essay provided')
    return
   }
       
