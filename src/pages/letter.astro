@@ -111,8 +111,11 @@ $(function () {
   })
 
   $('#btn').click(async () => {
-  
-if($("#question").val('') && $("#essay").val('')){
+
+var q=document.getElementById('question')
+var l=document.getElementById('essay')
+
+if(q.value==="" && l.value===""){
    showToast()
    return
   }
