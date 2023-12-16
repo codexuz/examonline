@@ -104,11 +104,14 @@ return Astro.redirect("/pay");
 $(function () {
 
 
-    $('#alert').click(() => {
-        $("#alert").fadeOut('2000');
-    });
+  
 
     $('#btn').click(async () => {
+  
+if($("#question").val('') && $("#essay").val('')){
+   alert('No essay or question provided!')
+   return
+  }
       
         document.getElementById('btn').innerHTML = "Checking...";
 
@@ -159,9 +162,7 @@ $(function () {
         }
     });
 
-    function showToast() {
-        $("#alert").fadeIn('1000');
-    }
+    
 
 }); // Closes the $(function () {
 
