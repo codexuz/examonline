@@ -74,8 +74,10 @@ if (Astro.cookies.has("session")) {
       errorElement.textContent = "Invalid credentials. Please try again.";
     }
 
+  });
 
-  const googleSignin = document.querySelector("#google") as HTMLButtonElement;
+
+const googleSignin = document.querySelector("#google") as HTMLButtonElement;
   googleSignin.addEventListener("click", async () => {
     const provider = new GoogleAuthProvider();
     const userCredential = await signInWithPopup(auth, provider);
@@ -89,10 +91,6 @@ if (Astro.cookies.has("session")) {
     if (res.redirected) {
       window.location.assign(res.url);
     }
-  });
-
-
-
   });
 
 </script>
