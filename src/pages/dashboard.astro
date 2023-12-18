@@ -92,13 +92,17 @@ if (today === expiresAt) {
     <form id="form">
         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
-                <label class="text-white dark:text-gray-200" for="username">Username</label>
+                <label class="text-white dark:text-gray-200" for="username">Full Name</label>
                 <input placeholder={name} value={name} id="username" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
             </div>
 
             <div>
                 <label class="text-white dark:text-gray-200" for="emailAddress">Email Address</label>
                 <input readonly id="emailAddress" placeholder={email} type="email" class="cursor-not-allowed block w-full px-4 py-2 mt-2 text-gray-700  border border-gray-300 rounded-md bg-gray-300 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+            </div>
+             <div>
+                <label class="text-white dark:text-gray-200" for="telegram">Telegram username</label>
+                <input id="telegram" placeholder="@username" type="text" value={telegram || telegramName} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
             </div>
             <div>
                 <label class="text-white dark:text-gray-200" for="region">Region</label>
@@ -177,6 +181,7 @@ const uid=localStorage.getItem("storeId")
 
 let file;
 var username = document.getElementById("username")
+var telegram = document.getElementById("telegram")
 var region = document.getElementById("region")
 var date = document.getElementById("date")
 var level = document.getElementById("level")
@@ -247,7 +252,8 @@ uploadTask.on('state_changed',
       name: username.value,
       birth: date.value,
       level: level.value,
-      region: region.value
+      region: region.value,
+      telegram: telegram.value
 });
      info.classList.add('hidden')
      window.location.reload()
