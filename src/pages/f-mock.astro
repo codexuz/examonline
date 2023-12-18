@@ -37,42 +37,42 @@ if(status ==="unpaid" || status ==="" || status ===null){
 
 const mocktest=[
 {
-tag:'Mock 1',
+tag:'Mock 1 PDF',
 pdf: 'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2Fmock1.pdf?alt=media&token=6e829274-5add-4ae6-9497-3aa93cb751fa',
 audio:'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2Fmock1.mp3?alt=media&token=4293b31b-e29f-428d-889b-84d07690557b'
 },
 {
-tag:'Mock 2',
+tag:'Mock 2 PDF',
 pdf: 'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2Fmock2.pdf?alt=media&token=a30f851e-b0a1-4ca4-9090-f739c5ac4468',
 audio:'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2Fmock2.mp3?alt=media&token=3101e4c6-2e5e-471f-830c-d0bd22f1c7f9'
 },
 {
-tag:'Mock 3',
+tag:'Mock 3 PDF',
 pdf: 'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2Fmock3.pdf?alt=media&token=f53b198a-95ab-4523-8e3e-69055ef33856',
 audio:'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2Fmock3.mp3?alt=media&token=4333c13e-1c6e-4590-a7e8-4d28961b4252'
 },
 {
-tag:'Mock 4',
+tag:'Mock 4 PDF',
 pdf: 'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2Fmock4.pdf?alt=media&token=201ff9fc-f361-45f1-a8c1-55e769172e9a',
 audio:'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2Fmock4.mp3?alt=media&token=5909bb6d-cc68-4778-ba88-e19cd940543c'
 },
 {
-tag:'Mock 5',
+tag:'Mock 5 PDF',
 pdf:'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2Fmock5.pdf?alt=media&token=4ddc8bd2-22d9-4495-8916-22ef46bad02f',
 audio: 'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2Fmock5.mp3?alt=media&token=e2f44d40-f974-4e0b-b5dc-824122276fcc'
 },
 {
-tag:'Mock 6',
+tag:'Mock 6 PDF',
 pdf:'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2FMock%2021.11.2023.pdf?alt=media&token=c8bffcbd-5c0a-4b71-866c-e9819feaa4db',
 audio: 'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2FMock%20Audio%2021.11.2023.mp3?alt=media&token=a74b0e03-0f01-4556-ba5f-e083f58a6e7e'
 },
 {
-tag:'Mock 7',
+tag:'Mock 7 PDF',
 pdf:'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2FMock%2021.11.2023.pdf?alt=media&token=c8bffcbd-5c0a-4b71-866c-e9819feaa4db',
 audio: 'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2FMock%2024.11.2023.mp3?alt=media&token=af8c0c3f-4201-40c5-9db3-9cfc55f8ac8b'
 },
 {
-tag:'Mock 8',
+tag:'Mock 8 PDF',
 pdf:'https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2FMock%2026.11.2023.pdf?alt=media&token=c5058277-1566-41e7-ba73-2cbdee92c032',
 audio: "https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.com/o/Mock%20testlar%2FMock%2026.11.2023.mp3?alt=media&token=49bc8fe3-72c4-4f20-82ff-d2624690e1f6"
 }
@@ -83,13 +83,20 @@ audio: "https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.c
 ---
 
 <Layout title="Full Mock tests">
-    <SkillHeader skillTitle='Full Mock'/>
-   {mocktest.map(t=>(<div class="my-4 bg-gray-700 flex flex-col justify-start items-center rounded my-1 py-2 mx-auto" style="width:80%">
-	<div class="text-center flex flex-col">
-		<a href={t.pdf} class="text-blue-500 my-1 rounded bg-gray-800 py-2 px-8">📚 Download {t.tag}</a>
-    <a href={t.audio} class="text-blue-500 bg-gray-800 rounded py-2 px-8">🎵 Download</a>
-	</div>
-</div>
+    <SkillHeader skillTitle='Full Mock Tests'/>
+  <main class="container mx-auto mt-[50px] flex flex-col items-center justify-center">
+<div class="mx-auto max-w-lg grid grid-cols-1 gap-3 sm:grid-cols-3">
+   {mocktest.map(t=>(
+    <ul class="bg-gray-900 divide-y divide-gray-200 rounded-xl border border-gray-200 shadow-xl">
+    <li class="p-4">
+      <a href={t.pdf} class="hover: text-gray-50 flex items-center text-lg font-medium leading-loose">
+      	<svg xmlns="http://www.w3.org/2000/svg" class="text-rose-600 icon icon-tabler icon-tabler-file-type-pdf mx-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" /><path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6" /><path d="M17 18h2" /><path d="M20 15h-3v6" /><path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" /></svg> {t.tag}</a>
+      <a href={t.audio} class="my-3 flex items-center rounded-2xl bg-blue-600 px-5 py-1 text-gray-50"><svg xmlns="http://www.w3.org/2000/svg" class="mx-2 icon icon-tabler icon-tabler-music w-6 h-6"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M9 17v-13h10v13" /><path d="M9 8h10" /></svg> Download Audio</a>
+    </li>
+    
+  </ul>
 ))}
+</div>
+</main>
 
 </Layout>
