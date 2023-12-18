@@ -14,9 +14,7 @@ const {picture, name} = Astro.props
 <h2 class="text-2xl font-bold">Hey, {name}</h2>
 <p class="text-sm font-thin">Let's start practicing</p>
 </div>
-<a href="/dashboard">
-    <img src={picture} class="rounded-full bg-white border-2 border-white" width="60px" height="60px">
-</a>
+    <img onclick='window.location.href="/dashboard"' src={picture} class="w-10 h-10 rounded-full bg-white border-2 border-white">
 </div>
 </div>
 
