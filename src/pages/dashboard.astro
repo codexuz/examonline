@@ -117,6 +117,9 @@ if (today === expiresAt) {
                 <input id="level" placeholder="e.g: B1" type="text" value={level} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
             </div>
             <div>
+                <img src={picture} id="img" class="hidden w-32 h-32 rounded-lg">
+            </div>
+            <div>
                 <label class="block text-sm font-medium text-white">
                 Image
               </label>
@@ -137,9 +140,6 @@ if (today === expiresAt) {
                   </p>
                 </div>
               </div>
-            </div>
-            <div>
-                <img src={picture} id="img" class="hidden w-32 h-32 rounded-lg">
             </div>
         </div>
 
