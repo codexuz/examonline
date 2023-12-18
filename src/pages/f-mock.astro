@@ -85,9 +85,9 @@ audio: "https://firebasestorage.googleapis.com/v0/b/exam-online-384406.appspot.c
 <Layout title="Full Mock tests">
     <SkillHeader skillTitle='Full Mock Tests'/>
   <main class="container mx-auto mt-[50px] flex flex-col items-center justify-center">
-<div class="mx-auto max-w-lg grid grid-cols-1 gap-3 sm:grid-cols-3">
+<div class="mx-auto max-w-l3 grid grid-cols-1 gap-3 sm:grid-cols-3">
    {mocktest.map(t=>(
-    <ul class="bg-gray-900 divide-y divide-gray-200 rounded-xl border border-gray-200 shadow-xl">
+    <ul class="bg-gray-900 divide-y divide-gray-900 rounded-xl border border-gray-900 shadow-xl">
     <li class="p-4">
       <a href={t.pdf} class="hover: text-gray-50 flex items-center text-lg font-medium leading-loose">
       	<svg xmlns="http://www.w3.org/2000/svg" class="text-rose-600 icon icon-tabler icon-tabler-file-type-pdf mx-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" /><path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6" /><path d="M17 18h2" /><path d="M20 15h-3v6" /><path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" /></svg> {t.tag}</a>
