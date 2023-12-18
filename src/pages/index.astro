@@ -5,9 +5,7 @@ import { app } from "../lib/firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 import Card from '@components/Card.astro';
-import Course from '@components/Course.astro';
 import Intro from '@components/Intro.astro';
-import Modules from '@components/Modules.astro';
 
 
 const auth = getAuth(app);
@@ -35,30 +33,8 @@ const {picture, name} = userData
 name={name || "Guest"}
 picture={picture || "/static/img/avatar.png"}
 />
-<Modules/>
-<main class=" container mx-auto px-4">
-    <h2 class="text-gray-100 text-3xl py-3 font-bold dark:text-white ">Courses</h2>
-    <div class="course-slider flex justify-center items-center">
-    <Course
-     img="https://essaywritinghelp.pro/wp-content/uploads/2020/05/Frame-16-1.png"
-      title="Task 1"
-       descript="Letter Writing Course"
-       href="/post"
-     />
-
-     <Course
-     img="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2022/06/BMD-3099.png"
-      title="Task 2"
-       descript="Essay Writing Course"
-       href="/task-2"
-     />
-
-     
-
-
-    </div>
-</main>    
-<main class="w-full flex flex-col justify-center items-center mt-4">
+    
+<main class="w-full flex flex-col justify-center items-center mt-4 ">
  
     <Card/>
     
@@ -66,7 +42,7 @@ picture={picture || "/static/img/avatar.png"}
 </section>  
 </Layout>
 
-<script is:inline>
+<script>
 
   var notVisible = localStorage.getItem("visible")
 
