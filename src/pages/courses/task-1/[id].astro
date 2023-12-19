@@ -1,0 +1,46 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { app } from "@lib/firebase/server";
+import { getFirestore } from "firebase-admin/firestore";
+import Back from '@components/Back.astro'
+
+
+interface Course {
+  title: string;
+  body: string;
+  date: string;
+  video: video
+}
+
+const { id } = Astro.params;
+
+if (!id) {
+  return Astro.redirect("/404");
+}
+
+const db = getFirestore(app);
+const courseRef = db.collection("task1");
+const courseSnapshot = await courseRef.doc(id).get();
+
+if (!courseSnapshot.exists) {
+  return Astro.redirect("/404");
+}
+
+const course = courseSnapshot.data() as Course;
+---
+
+<Layout title={course.title}>
+<header class="flex items-center px-5 w-full sticky top-0 bg-slate-900 py-1 shadow-xl">
+<Back/>
+<h1 class="text-white text-xl">Lessons</h1>
+</header>
+<section class="max-w-3xl mx-auto pt-10 mb-6 bg-slate-900 my-5 p-6 rounded-lg">
+   <iframe class="w-full h-full aspect-video" src={course.video}></iframe> 
+
+  <div class="prose lg:prose-xl prose-invert">
+    <p class="py-2 flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 mx-2 icon icon-tabler icon-tabler-calendar-stats" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" /><path d="M18 14v4h4" /><path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M15 3v4" /><path d="M7 3v4" /><path d="M3 11h16" /></svg>
+    Published: {course.date}</p>
+   <div set:html={course.body}/>
+  </div>
+</Layout>
