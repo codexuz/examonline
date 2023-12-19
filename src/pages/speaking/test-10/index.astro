@@ -119,7 +119,7 @@ let audioAnswer = new Blob(audioChunks, { type: 'audio/mp3' });
 
 const formData = new FormData();
 		  formData.append('audio', audioAnswer, 'audio.wav');
-                  formData.append('caption', `@${telegramUsername} ${telegramName}`);
+                  formData.append('caption', `@${telegramUsername} ${telegramName} Test 10. Weather & Seasons`);
 		  formData.append('title', "Multilevel Mock");
 		  fetch(`https://api.telegram.org/bot6124695087:AAG2TZUf4KjJrBQUM9OiO8DV6dSUwScqZ2A/sendAudio?chat_id=1483919112`, {
 			method: 'POST',
@@ -138,6 +138,9 @@ uploadBytes(storageRef, audioAnswer).then((snapshot) => {
 	const AudioRef = doc(db, "users", uid );
       await updateDoc(AudioRef, {
       audio: downloadURL,
+      submitTime: examSubmitted,
+      textNo: "Test 10. Weather & Seasons",
+      feedback:""
 });
 window.location.href='/speaking/reports'
 loader.classList.add('hidden')
