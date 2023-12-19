@@ -205,9 +205,8 @@ document.getElementById("form").addEventListener('submit', async (e)=>{
 //indicator
 info.classList.remove('hidden')
 
-const filename=new Date().getTime();
 //Get ref storage
-const storageRef = ref(storage, '/images/' + filename);
+const storageRef = ref(storage, '/images/' + file.name);
 const uploadTask = uploadBytesResumable(storageRef, file);
 
 // Listen for state changes, errors, and completion of the upload.
