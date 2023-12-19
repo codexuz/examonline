@@ -48,9 +48,14 @@ if (today === expiresAt) {
 
 <Layout title="Dashboard">
 <p style="display:none" id="store-id">{user.uid}</p>
- <div class="flex items-center sticky top-0 bg-slate-800 w-full">
+ <div class="flex items-center justify-between sticky top-0 bg-slate-800 w-full">
+<div class="flex items-center">
   <BackHome/>
   <p class="text-2xl font-bold text-white mx-3">My Account</p>
+</div>
+<form action="/api/auth/signout">
+    <button class="bg-rose-600 mx-2 px-3 py-1 text-white" type="submit">Sign out</button>
+  </form>
   </div> 
 <div class="container mx-auto px-4 mt-7 min-h-screen">
 
