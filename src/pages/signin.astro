@@ -3,6 +3,7 @@ import { app } from "../lib/firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import Layout from "../layouts/Layout.astro";
 import SignIn from "@components/SignIn.astro";
+import Banner from '@components/Banner.astro'
 
 /* Check if the user is authenticated */
 const auth = getAuth(app);
@@ -16,6 +17,7 @@ if (Astro.cookies.has("session")) {
 ---
 
 <Layout title="Sign in">
+<Banner title="Ilovamizni bugunoq xarid qilib, 20% chegirmaga ega bo'ling" slogan="20% Sale"/>
   <SignIn />
 </Layout>
 <script>
