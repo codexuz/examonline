@@ -4,6 +4,7 @@ import { getAuth } from "firebase-admin/auth";
 import Layout from "../layouts/Layout.astro";
 import { getFirestore } from "firebase-admin/firestore";
 import BackHome from "@components/BackHome.astro";
+import Banner from '@components/Banner.astro'
 
 const auth = getAuth(app);
 const db = getFirestore(app)
@@ -47,6 +48,7 @@ if (today === expiresAt) {
 ---
 
 <Layout title="Dashboard">
+<Banner title="Ilovamizni bugunoq xarid qilib, 20% chegirmaga ega bo'ling" slogan="20% Sale"/>
 <p style="display:none" id="store-id">{user.uid}</p>
  <div class="flex items-center justify-between sticky top-0 bg-slate-800 w-full">
 <div class="flex items-center">
