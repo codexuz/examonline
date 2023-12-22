@@ -83,7 +83,7 @@ else{
 <Layout title="Speaking Report">
    <header class="bg-gray-900 w-full sticky top-0 flex items-center justify-between" style="z-index:999">
 
-   <a onclick="window.location.href='/speaking'"  class="bg-gray-900 rounded-lg flex items-center  text-white m-4">
+   <a onclick="window.location.href='/speaking/speaking-mock'"  class="bg-gray-900 rounded-lg flex items-center  text-white m-4">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
       </svg>
@@ -94,7 +94,7 @@ else{
   <ul class="container sm:max-w-4xl grid grid-cols-1 sm:grid-cols-3 mx-auto px-5 flex flex-col items-center">
 {
       reports.map((report) => (
-         <li class="flex justify-between items-center p-5  bg-blue-600 text-white rounded-2xl">
+         <li class="flex justify-between items-center p-5  bg-blue-600 text-white rounded-2xl m-2">
          <div class="relative">
          <p><small>{report.submitTime}</small><p/>
          <p set:html={report.textNo} class="text-xl"/>
