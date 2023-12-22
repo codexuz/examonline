@@ -91,10 +91,10 @@ else{
    </a>
    </header>
 <main class="my-4 pt-6">
-  <ul class="container sm:max-w-4xl grid grid-cols-1 sm:grid-cols-3 mx-auto px-5 flex flex-col items-center">
+  <ul class="container grid grid-cols-1 gap-2 mx-auto px-5 flex flex-col items-center">
 {
       reports.map((report) => (
-         <li class="flex justify-between items-center p-5  bg-blue-600 text-white rounded-2xl m-2">
+         <li class="flex justify-between items-center p-5  bg-blue-600 text-white rounded-2xl m-1">
          <div class="relative">
          <p><small>{report.submitTime}</small><p/>
          <p set:html={report.textNo} class="text-xl"/>
