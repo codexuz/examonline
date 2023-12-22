@@ -143,12 +143,12 @@ uploadBytes(storageRef, audioAnswer).then((snapshot) => {
   // Get the download URL
   getDownloadURL(storageRef).then( async (downloadURL) => {
     console.log('File available at', downloadURL);
-	const AudioRef = doc(db, "users", uid );
-      await updateDoc(AudioRef, {
+	const mainCollection = doc(db, "users", uid);
+      await addDoc(collection(mainCollection, 'report'), {
       audio: downloadURL,
-      submitTime: examSubmitted,
-      textNo: "Test 17. Animals & Picnic",
-      feedback:""    
+	  submitTime: examSubmitted,
+	  textNo: "Test 17. Animals & Picnic",
+	  feedback:""
 });
 window.location.href='/speaking/reports'
 loader.classList.add('hidden')

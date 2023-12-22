@@ -87,6 +87,13 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 var telegramUsername=localStorage.getItem("telegram")
 var telegramName=localStorage.getItem("telegramName")
 
+var d = new Date()
+var h=d.getHours()
+var m=d.getMinutes()
+const date=d.toDateString()
+const time=`${h}:${m}`
+const examSubmitted=`${date}, ${time}`
+
 const storage = getStorage(app);
 const db = getFirestore(app)
 const uid=localStorage.getItem("storeId")
@@ -119,7 +126,7 @@ let audioAnswer = new Blob(audioChunks, { type: 'audio/mp3' });
 
 const formData = new FormData();
 		  formData.append('audio', audioAnswer, 'audio.wav');
-		   formData.append('caption', `@${telegramUsername} ${telegramName}`);
+		   formData.append('caption', `@${telegramUsername} ${telegramName} Test 4. Math`);
 		  formData.append('title', "Multilevel Mock");
 		  fetch(`https://api.telegram.org/bot6124695087:AAG2TZUf4KjJrBQUM9OiO8DV6dSUwScqZ2A/sendAudio?chat_id=1483919112`, {
 			method: 'POST',
@@ -135,9 +142,12 @@ uploadBytes(storageRef, audioAnswer).then((snapshot) => {
   // Get the download URL
   getDownloadURL(storageRef).then( async (downloadURL) => {
     console.log('File available at', downloadURL);
-	const AudioRef = doc(db, "users", uid );
-      await updateDoc(AudioRef, {
+	const mainCollection = doc(db, "users", uid);
+      await addDoc(collection(mainCollection, 'report'), {
       audio: downloadURL,
+	  submitTime: examSubmitted,
+	  textNo: "Test 4. Math",
+	  feedback:""
 });
 window.location.href='/speaking/reports'
 loader.classList.add('hidden')

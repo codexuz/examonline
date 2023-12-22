@@ -87,6 +87,13 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 var telegramUsername=localStorage.getItem("telegram")
 var telegramName=localStorage.getItem("telegramName")
 
+var d = new Date()
+var h=d.getHours()
+var m=d.getMinutes()
+const date=d.toDateString()
+const time=`${h}:${m}`
+const examSubmitted=`${date}, ${time}`
+
 const storage = getStorage(app);
 const db = getFirestore(app)
 const uid=localStorage.getItem("storeId")
@@ -135,12 +142,12 @@ uploadBytes(storageRef, audioAnswer).then((snapshot) => {
   // Get the download URL
   getDownloadURL(storageRef).then( async (downloadURL) => {
     console.log('File available at', downloadURL);
-	const AudioRef = doc(db, "users", uid );
-      await updateDoc(AudioRef, {
+	const mainCollection = doc(db, "users", uid);
+      await addDoc(collection(mainCollection, 'report'), {
       audio: downloadURL,
-      submitTime: examSubmitted,
-      textNo: "Test 10. Weather & Seasons",
-      feedback:""
+	  submitTime: examSubmitted,
+	  textNo: "Test 10. Weather & Seasons",
+	  feedback:""
 });
 window.location.href='/speaking/reports'
 loader.classList.add('hidden')
