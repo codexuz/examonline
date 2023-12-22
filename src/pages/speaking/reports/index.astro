@@ -23,11 +23,23 @@ if (!user) {
 }
 
 
-const userRef = db.collection("users").doc(user.uid)
-const userSnapshot = await userRef.get();
-const userData = userSnapshot.data();
+interface Report {
+  id: string;
+  audio: string;
+  feedback: string;
+  submitTime: string;
+  textNo: string;
+}
 
-const {telegram, telegramName, audio, submitTime, textNo, feedback} = userData
+const reportRef = db.collection("users").doc(user.uid).collection("report");
+const reportSnapshot = await reportRef.get();
+const reports = reportSnapshot.docs.map((doc) => ({
+  id: doc.id,
+  ...doc.data(),
+})) as Report[];
+
+
+
 
 /*
 const deepgram = createClient("7e152e9866bbc69d6487e1bea4b6c250aeeab7ca");
@@ -71,24 +83,29 @@ else{
 <Layout title="Speaking Report">
    <header class="bg-gray-900 w-full sticky top-0 flex items-center justify-between" style="z-index:999">
 
-   <a onclick="window.location.href='/speaking/speaking-mock'"  class="bg-gray-900 rounded-lg flex justify-center items-center  text-white m-4">
- 
+   <a onclick="window.location.href='/speaking/speaking-mock'"  class="bg-gray-900 rounded-lg flex items-center  text-white m-4">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
       </svg>
    Back to Topics
    </a>
-
-      <div class="flex items-center my-3">
-         <span class="text-white bg-blue-600 rounded-full font-semibold py-1 px-5 mx-2">{telegramName || telegram}</span>
-      </div>
    </header>
-   <Report
-   audioUrl={audio}
-   examName={textNo}
-   examDate={submitTime}
-   feedback={feedback}
-   />
+<main class="my-4 pt-6">
+  <ul class="container sm:max-w-4xl grid grid-cols-1 sm:grid-cols-3 mx-auto px-5 flex flex-col items-center">
+{
+      reports.map((report) => (
+         <li class="flex justify-between items-center p-5  bg-blue-600 text-white rounded-2xl">
+         <div class="relative">
+         <p><small>{report.submitTime}</small><p/>
+         <p set:html={report.textNo} class="text-xl"/>
+         </div>
+         <a href={`/speaking/reports/${report.id}`} class="bg-slate-800 shadow-xl text-white rounded-xl px-4 justify-end py-2 mx-3">Show</a>
+         </li>
+      ))
+  }
+  </ul>
+  </main>
+
 </Layout>
 
 <script>

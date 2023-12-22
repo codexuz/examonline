@@ -1,0 +1,76 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { app } from "@lib/firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+import Report from '@components/Report.astro'
+import { createClient } from "@deepgram/sdk";
+
+
+const auth = getAuth(app);
+const db = getFirestore(app)
+
+/* Check current session */
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+
+interface Report {
+  id: string;
+  audio: string;
+  feedback: string;
+  submitTime: string;
+  textNo: string;
+}
+
+const { id } = Astro.params;
+
+if (!id) {
+  return Astro.redirect("/404");
+}
+
+const userRef = db.collection("users").doc(user.uid)
+const userSnapshot = await userRef.get();
+const userData = userSnapshot.data();
+
+const {telegram, telegramName, audio, submitTime, textNo, feedback} = userData
+
+const reportRef = db.collection("users").doc(user.uid).collection("report");
+const reportSnapshot = await reportRef.doc(id).get()
+if (!reportSnapshot.exists) {
+  return Astro.redirect("/404");
+}
+
+const report = reportSnapshot.data() as Report;
+---
+
+<Layout title={report.textNo}>
+   <header class="bg-gray-900 w-full sticky top-0 flex items-center justify-between" style="z-index:999">
+
+   <a onclick="window.location.href='/speaking/speaking-mock'"  class="bg-gray-900 rounded-lg flex justify-center items-center  text-white m-4">
+ 
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+      </svg>
+   Back to Topics
+   </a>
+
+      <div class="flex items-center my-3">
+         <span class="text-white bg-blue-600 rounded-full font-semibold py-1 px-5 mx-2">{telegramName || telegram}</span>
+      </div>
+   </header>
+   <Report
+   audioUrl={report.audio}
+   examName={report.textNo}
+   examDate={report.submitTime}
+   feedback={report.feedback}
+   />
+</Layout>
