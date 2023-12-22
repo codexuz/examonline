@@ -145,7 +145,7 @@ uploadBytes(storageRef, audioAnswer).then((snapshot) => {
       await addDoc(collection(mainCollection, 'report'), {
       audio: downloadURL,
 	  submitTime: examSubmitted,
-	  textNo: ",
+	  textNo: "Test 2. Environmental Problem",
 	  feedback:""
 });
 window.location.href='/speaking/reports'
