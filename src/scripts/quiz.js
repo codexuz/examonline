@@ -43,7 +43,7 @@ if (event.data.size > 0) {
   audioChunks.push(event.data);
 }
 
-let audioAnswer = new Blob(audioChunks, { type: 'audio/mp3' });
+let audioAnswer = new Blob(audioChunks, { type: 'audio/wav' });
 
 
 const formData = new FormData();
