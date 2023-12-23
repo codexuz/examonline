@@ -2,12 +2,19 @@ import { app } from "@lib/firebase/client";
 import { getFirestore,  collection, doc, addDoc  } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-let recorder, audioChunks = [];
 const testName=$('#test').text()
-const question = document.getElementById("question")
 var loader = document.querySelector('.transition-loader')
 var telegramUsername=localStorage.getItem("telegram")
 var telegramName=localStorage.getItem("telegramName")
+
+//webkitURL is deprecated but nevertheless
+URL = window.URL || window.webkitURL;
+var gumStream; 						//stream from getUserMedia()
+var rec; 							//Recorder.js object
+var input; 							//MediaStreamAudioSourceNode we'll be recording
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var audioContext //audio context to help us record
+
 
 var d = new Date()
 var h=d.getHours()
@@ -32,86 +39,89 @@ const fileName = `audio_${formattedDate}_${formattedTime}`;
 
 const storageRef = ref(storage, '/answers/' + fileName);
   
-
-  function startRecording() {
-	navigator.mediaDevices.getUserMedia({ audio: true })
-	  .then(function (stream) {
-		recorder = new MediaRecorder(stream); 
-		recorder.ondataavailable = (event) => {
-
-if (event.data.size > 0) {
-  audioChunks.push(event.data);
-}
-
-let audioAnswer = new Blob(audioChunks, { type: 'audio/wav' });
-
-
-const formData = new FormData();
-		  formData.append('audio', audioAnswer, 'audio.wav');
-		  formData.append('caption', `@${telegramUsername} ${telegramName} ${testName}`);
-		  formData.append('title', "Multilevel Mock");
-		  fetch(`https://api.telegram.org/bot6124695087:AAG2TZUf4KjJrBQUM9OiO8DV6dSUwScqZ2A/sendAudio?chat_id=1483919112`, {
-			method: 'POST',
-			body: formData
-		  })
-			.then(response => {
-				console.log(response)
-                if (response.ok) {
-					// 'file' comes from the Blob or File API
-uploadBytes(storageRef, audioAnswer).then((snapshot) => {
-  console.log('Uploaded a blob or file!');
-
-  // Get the download URL
-  getDownloadURL(storageRef).then( async (downloadURL) => {
-    console.log('File available at', downloadURL);
-	const mainCollection = doc(db, "users", uid);
-      await addDoc(collection(mainCollection, 'report'), {
-      audio: downloadURL,
-	  submitTime: examSubmitted,
-	  textNo: testName,
-	  feedback:""
-});
-window.location.href='/speaking/reports'
-loader.classList.add('hidden')
-  }).catch((error) => {
-    // Handle any errors that occurred during the download URL generation
-    console.error('Error getting download URL', error);
-  });
-});
-					
-                    } else {
-                        // Handle non-ok response (optional)
-                        alert('Failed to send audio:', response.status, response.statusText);
-                        // You can show an error message or take other actions as needed
-                    }
-			})
-			.catch(error => console.error(error));
  
-};  
-		recorder.start();
-  
-	  });
-  }
-
 const playBeep = ()=>{
    var beep = new Audio('/mock-tests/beep.m4a')
    beep.play()
 }
 
-function stopRecording() {
-    recorder.stop();
+
+function startRecording() {
+    var constraints = { audio: true, video:false }
+    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+    	audioContext = new AudioContext();
+    	gumStream = stream;
+    	input = audioContext.createMediaStreamSource(stream);
+    	rec = new Recorder(input,{numChannels:1})
+    	rec.record()
+    	}).catch(function(err) {
+	  	alert('Failed to get permission to record')
+    	
+	});
+
   }
 
+
+  
   function pauseRecording() {
-    recorder.pause();
+    rec.stop();
   }
 
   function resumeRecording() {
-    recorder.resume();
+    rec.record();
   }
 
+ 
+ function stopRecording() {
+	rec.stop();
+	//stop microphone access
+	gumStream.getAudioTracks()[0].stop();
+	rec.exportWAV(createDownloadLink);
+}
 
 
+function createDownloadLink(blob) {
+	const formData = new FormData();
+		formData.append('audio', blob, 'audio.wav');
+		formData.append('caption', `@${telegramUsername} ${telegramName} ${testName}`);
+		formData.append('title', "Multilevel Mock");
+		fetch(`https://api.telegram.org/bot6124695087:AAG2TZUf4KjJrBQUM9OiO8DV6dSUwScqZ2A/sendAudio?chat_id=1483919112`, {
+		  method: 'POST',
+		  body: formData
+		})
+		  .then(response => {
+			  console.log(response)
+			  if (response.ok) {
+				  // 'file' comes from the Blob or File API
+uploadBytes(storageRef, blob).then((snapshot) => {
+console.log('Uploaded a blob or file!');
+
+// Get the download URL
+getDownloadURL(storageRef).then( async (downloadURL) => {
+  console.log('File available at', downloadURL);
+  const mainCollection = doc(db, "users", uid);
+	await addDoc(collection(mainCollection, 'report'), {
+	audio: downloadURL,
+	submitTime: examSubmitted,
+	textNo: testName,
+	feedback:""
+});
+window.location.href='/speaking/reports'
+loader.classList.add('hidden')
+}).catch((error) => {
+  // Handle any errors that occurred during the download URL generation
+  console.error('Error getting download URL', error);
+});
+});
+				  
+		  } else {
+					  // Handle non-ok response (optional)
+					  alert('Failed to send audio:', response.status, response.statusText);
+					  // You can show an error message or take other actions as needed
+				  }
+		  })
+		  .catch(error => console.error(error));
+}
 
 
 
