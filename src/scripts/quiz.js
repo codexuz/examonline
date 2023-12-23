@@ -16,12 +16,7 @@ var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext //audio context to help us record
 
 
-var d = new Date()
-var h=d.getHours()
-var m=d.getMinutes()
-const date=d.toDateString()
-const time=`${h}:${m}`
-const examSubmitted=`${date}, ${time}`
+const examSubmitted=moment().format('MMMM Do YYYY, h:mm:ss a');
 
 const storage = getStorage(app);
 const db = getFirestore(app)
