@@ -50,6 +50,46 @@ if (!reportSnapshot.exists) {
 }
 
 const report = reportSnapshot.data() as Report;
+
+const deepgram = createClient("7e152e9866bbc69d6487e1bea4b6c250aeeab7ca");
+
+if(!report.feedback){
+
+const { result, error } = await deepgram.listen.prerecorded.transcribeUrl(
+  {
+    url:  report.audio
+  },
+  {
+    model: "nova-2-general",
+    punctuate:true,
+    detect_language:true
+  }
+  
+);
+
+if (error) {
+  console.error(error);
+}
+
+const text= result.results.channels[0].alternatives[0].transcript
+if(text==="" || text===null){
+    return new Response('You did not provide any responses')
+}
+
+const changeRef=db.collection("users").doc(user.uid).collection("report").doc(id)
+changeRef.update({
+    transcript: text,
+  }).then(() => {
+    console.log("transcript saved");
+  }).catch((error) => {
+    console.error("Error saving transcript:", error);
+  });
+
+}
+else{
+   console.log('Feedback saqlangan')
+}
+
 ---
 
 <Layout title={report.textNo}>

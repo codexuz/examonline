@@ -4,7 +4,6 @@ import { app } from "@lib/firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
 import Report from '@components/Report.astro'
-import { createClient } from "@deepgram/sdk";
 
 
 const auth = getAuth(app);
@@ -38,47 +37,6 @@ const reports = reportSnapshot.docs.map((doc) => ({
   ...doc.data(),
 })) as Report[];
 
-
-
-
-/*
-const deepgram = createClient("7e152e9866bbc69d6487e1bea4b6c250aeeab7ca");
-
-if(!feedback){
-
-const { result, error } = await deepgram.listen.prerecorded.transcribeUrl(
-  {
-    url:  audio
-  },
-  {
-    model: "nova",
-    punctuate:true
-  }
-  
-);
-
-if (error) {
-  console.error(error);
-}
-
-const text= result.results.channels[0].alternatives[0].transcript
-if(text==="" || text===null){
-    return new Response('You did not provide any responses')
-}
-
-userRef.update({
-    transcript: text,
-  }).then(() => {
-    console.log("transcript saved");
-  }).catch((error) => {
-    console.error("Error saving transcript:", error);
-  });
-
-}
-else{
-   console.log('Feedback saqlangan')
-}
-*/
 ---
 <Layout title="Speaking Report">
    <header class="bg-gray-900 w-full sticky top-0 flex items-center justify-between" style="z-index:999">
