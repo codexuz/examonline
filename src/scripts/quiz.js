@@ -90,29 +90,9 @@ function createDownloadLink(blob) {
 		  .then(response => {
 			  console.log(response)
 			  if (response.ok) {
-				  // 'file' comes from the Blob or File API
-uploadBytes(storageRef, blob).then((snapshot) => {
-console.log('Uploaded a blob or file!');
+				window.location.href='/speaking/reports'
+				loader.classList.add('hidden')
 
-// Get the download URL
-getDownloadURL(storageRef).then( async (downloadURL) => {
-  console.log('File available at', downloadURL);
-  const mainCollection = doc(db, "users", uid);
-	await addDoc(collection(mainCollection, 'report'), {
-	audio: downloadURL,
-	submitTime: examSubmitted,
-	textNo: testName,
-	ques: question,
-	feedback:""
-});
-window.location.href='/speaking/reports'
-loader.classList.add('hidden')
-}).catch((error) => {
-  // Handle any errors that occurred during the download URL generation
-  console.error('Error getting download URL', error);
-});
-});
-				  
 		  } else {
 					  // Handle non-ok response (optional)
 					  alert('Failed to send audio:', response.status, response.statusText);
