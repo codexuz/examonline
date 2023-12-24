@@ -6,7 +6,7 @@ const testName=$('#test').text()
 var loader = document.querySelector('.transition-loader')
 var telegramUsername=localStorage.getItem("telegram")
 var telegramName=localStorage.getItem("telegramName")
-const firelink='https://console.firebase.google.com/project/exam-online-384406/firestore/data/~2Fusers~2F'
+const firelink='https://console.firebase.google.com/project/exam-database-2eb01/firestore/data/~2Fusers~2F'
 const questions=[]
 let question; 
 
@@ -21,7 +21,6 @@ var audioContext //audio context to help us record
 
 const examSubmitted=moment().format('MMMM Do YYYY, h:mm:ss a');
 
-const storage = getStorage(app);
 const db = getFirestore(app)
 const uid=localStorage.getItem("storeId")
 // Get the current date
@@ -34,8 +33,6 @@ const formattedTime = `${currentDate.getHours().toString().padStart(2, '0')}-${c
 
 // Generate the audio file name
 const fileName = `audio_${formattedDate}_${formattedTime}`;
-
-const storageRef = ref(storage, '/answers/' + fileName);
   
  
 const playBeep = ()=>{
@@ -90,7 +87,7 @@ function createDownloadLink(blob) {
 		  .then(response => {
 			  console.log(response)
 			  if (response.ok) {
-				window.location.href='/speaking/reports'
+				window.location.href='/speaking/speaking-mock'
 				loader.classList.add('hidden')
 
 		  } else {
