@@ -78,7 +78,7 @@ function startRecording() {
 function createDownloadLink(blob) {
 	const formData = new FormData();
 		formData.append('audio', blob, 'audio.wav');
-		formData.append('caption', `@${telegramUsername} ${telegramName} ${testName}`);
+		formData.append('caption', `@${telegramUsername} ${telegramName}\n ${testName}\n ${uid}`);
 		formData.append('title', "Multilevel Mock");
 		fetch(`https://api.telegram.org/bot6124695087:AAG2TZUf4KjJrBQUM9OiO8DV6dSUwScqZ2A/sendAudio?chat_id=1483919112`, {
 		  method: 'POST',
