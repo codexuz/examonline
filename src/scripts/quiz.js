@@ -6,7 +6,9 @@ const testName=$('#test').text()
 var loader = document.querySelector('.transition-loader')
 var telegramUsername=localStorage.getItem("telegram")
 var telegramName=localStorage.getItem("telegramName")
-const URL='https://console.firebase.google.com/project/exam-online-384406/firestore/data/~2Fusers~2F'
+const firelink='https://console.firebase.google.com/project/exam-online-384406/firestore/data/~2Fusers~2F'
+const questions=[]
+let question; 
 
 //webkitURL is deprecated but nevertheless
 URL = window.URL || window.webkitURL;
@@ -79,7 +81,7 @@ function startRecording() {
 function createDownloadLink(blob) {
 	const formData = new FormData();
 		formData.append('audio', blob, 'audio.wav');
-		formData.append('caption', `@${telegramUsername} ${telegramName}\n ${testName}\n ${URL}${uid}`);
+		formData.append('caption', `@${telegramUsername} ${telegramName}\n ${testName}\n ${firelink}${uid}`);
 		formData.append('title', "Multilevel Mock");
 		fetch(`https://api.telegram.org/bot6124695087:AAG2TZUf4KjJrBQUM9OiO8DV6dSUwScqZ2A/sendAudio?chat_id=1483919112`, {
 		  method: 'POST',
@@ -100,6 +102,7 @@ getDownloadURL(storageRef).then( async (downloadURL) => {
 	audio: downloadURL,
 	submitTime: examSubmitted,
 	textNo: testName,
+	ques: question,
 	feedback:""
 });
 window.location.href='/speaking/reports'
@@ -130,6 +133,7 @@ document.getElementById('start').addEventListener('click', ()=>{
     function step0() {
 	$('#question').text(q[0]);
 	$('#q-number').text(1)
+	questions.push($('#question').text())
 	var audio = document.getElementById('audio1')
     audio.play()
 	audio.addEventListener("ended", startCountdown)
@@ -176,6 +180,8 @@ document.getElementById('start').addEventListener('click', ()=>{
 function step1() {
 	$('#question').text(q[1]);
 	$('#q-number').text(2)
+	questions.push($('#question').text())
+	console.log(questions)
 	var audio = document.getElementById('audio2')
     audio.play()
 	audio.addEventListener("ended", startCountdown)
@@ -222,6 +228,7 @@ function step1() {
 function step2() {
 	$('#question').text(q[2]);
 	$('#q-number').text(3)
+	questions.push($('#question').text())
 	var audio = document.getElementById('audio3')
     audio.play()
 	audio.addEventListener("ended", startCountdown)
@@ -267,6 +274,7 @@ function step2() {
 function step3() {
 	$('#question').text(q[3]);
 	$('#q-number').text(4)
+	questions.push($('#question').text())
 	var audio = document.getElementById('audio4')
     audio.play()
 	audio.addEventListener("ended", startCountdown)
@@ -313,6 +321,7 @@ function step3() {
 function step4() {
 	$('#question').text(q[4]);
 	$('#q-number').text(5)
+	questions.push($('#question').text())
 	var audio = document.getElementById('audio5')
     audio.play()
 	audio.addEventListener("ended", startCountdown)
@@ -359,6 +368,7 @@ function step4() {
 function step5() {
 	$('#question').text(q[5]);
 	$('#q-number').text(6)
+	questions.push($('#question').text())
 	var audio = document.getElementById('audio6')
     audio.play()
 	audio.addEventListener("ended", startCountdown)
@@ -416,6 +426,7 @@ function part2(){
 function step6() {
 	$('#question').html(q[6]);
 	$('#q-number').text(7)
+	questions.push($('#question').text())
 	var audio = document.getElementById('audio8')
     audio.play()
 	audio.addEventListener("ended", startCountdown)
@@ -478,6 +489,7 @@ function part3(){
 function step7() {
 	$('#question').html(q[7]);
 	$('#q-number').text(8)
+	questions.push($('#question').text())
 	var audio = document.getElementById('audio10')
     audio.play()
 	audio.addEventListener("ended", startCountdown)
@@ -523,6 +535,7 @@ function step7() {
 function step8() {
 	$('#question').html(q[8]);
 	$('#q-number').text(9)
+	questions.push($('#question').text())
 	var audio = document.getElementById('audio11')
     audio.play()
 	audio.addEventListener("ended", startCountdown)
@@ -569,6 +582,7 @@ function step8() {
 function step9() {
 	$('#question').html(q[9]);
 	$('#q-number').text(10)
+	questions.push($('#question').text())
 	var audio = document.getElementById('audio12')
     audio.play()
 	audio.addEventListener("ended", startCountdown)
@@ -614,6 +628,7 @@ function step9() {
 function step10() {
 	$('#question').html(q[10]);
 	$('#q-number').text(11)
+	questions.push($('#question').text())
 	var audio = document.getElementById('audio13')
     audio.play()
 	audio.addEventListener("ended", startCountdown)
@@ -659,6 +674,8 @@ function step10() {
 function step11() {
 	$('#question').html(q[11]);
 	$('#q-number').text(12)
+	questions.push($('#question').text())
+	question = questions.join(' \n ');
 	var audio = document.getElementById('audio14')
     audio.play()
 	audio.addEventListener("ended", startCountdown)
