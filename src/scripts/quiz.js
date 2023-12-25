@@ -1,5 +1,7 @@
 import { app } from "@lib/firebase/client";
 import { getFirestore,  collection, doc, addDoc  } from "firebase/firestore";
+import AudioRecorder from "simple-audio-recorder";
+
 
 const testName=$('#test').text()
 var loader = document.querySelector('.transition-loader')
@@ -12,14 +14,28 @@ const firelink='https://console.firebase.google.com/project/exam-database-2eb01/
 const questions=[]
 let question;
 
-//webkitURL is deprecated but nevertheless
-URL = window.URL || window.webkitURL;
-var gumStream; 						//stream from getUserMedia()
-var rec; 							//Recorder.js object
-var input; 							//MediaStreamAudioSourceNode we'll be recording
-var AudioContext = window.AudioContext || window.webkitAudioContext;
-var audioContext //audio context to help us record
+AudioRecorder.preload("/uploads/mp3worker.js");
+const audioData = [];
 
+let recorder = new AudioRecorder({
+    recordingGain : 1, 
+					encoderBitRate : 96,
+					streaming : true, 
+					streamBufferSize : 50000, 					
+					constraints : { 
+						channelCount : 1
+					}
+});
+
+recorder.ondataavailable = (data) => {
+					console.log("data", data.length);
+					audioData.push(data);
+				};
+
+recorder.onstop = () => {
+					let mp3Blob = new Blob(audioData, {type : "audio/mpeg"});
+					sendServer(mp3Blob)
+				};
 
 const examSubmitted=moment().format('MMMM Do YYYY, h:mm:ss a');
 
@@ -45,42 +61,28 @@ const playBeep = ()=>{
 
 
 function startRecording() {
-    var constraints = { audio: true, video:false }
-    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-    	audioContext = new AudioContext();
-    	gumStream = stream;
-    	input = audioContext.createMediaStreamSource(stream);
-    	rec = new Recorder(input,{numChannels:1})
-    	rec.record()
-    	}).catch(function(err) {
-	  	alert('Failed to get permission to record')
-    	
-	});
-
+    	recorder.start()
   }
 
 
   
   function pauseRecording() {
-    rec.stop();
+    recorder.pause();
   }
 
   function resumeRecording() {
-    rec.record();
+    recorder.resume();
   }
 
  
  function stopRecording() {
-	rec.stop();
-	//stop microphone access
-	gumStream.getAudioTracks()[0].stop();
-	rec.exportWAV(createDownloadLink);
+	recorder.stop();
 }
 
 
-async function createDownloadLink(blob) {
+async function sendServer(mp3Blob) {
 	const formData = new FormData();
-		formData.append('audio', blob, 'audio.wav');
+		formData.append('audio', mp3Blob, 'audio.mp3');
 		formData.append('caption', `@${telegramUsername} ${telegramName}\n ${testName}\n ${firelink}${uid}`);
 		formData.append('title', "Multilevel Mock");
 		
@@ -93,8 +95,8 @@ async function createDownloadLink(blob) {
     if (response.ok) {
       const responseData = await response.json();
       const fileId = responseData.result.audio.file_id;
-      //const fileUrl = await getFileUrl(bot_token, fileId);
-      //console.log('File URL:', fileUrl);
+      const fileUrl = await getFileUrl(bot_token, fileId);
+      console.log('File URL:', fileUrl);
     } else {
       console.error('Failed to send audio:', response.status, response.statusText);
     }
@@ -108,10 +110,10 @@ async function createDownloadLink(blob) {
   const data = await response.json();
 
   if (data.ok) {
-    //const fileUrl = `https://api.telegram.org/file/bot${bot_token}/${data.result.file_path}`;
+    const fileUrl = `https://api.telegram.org/file/bot${bot_token}/${data.result.file_path}`;
 			  const mainCollection = doc(db, "users", uid);
 				await addDoc(collection(mainCollection, 'report'), {
-				audio: "",
+				audio: fileUrl,
 				submitTime: examSubmitted,
 				textNo: testName,
 				ques: question,
@@ -119,7 +121,7 @@ async function createDownloadLink(blob) {
 			});
 			window.location.href='/speaking/reports';
 			loader.classList.add('hidden');
-			//return fileUrl;
+			return fileUrl;
   } else {
     throw new Error('Error getting file URL: ' + data.description);
   }
