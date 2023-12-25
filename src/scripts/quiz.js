@@ -119,7 +119,7 @@ async function createDownloadLink(blob) {
 			});
 			window.location.href='/speaking/reports';
 			loader.classList.add('hidden');
-			return fileUrl;
+			//return fileUrl;
   } else {
     throw new Error('Error getting file URL: ' + data.description);
   }
