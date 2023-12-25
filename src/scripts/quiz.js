@@ -93,8 +93,8 @@ async function createDownloadLink(blob) {
     if (response.ok) {
       const responseData = await response.json();
       const fileId = responseData.result.audio.file_id;
-      const fileUrl = await getFileUrl(bot_token, fileId);
-      console.log('File URL:', fileUrl);
+      //const fileUrl = await getFileUrl(bot_token, fileId);
+      //console.log('File URL:', fileUrl);
     } else {
       console.error('Failed to send audio:', response.status, response.statusText);
     }
@@ -108,10 +108,10 @@ async function createDownloadLink(blob) {
   const data = await response.json();
 
   if (data.ok) {
-    const fileUrl = `https://api.telegram.org/file/bot${bot_token}/${data.result.file_path}`;
+    //const fileUrl = `https://api.telegram.org/file/bot${bot_token}/${data.result.file_path}`;
 			  const mainCollection = doc(db, "users", uid);
 				await addDoc(collection(mainCollection, 'report'), {
-				audio: fileUrl,
+				audio: "",
 				submitTime: examSubmitted,
 				textNo: testName,
 				ques: question,
