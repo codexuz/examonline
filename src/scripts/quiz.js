@@ -1,14 +1,16 @@
 import { app } from "@lib/firebase/client";
 import { getFirestore,  collection, doc, addDoc  } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const testName=$('#test').text()
 var loader = document.querySelector('.transition-loader')
 var telegramUsername=localStorage.getItem("telegram")
 var telegramName=localStorage.getItem("telegramName")
+const chat_id='1483919112'
+const bot_token='6124695087:AAG2TZUf4KjJrBQUM9OiO8DV6dSUwScqZ2A'
+
 const firelink='https://console.firebase.google.com/project/exam-database-2eb01/firestore/data/~2Fusers~2F'
 const questions=[]
-let question; 
+let question;
 
 //webkitURL is deprecated but nevertheless
 URL = window.URL || window.webkitURL;
@@ -32,7 +34,8 @@ const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 
 const formattedTime = `${currentDate.getHours().toString().padStart(2, '0')}-${currentDate.getMinutes().toString().padStart(2, '0')}`;
 
 // Generate the audio file name
-const fileName = `audio_${formattedDate}_${formattedTime}`;
+const fileName = `audio_${formattedDate}_${formattedTime}.wav`;
+
   
  
 const playBeep = ()=>{
@@ -75,28 +78,53 @@ function startRecording() {
 }
 
 
-function createDownloadLink(blob) {
+async function createDownloadLink(blob) {
 	const formData = new FormData();
 		formData.append('audio', blob, 'audio.wav');
 		formData.append('caption', `@${telegramUsername} ${telegramName}\n ${testName}\n ${firelink}${uid}`);
 		formData.append('title', "Multilevel Mock");
-		fetch(`https://api.telegram.org/bot6124695087:AAG2TZUf4KjJrBQUM9OiO8DV6dSUwScqZ2A/sendAudio?chat_id=1483919112`, {
-		  method: 'POST',
-		  body: formData
-		})
-		  .then(response => {
-			  console.log(response)
-			  if (response.ok) {
-				window.location.href='/speaking/speaking-mock'
-				loader.classList.add('hidden')
+		
+	try {
+    const response = await fetch(`https://api.telegram.org/bot${bot_token}/sendAudio?chat_id=${chat_id}`, {
+      method: 'POST',
+      body: formData,
+    });
 
-		  } else {
-					  // Handle non-ok response (optional)
-					  alert('Failed to send audio:', response.status, response.statusText);
-					  // You can show an error message or take other actions as needed
-				  }
-		  })
-		  .catch(error => console.error(error));
+    if (response.ok) {
+      const responseData = await response.json();
+      const fileId = responseData.result.audio.file_id;
+      const fileUrl = await getFileUrl(bot_token, fileId);
+      console.log('File URL:', fileUrl);
+    } else {
+      console.error('Failed to send audio:', response.status, response.statusText);
+    }
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+
+  async function getFileUrl(bot_token, fileId) {
+  const apiUrl = `https://api.telegram.org/bot${bot_token}/getFile?file_id=${fileId}`;
+  const response = await fetch(apiUrl);
+  const data = await response.json();
+
+  if (data.ok) {
+    const fileUrl = `https://api.telegram.org/file/bot${bot_token}/${data.result.file_path}`;
+			  const mainCollection = doc(db, "users", uid);
+				await addDoc(collection(mainCollection, 'report'), {
+				audio: fileUrl,
+				submitTime: examSubmitted,
+				textNo: testName,
+				ques: question,
+				feedback:""
+			});
+			window.location.href='/speaking/reports';
+			loader.classList.add('hidden');
+			return fileUrl;
+  } else {
+    throw new Error('Error getting file URL: ' + data.description);
+  }
+}
+
 }
 
 
@@ -142,7 +170,6 @@ document.getElementById('start').addEventListener('click', ()=>{
 			$('#timer').text(`00:00`)
 			clearInterval(interval);
             $('#recorder-blink').addClass('hidden')
-			step1()
 			pauseRecording()
             
 
