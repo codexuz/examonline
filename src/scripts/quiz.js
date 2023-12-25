@@ -171,6 +171,7 @@ document.getElementById('start').addEventListener('click', ()=>{
 			clearInterval(interval);
             $('#recorder-blink').addClass('hidden')
 			pauseRecording()
+			step1()
             
 
   }
