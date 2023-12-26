@@ -8,7 +8,7 @@ var loader = document.querySelector('.transition-loader')
 var telegramUsername=localStorage.getItem("telegram")
 var telegramName=localStorage.getItem("telegramName")
 const chat_id='1483919112'
-const bot_token='6124695087:AAG2TZUf4KjJrBQUM9OiO8DV6dSUwScqZ2A'
+const bot_token='6124695087:AAFesX68ij5sgWJgjkzS4cbrMEziHlYs_Pk'
 
 const firelink='https://console.firebase.google.com/project/exam-database-2eb01/firestore/data/~2Fusers~2F'
 const questions=[]
