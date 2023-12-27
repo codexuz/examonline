@@ -37,7 +37,7 @@ const {audioUrl, examName, examDate, feedback} = Astro.props
   import jsmediatags from 'jsmediatags'
 
   var audio=document.getElementById('audio').src
-  var title=('#name).text()
+  var title=('#name').text()
   
   const player = new Player({
       container: () => document.querySelector('#player'),
