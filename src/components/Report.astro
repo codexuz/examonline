@@ -31,11 +31,12 @@ const {audioUrl, examName, examDate, feedback} = Astro.props
    <div id="feedback" class="prose lg:prose-lg prose-invert" set:html={feedback}/>
    
     </section>
+
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js" integrity="sha512-YsR46MmyChktsyMMou+Bs74oCa/CDdwft7rJ5wlnmDzMj1mzqncsfJamEEf99Nk7IB0JpTMo5hS8rxB49FUktQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
  
 <script>
   import { Player } from 'shikwasa'
-  import jsmediatags from 'jsmediatags'
-
+  
   var audio=document.getElementById('audio').src
   var title=('#name').text()
   
