@@ -1,4 +1,6 @@
 ---
+import 'shikwasa/dist/style.css'
+
 interface Props{
    audioUrl:string,
    examName:string,
@@ -9,10 +11,11 @@ interface Props{
 const {audioUrl, examName, examDate, feedback} = Astro.props
 ---
 <section class="p-4 mx-auto md:container sm:w-full rounded-md bg-gray-900 mt-5 shadow-xl">
-   <audio type="audio/mp3" download src={audioUrl} controls class="container mx-auto px-4 my-2">
+   <div id="player" class="container mx-auto px-4 my-2"></div>
+   <audio type="audio/mp3" download src={audioUrl} id="audio" class="hidden">
    </audio> 
    <div class="my-3">
-       <h1 class="text-xl text-blue-600 font-bold py-2">Exam: {examName}</h1>
+       <h1 id="name" class="text-xl text-blue-600 font-bold py-2">Exam: {examName}</h1>
        <span class="text-white font-medium mx-2">Exam Date:</span>
        <span class="text-white italic">{examDate}</span>
     </div>
@@ -29,4 +32,41 @@ const {audioUrl, examName, examDate, feedback} = Astro.props
    
     </section>
  
-   
+<script>
+  import { Player } from 'shikwasa'
+  import jsmediatags from 'jsmediatags'
+
+  var audio=document.getElementById('audio).src
+  var title=('#name).text()
+  
+  const player = new Player({
+      container: () => document.querySelector('#player'),
+      parser: jsmediatags,
+      audio: {
+      src: audio,
+      title: title,
+      artist:'Multilevel Mock'
+
+      },
+       // Replace this with the path to your audio file
+      autoplay: false, // Set to true if you want the audio to start playing automatically
+      loop: false, // Set to true if you want the audio to loop
+      theme:'dark',
+      download:true,
+      themeColor: '#2563eb'
+    });
+
+    // You can also add event listeners for various player events
+    player.on('play', () => {
+      console.log('Audio started playing');
+    });
+
+    player.on('pause', () => {
+      console.log('Audio paused');
+    });
+
+    player.on('ended', () => {
+      console.log('Audio playback ended');
+    });
+
+</script>   
