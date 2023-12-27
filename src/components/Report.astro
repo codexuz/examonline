@@ -36,9 +36,9 @@ const {audioUrl, examName, examDate, feedback} = Astro.props
  
 <script>
   import { Player } from 'shikwasa'
-  
+
   var audio=document.getElementById('audio').src
-  var title=('#name').text()
+  var title=document.getElementById('name').innerText
   
   const player = new Player({
       container: () => document.querySelector('#player'),
