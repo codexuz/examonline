@@ -53,11 +53,12 @@ const reports = reportSnapshot.docs.map((doc) => ({
 {
       reports.map((report) => (
          <li class="flex justify-between items-center p-5  bg-blue-600 text-white rounded-2xl m-1">
-         <div class="relative">
+         <a data-astro-reload href={`/speaking/reports/${report.id}`}  class="relative">
+
          <p><small>{report.submitTime}</small><p/>
          <p set:html={report.textNo} class="text-xl"/>
-         </div>
-         <a href={`/speaking/reports/${report.id}`} class="bg-slate-800 shadow-xl text-white rounded-xl px-4 justify-end py-2 mx-3">Show</a>
+         </a>
+         <a data-astro-reload href={`/speaking/reports/${report.id}`} class="bg-slate-800 shadow-xl text-white rounded-xl px-4 justify-end py-2 mx-3">Show</a>
          </li>
       ))
   }

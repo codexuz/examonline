@@ -32,42 +32,12 @@ const {audioUrl, examName, examDate, feedback} = Astro.props
    
     </section>
 
-    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js" integrity="sha512-YsR46MmyChktsyMMou+Bs74oCa/CDdwft7rJ5wlnmDzMj1mzqncsfJamEEf99Nk7IB0JpTMo5hS8rxB49FUktQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
- 
-<script>
-  import { Player } from 'shikwasa'
+ <script is:inline src="/uploads/playerjs.js"></script>
 
+<script>
   var audio=document.getElementById('audio').src
   var title=document.getElementById('name').innerText
+
+  var player = new Playerjs({id:"player", file:audio, title: title});
   
-  const player = new Player({
-      container: () => document.querySelector('#player'),
-      parser: jsmediatags,
-      audio: {
-      src: audio,
-      title: title,
-      artist:'Multilevel Mock'
-
-      },
-       // Replace this with the path to your audio file
-      autoplay: false, // Set to true if you want the audio to start playing automatically
-      loop: false, // Set to true if you want the audio to loop
-      theme:'dark',
-      download:true,
-      themeColor: '#2563eb'
-    });
-
-    // You can also add event listeners for various player events
-    player.on('play', () => {
-      console.log('Audio started playing');
-    });
-
-    player.on('pause', () => {
-      console.log('Audio paused');
-    });
-
-    player.on('ended', () => {
-      console.log('Audio playback ended');
-    });
-
 </script>   
