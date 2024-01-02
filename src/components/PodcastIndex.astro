@@ -1,0 +1,59 @@
+---
+import Back from '@components/Back.astro'
+import 'shikwasa/dist/style.css'
+
+const res = await fetch('http://localhost:4321/api/podcast')
+const pages = await res.json()
+
+const { slug } = Astro.params;
+const page = pages.find((page) => page.slug === slug);
+if (!page) return Astro.redirect("/404");
+const { title, audio, img, text } = page;
+
+---
+
+<!-- Header -->
+    <header class="w-full shadow-xl text-white flex items-center px-2">
+    <Back/>
+        <div class="container mx-auto">
+            <h1 id="title" class="text-md xs:text-lg sm:text-3xl font-semibold">{title}</h1>
+            <p class="text-sm">Exploring the world through conversations</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto mt-8 px-4">
+    <div id="player" class="fixed bottom-0 left-0 w-full"></div>
+    <div set:html={text} class="mx-auto prose my-4 lg:prose-xl prose-invert"/>
+    <audio src={audio} id="audio"></audio>
+    <img src={img} id="img" class="hidden">
+    <div class="h-[150px]"></div>
+    </div>
+
+    <script>
+
+var audio = document.getElementById('audio').src
+var img = document.getElementById('img').src
+var title = document.getElementById('title').innerText
+
+  import { Player } from 'shikwasa'
+
+   // an example with basic init options
+
+ const player = new Player({
+   container: () => document.querySelector('#player'),
+   type: 'fixed',
+   position: 'bottom',
+   theme: 'dark',
+   audio: {
+     title: title,
+     artist: "BBC 6 Minute English",
+     cover: img,
+     src: audio,
+   },
+   download: true,
+ })
+
+ 
+</script>
+
