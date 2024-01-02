@@ -2,7 +2,7 @@
 import Back from '@components/Back.astro'
 import 'shikwasa/dist/style.css'
 
-const res = await fetch('http://localhost:4321/api/podcast')
+const res = await fetch('https://examonline-rouge.vercel.app/api/podcast')
 const pages = await res.json()
 
 const { slug } = Astro.params;
