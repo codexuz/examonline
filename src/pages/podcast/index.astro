@@ -1,10 +1,8 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Back from '@components/Back.astro'
+import Back from '@components/Back.astro';
+import Podcast from '@components/Podcast.astro'
 
-const res = await fetch('http://localhost:4321/api/podcast')
-const pages = await res.json()
-console.log(pages)
 ---
 
 <Layout title="Writing Task 1 Course">
@@ -43,23 +41,7 @@ console.log(pages)
       </div>
      </div>
 
-     <main class="container mx-auto px-4 grid grid-cols-1 mt-7 mb-5 gap-5">
-     <h1 class="text-3xl text-gray-400 font-semibold text-center uppercase">All podcasts</h1>
-   {
-    pages.map((data) => (
-      <article class="block sm:flex items-center mx-auto bg-slate-900 w-[90%] sm:w-[60%] p-3 h-auto rounded">
-      <img src={data.img} class="w-full rounded-xl sm:w-[150px] mb-5"/>
-      <div clas="flex flex-col items-center justify-center sm:justify-start">
-        <h2>
-          <a id="total" class="text-lg sm:text-2xl text-gray-100 pt-5 ml-3" data-astro-reload href={`/podcast/${data.slug}/`} set:html={data.title} />
-        </h2>
-        <p class="text-md text-gray-400 ml-3 pt-[10px]">{data.desc}</p>
-       </div> 
-      </article>
-    ))
-  } 
-  <div class="h-[50px]"></div>
-</main>
+     <Podcast/>
 </Layout>
 
 <script>
