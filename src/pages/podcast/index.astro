@@ -48,10 +48,10 @@ console.log(pages)
    {
     pages.map((data) => (
       <article class="block sm:flex items-center mx-auto bg-slate-900 w-[90%] sm:w-[60%] p-3 h-auto rounded">
-      <img src={data.img} class="w-full rounded-xl sm:w-[150px]"/>
+      <img src={data.img} class="w-full rounded-xl sm:w-[150px] mb-5"/>
       <div clas="flex flex-col items-center justify-center sm:justify-start">
         <h2>
-          <a id="total" class="text-lg sm:text-2xl text-gray-100 pt-5 ml-3 xs:pt-5 xs:pb-4" data-astro-reload href={`/podcast/${data.slug}/`} set:html={data.title} />
+          <a id="total" class="text-lg sm:text-2xl text-gray-100 pt-5 ml-3" data-astro-reload href={`/podcast/${data.slug}/`} set:html={data.title} />
         </h2>
         <p class="text-md text-gray-400 ml-3 pt-[10px]">{data.desc}</p>
        </div> 
