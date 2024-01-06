@@ -27,7 +27,6 @@ const userData = userSnapshot.data();
 
 const {telegram, telegramName,picture, name, email, status, tariff, joined, expiresAt, balance, birth, level, region} = userData
 
-const formattedDate = joined.toDate().toDateString()
 
  const today = new Date();
 
@@ -74,7 +73,7 @@ if (today >= expiresAt) {
      <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-target-arrow" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 7a5 5 0 1 0 5 5" /><path d="M13 3.055a9 9 0 1 0 7.941 7.945" /><path d="M15 6v3h3l3 -3h-3v-3z" /><path d="M15 9l-3 3" /></svg> Tariff: <span class="text-emerald-500 uppercase mx-2">{tariff}</span></li>
 
      <li class="flex items-center text-slate-500 text-left pb-2 font-semibold text-md">
-     <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-clock-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.942 13.021a9 9 0 1 0 -9.407 7.967" /><path d="M12 7v5l3 3" /><path d="M15 19l2 2l4 -4" /></svg> Member: Since <span class="text-rose-500 uppercase mx-2">{formattedDate}</span></li>
+     <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-clock-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.942 13.021a9 9 0 1 0 -9.407 7.967" /><path d="M12 7v5l3 3" /><path d="M15 19l2 2l4 -4" /></svg> Member: Since <span class="text-rose-500 uppercase mx-2">{joined}</span></li>
 
 
      <li class="flex items-center text-slate-500 text-left pb-2 font-semibold text-md">
