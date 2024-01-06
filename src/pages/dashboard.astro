@@ -27,20 +27,53 @@ const userData = userSnapshot.data();
 
 const {telegram, telegramName,picture, name, email, status, tariff, joined, expiresAt, balance, birth, level, region} = userData
 
+var timestamp = joined.toMillis()
 
- const today = new Date();
+const join_date= new Date(timestamp)
 
-if (today >= expiresAt) {
+const joinDate = join_date.toLocaleDateString('uz-UZ', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+});
+
+
+
+const today = new Date().getTime()
+
+let expiredDate; 
+
+if(!expiresAt){
+  console.log("User expired")
+}
+else{
+  const expiresIn = expiresAt.toMillis()
+
+const expire = new Date(expiresIn)
+
+ expiredDate = expire.toLocaleDateString('uz-UZ', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+});
+
+
+if (today >=expiresIn) {
   // Update user status to "unpaid" if today is greater than or equal to expiresAt
   userRef.update({
     status: "unpaid",
-    expiresAt: "expired"
+    expiresAt: "",
+    balance: "0 UZS",
+    tariff: ""
   }).then(() => {
     console.log("User status updated to 'unpaid'");
   }).catch((error) => {
     console.error("Error updating user status:", error);
   });
 }
+
+}
+
 ---
 
 <Layout title="Dashboard">
@@ -73,11 +106,11 @@ if (today >= expiresAt) {
      <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-target-arrow" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 7a5 5 0 1 0 5 5" /><path d="M13 3.055a9 9 0 1 0 7.941 7.945" /><path d="M15 6v3h3l3 -3h-3v-3z" /><path d="M15 9l-3 3" /></svg> Tariff: <span class="text-emerald-500 uppercase mx-2">{tariff}</span></li>
 
      <li class="flex items-center text-slate-500 text-left pb-2 font-semibold text-md">
-     <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-clock-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.942 13.021a9 9 0 1 0 -9.407 7.967" /><path d="M12 7v5l3 3" /><path d="M15 19l2 2l4 -4" /></svg> Member: Since <span class="text-rose-500 uppercase mx-2">{joined}</span></li>
+     <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-clock-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.942 13.021a9 9 0 1 0 -9.407 7.967" /><path d="M12 7v5l3 3" /><path d="M15 19l2 2l4 -4" /></svg> Member: Since <span class="text-rose-500 uppercase mx-2">{joinDate}</span></li>
 
 
      <li class="flex items-center text-slate-500 text-left pb-2 font-semibold text-md">
-     <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-hourglass-off" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 18v2a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1v-2a6 6 0 0 1 6 -6" /><path d="M6 6a6 6 0 0 0 6 6m3.13 -.88a6 6 0 0 0 2.87 -5.12v-2a1 1 0 0 0 -1 -1h-10" /><path d="M3 3l18 18" /></svg> Expire: <span class="text-emerald-500 uppercase mx-2">{expiresAt}</span></li>
+     <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-hourglass-off" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 18v2a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1v-2a6 6 0 0 1 6 -6" /><path d="M6 6a6 6 0 0 0 6 6m3.13 -.88a6 6 0 0 0 2.87 -5.12v-2a1 1 0 0 0 -1 -1h-10" /><path d="M3 3l18 18" /></svg> Expire: <span class="text-emerald-500 uppercase mx-2">{expiredDate}</span></li>
 
      <li class="flex items-center text-slate-500 text-left pb-2 font-semibold text-md">
      <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600  icon icon-tabler icon-tabler-wallet" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 8v-3a1 1 0 0 0 -1 -1h-10a2 2 0 0 0 0 4h12a1 1 0 0 1 1 1v3m0 4v3a1 1 0 0 1 -1 1h-12a2 2 0 0 1 -2 -2v-12" /><path d="M20 12v4h-4a2 2 0 0 1 0 -4h4" /></svg> Balance: <span class="text-violet-500 uppercase mx-2">{balance}</span></li>
