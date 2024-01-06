@@ -27,12 +27,7 @@ const userData = userSnapshot.data();
 
 const {telegram, telegramName,picture, name, email, status, tariff, joined, expiresAt, balance, birth, level, region} = userData
 
-const date = new Date(joined);
-const formattedDate = date.toLocaleDateString('uz-UZ', {
-  day: '2-digit',
-  month: '2-digit',
-  year: 'numeric',
-});
+const formattedDate = joined.toDate().toDateString()
 
  const today = new Date();
 
