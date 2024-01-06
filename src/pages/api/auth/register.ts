@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { getAuth } from "firebase-admin/auth";
-import { getFirestore, serverTimestamp } from "firebase-admin/firestore";
+import { getFirestore } from "firebase-admin/firestore";
 import { app } from "../../../lib/firebase/server";
 
 export const POST: APIRoute = async ({ request, redirect }) => {
@@ -37,7 +37,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       name,
       email,
       status:"unpaid",
-      joined: serverTimestamp(),
+      joined: firestore.FieldValue.serverTimestamp(),
       tariff:"",
       expiresAt:"",
       picture: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
