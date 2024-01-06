@@ -31,13 +31,13 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       photoURL: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png"
     });
     
-   
+   const date = new Date();
     // Save additional data to Firestore
     await firestore.collection("users").doc(userRecord.uid).set({
       name,
       email,
       status:"unpaid",
-      joined: firestore.FieldValue.serverTimestamp(),
+      joined: date,
       tariff:"",
       expiresAt:"",
       picture: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
