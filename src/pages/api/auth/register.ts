@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { getAuth } from "firebase-admin/auth";
-import { getFirestore } from "firebase-admin/firestore";
+import { getFirestore, serverTimestamp } from "firebase-admin/firestore";
 import { app } from "../../../lib/firebase/server";
 
 export const POST: APIRoute = async ({ request, redirect }) => {
@@ -28,24 +28,20 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       email,
       password,
       displayName: name,
+      photoURL: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png"
     });
     
-     const d = new Date();
-    const y=d.getFullYear()
-    const m=d.getMonth()+1
-    const s=d.getDate()
-    const joined=`${s}-${m}-${y}`
    
     // Save additional data to Firestore
     await firestore.collection("users").doc(userRecord.uid).set({
       name,
       email,
       status:"unpaid",
-      joined: joined,
+      joined: serverTimestamp(),
       tariff:"",
       expiresAt:"",
       picture: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
-      balance: "5000 UZS",
+      balance: "0 UZS",
     });
 
     return redirect("/signin");
