@@ -49,7 +49,7 @@ return Astro.redirect("/pay");
 </header>
  <form id="essayForm" class="md:colums-2 flex flex-col justify-start items-center">
     <h1 class="text-3xl font-semibold py-4 text-gray-100">Check IELTS Writing</h1>
-    <textarea required class="md:h-[60px] sm:h-[120px] container mt-5 mx-auto px-4 p-4 text-gray-200 outline-none bg-gray-900 rounded-lg border-2 border-gray-800 font-bold" id="question" name="question" placeholder="Essay savolini kiriting..."></textarea>
+    <textarea required class="container mt-5 mx-auto px-4 p-4 text-gray-200 outline-none bg-gray-900 rounded-lg border-2 border-gray-800 font-bold" id="question" name="question" placeholder="Essay savolini kiriting..."></textarea>
     
     <textarea required class="h-[50px]  mt-5 container mx-auto px-4 bg-gray-900 text-gray-200 italic outline-none p-4 border-2 border-gray-800 rounded-lg" id="essay" name="essay" placeholder="Essayni yozing yoki tashlang..."></textarea>
 
@@ -86,7 +86,33 @@ return Astro.redirect("/pay");
 <div style="height:50px"></div>
 
 </Layout>
- 
+
+
+<script>
+  (function() {
+    window.addEventListener('load', () => {
+      // Textarea auto height
+      const textareas = [
+        '#question',
+      ]
+
+      textareas.forEach((el) => {
+        const textarea = document.querySelector(el);
+
+        textareaAutoHeight(textarea, 3);
+
+        textarea.addEventListener('input', () => {
+          textareaAutoHeight(textarea, 3);
+        });
+      });
+
+      function textareaAutoHeight(el, offsetTop = 0) {
+        el.style.height = 'auto';
+        el.style.height = `${el.scrollHeight + offsetTop}px`;
+      }
+    })
+  })()
+</script>
 
 <script>
   (function() {
