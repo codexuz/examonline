@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { app } from "@lib/firebase/server";
+import { app } from "../../../lib/firebase/server";
 import { getFirestore } from "firebase-admin/firestore";
 
 export const POST: APIRoute = async ({ request, redirect }) => {
