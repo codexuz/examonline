@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { app } from "@lib/firebase/server";
+import { app } from "../../../lib/firebase/server";
 import { getFirestore } from "firebase-admin/firestore";
 
 export const POST: APIRoute = async ({ request, redirect }) => {
@@ -13,7 +13,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   }
   try {
     const db = getFirestore(app);
-    const listeningRef = db.collection("listening");
+    const listeningRef = db.collection("blog");
     await listeningRef.add({
       markup,
       created_at: new Date()
