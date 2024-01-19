@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import bgImg from "../assets/bg.png"; 
+---
+<main  class="hero container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 place-items-center place-content-start backdrop-blur-sm">
+    <div class="backdrop-blur text-white">
+        <h1 class="text-5xl  md:text-6xl font-semibold">
+            <span class="text-blue-600">Chet tillarini</span> bilish darajasini aniqlash imtihonlariga tayyorgarlik <span class="text-blue-600 ">platformasi</span>
+        </h1>
+        <div class="mt-5 mx-auto mb-3 pt-10">
+            <button onclick="window.location.href='/dashboard'" class="flex items-center justify-between mb-2 bg-gray-900 text-gray-50 py-2.5 px-5 rounded-xl text-left font-semibold text-lg w-full sm:w-[400px] animate__animated animate__fadeInUp delay-5" >
+                <div class="flex items-center">
+                <svg class="w-8 h-8 mx-2" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 64 64"><path fill="#2e3192" d="M38 54h16c1.977 0 3.657-.446 5.052-1.223L38 40.219zm25.66-7.79c.228-1.017.344-2.094.344-3.211v-5h-14.11l13.762 8.211M.35 17.759A14.635 14.635 0 0 0 0 21v5h14.164zM26 10H10c-1.963 0-3.632.44-5.021 1.206L26 23.746zM5.043 52.826C6.419 53.57 8.066 54 10 54h16V40.324zM0 38v5c0 1.151.122 2.26.363 3.303L14.282 38zm59.115-26.745C57.709 10.457 56.006 10 54 10H38v13.851zM64 26v-5c0-1.094-.113-2.149-.332-3.147L50.012 26z"/><path fill="#e6e7e8" d="m50.012 26l13.656-8.147c-.626-2.864-2.15-5.235-4.553-6.598L38 23.851V10h-2v18h28v-2zM0 36v2h14.282L.363 46.303c.661 2.855 2.231 5.199 4.68 6.523L26 40.324V54h2V36zm64 0H36v18h2V40.219l21.052 12.559c2.421-1.348 3.964-3.706 4.604-6.566L49.894 38H64zM26 10v13.746L4.979 11.206C2.549 12.546.996 14.9.349 17.759L14.164 26H0v2h28V10z"/><path fill="#be1e2d" d="M36 28V10h-8v18H0v8h28v18h8V36h28v-8z"/><path fill="#be1e2d" d="M21.938 26L1.888 14.031c-.431.64-.777 1.344-1.063 2.094L17.372 26h4.563M63.09 48.09L46.277 38h-4.656l20.313 12.219a9.866 9.866 0 0 0 1.156-2.125m-2.371-35.703L37.969 26l4.619.003L62.219 14.25c-.438-.797-.9-1.311-1.5-1.859M1.813 49.875a8.996 8.996 0 0 0 1.609 1.844L26.063 38H21.5z"/></svg>   
+                Ingliz tili
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+            </button>
+
+           
+            <button class=" flex items-center justify-between mb-2 bg-gray-900 text-gray-50 py-2.5 px-5 rounded-xl text-left font-semibold text-lg w-full  sm:w-[400px] animate__animated animate__fadeInUp delay-6" >
+                <div class="flex items-center">
+                <svg class="w-8 h-8 mx-2" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 36 36"><path fill="#FFCD05" d="M0 27a4 4 0 0 0 4 4h28a4 4 0 0 0 4-4v-4H0z"/><path fill="#ED1F24" d="M0 14h36v9H0z"/><path fill="#141414" d="M32 5H4a4 4 0 0 0-4 4v5h36V9a4 4 0 0 0-4-4"/></svg>
+                Nemis tili
+                </div>
+                <span class="rounded-full bg-slate-800 px-2 py-1 text-xs font-semibold text-blue-600"> Tez kunda </span>
+            </button>
+           
+            <button  class="flex items-center justify-between mb-2 bg-gray-900 text-gray-50 py-2.5 px-5 rounded-xl text-left font-semibold text-lg w-full  sm:w-[400px] animate__animated animate__fadeInUp delay-7" >
+                <div class="flex items-center">
+                    <svg class="w-8 h-8 mx-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path fill="#E30917" d="M36 27a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h28a4 4 0 0 1 4 4z"/><path fill="#EEE" d="M16 24a6 6 0 1 1 0-12c1.31 0 2.52.425 3.507 1.138A7.332 7.332 0 0 0 14 10.647A7.353 7.353 0 0 0 6.647 18A7.353 7.353 0 0 0 14 25.354c2.195 0 4.16-.967 5.507-2.492A5.963 5.963 0 0 1 16 24m3.913-5.77l2.44.562l.22 2.493l1.288-2.146l2.44.561l-1.644-1.888l1.287-2.147l-2.303.98l-1.644-1.889l.22 2.494z"/></svg>
+                 Turk tili
+                </div>
+                <span class="rounded-full bg-slate-800 px-2 py-1 text-xs font-semibold text-blue-600"> Tez kunda </span>
+
+                </button>
+        </div>
+        
+    </div>	
+    <div class="hidden sm:block">
+        <Image src={bgImg} alt="A description of my image." />
+
+    </div>
+    </main>
+
+    <style>
+        .delay-5{
+            animation-delay: 0.5s
+        }
+
+        .delay-6{
+            animation-delay: 0.6s
+        }
+
+        .delay-7{
+            animation-delay: 0.7s
+        }
+
+        .hero{
+            background-image: url('/icons.png'); 
+            background-size: contain;
+        }
+
+        @media screen and (max-width:660px){
+            .hero{
+            background-image: url('/icons.png'); 
+            background-size: contain;
+            background-repeat:no-repeat;   
+            }
+        }
+    </style>

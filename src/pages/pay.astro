@@ -1,15 +1,17 @@
 ---
 import Layout from '@layouts/Layout.astro'
 import Purchase from '@components/Purchase.astro'
+import { Image } from 'astro:assets';
+import imgPay from "../assets/pay.png"; 
 ---
 
 <Layout title="Payment">
 <Purchase/>
 <main class="min-h-screen flex flex-col justify-center items-center text-center">
 <div>
-<img src="/static/img/pay.png"/>
-<h1 class="text-xl text-gray-50 mb-3">Upgrade your tariff plan</h1>
-<a href="https://t.me/javlon_developer" target="_blank" class="bg-blue-600 text-white rounded-xl py-2 my-2 px-4">Contact Us</a>
+<Image src={imgPay} alt="Payment" class="mx-auto"/>
+<h1 class="text-xl text-gray-50 mb-3">Tariffni rejangizni almashtiring</h1>
+<a href="https://t.me/javlon_developer" target="_blank" class="bg-blue-600 text-white rounded-xl py-2 my-2 px-4">Biz bilan bog'lanish</a>
 </div>
 </main>
 </Layout>

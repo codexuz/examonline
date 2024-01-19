@@ -1,9 +1,10 @@
 ---
+import Layout from "@layouts/Layout.astro"
+import SideMenu from "@components/dashboard/SideMenu.astro"
+import Card from "@components/dashboard/Card.astro"
 import { app } from "../lib/firebase/server";
 import { getAuth } from "firebase-admin/auth";
-import Layout from "../layouts/Layout.astro";
 import { getFirestore } from "firebase-admin/firestore";
-import BackHome from "@components/BackHome.astro";
 
 const auth = getAuth(app);
 const db = getFirestore(app)
@@ -23,6 +24,10 @@ if (!user) {
 
 const userRef = db.collection("users").doc(user.uid)
 const userSnapshot = await userRef.get();
+if (!userSnapshot.exists) {
+    return Astro.redirect('/info')
+}
+
 const userData = userSnapshot.data();
 
 const {telegram, telegramName,picture, name, email, status, tariff, joined, expiresAt, balance, birth, level, region} = userData
@@ -75,232 +80,68 @@ if (today >=expiresIn) {
 }
 
 ---
-
 <Layout title="Dashboard">
 <p style="display:none" id="store-id">{user.uid}</p>
- <div class="flex items-center justify-between sticky top-0 bg-slate-800 w-full">
-<div class="flex items-center">
-  <BackHome/>
-  <p class="text-2xl font-bold text-white mx-3">My Account</p>
+<SideMenu
+img={picture}
+name={name}
+email={email}
+balance={balance}
+status={status}
+/>
+
+<main class="container lg:w-[calc(100%-255px)] lg:ml-[255px] mx-auto px-4">
+
+<div class=" mt-4 grid grid-cols-1 sm:grid-cols-4 gap-3 place-items-center   my-5 pt-5 lg:pt-10">
+ <Card
+ bg=""
+ id="speaking"
+ link="/speaking"
+ lottie="/lotties/speaking.json"
+ title="Speaking"
+ desc="Og‘zaki nutq bo‘limining maqsadi nomzodning fikrini chet tilida og‘zaki tarzda to‘g‘ri va ravon ifodalay olish qobiliyatini tekshirishdir."
+  
+ />
+
+ <Card
+ bg=""
+ id="listening"
+ link="/listening"
+ lottie="/lotties/listening.json"
+ title="Listening"
+ desc="Ushbu bo‘limning maqsadi autentik va yarim autentik audiomatnlarning umumiy mazmunini, ulardagi asosiy fikrlar va detallarni tushunish"
+  
+ />
+
+ <Card
+ bg="white"
+ id="writing"
+ link="/writing"
+ lottie="/lotties/writing.json"
+ title="Writing"
+ desc="Yozma nutq bo‘limining maqsadi nomzodning fikrini chet tilida yozma ravishda to‘g‘ri va ravon ifodalay olish qobiliyatini tekshirishdir."
+  
+ />
+
+ <Card
+ bg="white"
+ id="reading"
+ link="/reading"
+ lottie="/lotties/reading.json"
+ title="Reading"
+ desc="Ushbu bo‘limning maqsadi ommabop, ilmiy-ommabop hamda ilmiy matnlarning umumiy mazmunini, ulardagi asosiy fikrlar va detallarni tushunish."
+  
+ />
+
 </div>
-<form class="mx-2" action="/api/auth/signout">
-    <button class="bg-rose-600 rounded-xl mx-2 px-3 py-1 text-white" type="submit">Sign out</button>
-  </form>
-  </div> 
-<div class="container mx-auto px-4 mt-7 min-h-screen">
-
-  <div class="md:flex md:flex-row sm:flex-col items-start justify-center">
-    <div class="my-2 bg-gray-900 p-8 text-gray-50 md:w-96 sm:container sm:mx-auto sm:px-4  rounded-lg shadow-xl flex flex-col items-center justify-center" >
-    <img src={picture || "https://cdn-icons-png.flaticon.com/512/3177/3177440.png"} class="rounded-full w-16 h-16 border-2 border-blue-600 bg-blue-600 my-4"/>
-     <h1 class="text-white text-xl">{name}</h1>
-     <button class="bg-blue-600 text-white px-5 rounded-full border-2 border-blue-600 my-3 shadow-xl py-[1px]">@{telegram|| telegramName || "Your nickname"}</button>
-
-    <div class="flex items-center"><span class="h-1 my-6 border-b border-gray-600 w-16 mx-1"></span> <p class="text-xl text-slate-400">Profile Info</p> <span class="h-1 my-6 border-b border-gray-600 w-16 mx-1"></span></div>
-    <ul>
-     <li class="flex items-center text-slate-500 text-left pb-2 font-semibold text-md">
-     <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-mail-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 7.535v9.465a3 3 0 0 1 -2.824 2.995l-.176 .005h-14a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-9.465l9.445 6.297l.116 .066a1 1 0 0 0 .878 0l.116 -.066l9.445 -6.297z" stroke-width="0" fill="currentColor" /><path d="M19 4c1.08 0 2.027 .57 2.555 1.427l-9.555 6.37l-9.555 -6.37a2.999 2.999 0 0 1 2.354 -1.42l.201 -.007h14z" stroke-width="0" fill="currentColor" /></svg> {email}</li>
-     <li class="flex items-center text-slate-500 text-left pb-2 font-semibold text-md">
-     <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-switch-vertical" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 8l4 -4l4 4" /><path d="M7 4l0 9" /><path d="M13 16l4 4l4 -4" /><path d="M17 10l0 10" /></svg> Status: <span class="text-emerald-500 uppercase mx-2">{status}</span></li>
-
-     <li class="flex items-center text-slate-500 text-left pb-2 font-semibold text-md">
-     <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-target-arrow" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 7a5 5 0 1 0 5 5" /><path d="M13 3.055a9 9 0 1 0 7.941 7.945" /><path d="M15 6v3h3l3 -3h-3v-3z" /><path d="M15 9l-3 3" /></svg> Tariff: <span class="text-emerald-500 uppercase mx-2">{tariff}</span></li>
-
-     <li class="flex items-center text-slate-500 text-left pb-2 font-semibold text-md">
-     <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-clock-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.942 13.021a9 9 0 1 0 -9.407 7.967" /><path d="M12 7v5l3 3" /><path d="M15 19l2 2l4 -4" /></svg> Member: Since <span class="text-rose-500 uppercase mx-2">{joinDate}</span></li>
-
-
-     <li class="flex items-center text-slate-500 text-left pb-2 font-semibold text-md">
-     <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600 icon icon-tabler icon-tabler-hourglass-off" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 18v2a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1v-2a6 6 0 0 1 6 -6" /><path d="M6 6a6 6 0 0 0 6 6m3.13 -.88a6 6 0 0 0 2.87 -5.12v-2a1 1 0 0 0 -1 -1h-10" /><path d="M3 3l18 18" /></svg> Expire: <span class="text-emerald-500 uppercase mx-2">{expiredDate}</span></li>
-
-     <li class="flex items-center text-slate-500 text-left pb-2 font-semibold text-md">
-     <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 text-blue-600  icon icon-tabler icon-tabler-wallet" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 8v-3a1 1 0 0 0 -1 -1h-10a2 2 0 0 0 0 4h12a1 1 0 0 1 1 1v3m0 4v3a1 1 0 0 1 -1 1h-12a2 2 0 0 1 -2 -2v-12" /><path d="M20 12v4h-4a2 2 0 0 1 0 -4h4" /></svg> Balance: <span class="text-violet-500 uppercase mx-2">{balance}</span></li>
-
-<li class="flex items-center text-slate-500 text-left pb-2 font-semibold text-md">
-     <a data-astro-reload href="/speaking/reports" class="mx-2 bg-gradient-to-r from-blue-600 to-violet-600 text-white py-1 px-5 w-full text-center rounded-xl my-2 shadow-xl">My Reports</a>
-     </li>
-
-    </ul>
-                                    
-    </div>
-
-    <div class="my-2 bg-gray-900 p-8 text-gray-50  rounded-lg shadow-xl md:w-1/2 sm:container sm:mx-auto sm:px-4 ">
-
-    <!-- component -->
-<section class="p-3">
-    <h1 class="text-xl font-bold text-white capitalize dark:text-white">Account settings</h1>
-    <form id="form">
-        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-            <div>
-                <label class="text-white dark:text-gray-200" for="username">Full Name</label>
-                <input placeholder={name} value={name} id="username" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-            </div>
-
-            <div>
-                <label class="text-white dark:text-gray-200" for="emailAddress">Email Address</label>
-                <input readonly id="emailAddress" placeholder={email} type="email" class="cursor-not-allowed block w-full px-4 py-2 mt-2 text-gray-700  border border-gray-300 rounded-md bg-gray-300 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-            </div>
-             <div>
-                <label class="text-white dark:text-gray-200" for="telegram">Telegram username</label>
-                <input id="telegram" placeholder="@username" type="text" value={telegram || telegramName} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-            </div>
-            <div>
-                <label class="text-white dark:text-gray-200" for="region">Region</label>
-                <input id="region" placeholder="e.g: Tashkent" type="text" value={region} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-            </div>
-            <div>
-                <label class="text-white dark:text-gray-200" for="date">Date of Birth</label>
-                <input id="date" type="date" value={birth} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-            </div>
-            <div>
-                <label class="text-white dark:text-gray-200" for="level">Current Level</label>
-                <input id="level" placeholder="e.g: B1" type="text" value={level} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-            </div>
-            <div>
-                <img src={picture} id="img" class="hidden w-32 h-32 rounded-lg">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-white">
-                Image
-              </label>
-              <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                <div class="space-y-1 text-center">
-                  <svg class="mx-auto h-12 w-12 text-white" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                  <div class="flex text-sm text-gray-600">
-                    <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                      <span class="">Upload a file</span>
-                      <input id="file-upload" name="file-upload" type="file" accept="image/*" class="sr-only">
-                    </label>
-                    <p class="pl-1 text-white">or drag and drop</p>
-                  </div>
-                  <p class="text-xs text-white">
-                    PNG, JPG, GIF up to 10MB
-                  </p>
-                </div>
-              </div>
-            </div>
-        </div>
-
-        <div class="flex justify-end mt-6">
-            <button class="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">Save</button>
-        </div>
-        <p id="info" class="hidden text-lg text-emerald-500">Saving Changes...</p>
-    </form>
-</section>
-
-
-    </div>
-  
-
-
-
-
-  </div>
-  
- </div>
+<div class="h-[50px]"></div>
+</main>
+    
 </Layout>
 
-
-<script is:inline>
+<script>
 var storeId=document.getElementById("store-id").innerHTML
 localStorage.setItem("storeId", storeId)
 
-</script>
 
-
-<script>
-import { app } from "../lib/firebase/client";
-import { getFirestore, doc, updateDoc } from "firebase/firestore";
-const db = getFirestore(app)
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-
-const storage = getStorage(app);
-const uid=localStorage.getItem("storeId")
-
-let file;
-var username = document.getElementById("username")
-var telegram = document.getElementById("telegram")
-var region = document.getElementById("region")
-var date = document.getElementById("date")
-var level = document.getElementById("level")
-var info = document.getElementById("info")
-
-
-
-document.getElementById("file-upload").addEventListener('change', ()=>{
-  file = document.getElementById("file-upload").files[0]
-  document.getElementById("img").classList.remove('hidden')
-  document.getElementById("img").src= URL.createObjectURL(file)
-})
-
-
-
-//EventHandler and save function
-
-document.getElementById("form").addEventListener('submit', async (e)=>{
-  e.preventDefault()
-
-//indicator
-info.classList.remove('hidden')
-
-//Get ref storage
-const storageRef = ref(storage, '/images/' + file.name);
-const uploadTask = uploadBytesResumable(storageRef, file);
-
-// Listen for state changes, errors, and completion of the upload.
-uploadTask.on('state_changed',
-  (snapshot) => {
-    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    console.log('Upload is ' + progress + '% done');
-    switch (snapshot.state) {
-      case 'paused':
-        console.log('Upload is paused');
-        break;
-      case 'running':
-        console.log('Upload is running');
-        break;
-    }
-  }, 
-  (error) => {
-    // A full list of error codes is available at
-    // https://firebase.google.com/docs/storage/web/handle-errors
-    switch (error.code) {
-      case 'storage/unauthorized':
-        // User doesn't have permission to access the object
-        break;
-      case 'storage/canceled':
-        // User canceled the upload
-        break;
-
-      // ...
-
-      case 'storage/unknown':
-        // Unknown error occurred, inspect error.serverResponse
-        break;
-    }
-  }, 
-  () => {
-    // Upload completed successfully, now we can get the download URL
-    getDownloadURL(uploadTask.snapshot.ref).then( async (downloadURL) => {
-      const profilePicRef = doc(db, "users", uid );
-      await updateDoc(profilePicRef, {
-      picture: downloadURL,
-      name: username.value,
-      birth: date.value,
-      level: level.value,
-      region: region.value,
-      telegram: telegram.value
-});
-     info.classList.add('hidden')
-     window.location.reload()
-    });
-  }
-); 
-
-
-
-
-})
 </script>

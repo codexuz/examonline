@@ -1,0 +1,79 @@
+---
+import { app } from "@lib/firebase/server";
+import { getFirestore } from "firebase-admin/firestore";
+import { getAuth } from "firebase-admin/auth";
+import Layout from "@layouts/Layout.astro";
+import Back from '@components/Back.astro'
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* Check current session */
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+
+const userRef = db.collection("users").doc(user.uid)
+const userSnapshot = await userRef.get();
+const userData = userSnapshot.data();
+
+const {status, tariff} = userData
+
+if(tariff==="basic"){
+return Astro.redirect("/pay");
+}
+
+if(status ==="unpaid" || status ==="" || status ===null){
+  return Astro.redirect("/price");	
+}
+
+
+interface Listening {
+  id: string;
+  title: string;
+  markup: string;
+}
+
+const listeningRef = db.collection("full-mock");
+const listeningSnapshot = await listeningRef.get();
+const listenings = listeningSnapshot.docs.map((doc) => ({
+  id: doc.id,
+  ...doc.data(),
+})) as Listening[];
+
+
+---
+
+<Layout title="Full Mock Tests">
+<header class="flex items-center px-5 w-full sticky top-0 py-1 shadow-xl">
+<Back/>
+</header>
+
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 container mx-auto mt-5 pt-8 px-4">
+     {
+      listenings.map((listen) => (
+        
+        <a class="px-5 py-3 bg-slate-700 rounded-lg text-xl text-white flex items-center justify-between gap-x-2" href={`/full-mock/${listen.id}`}>
+        {listen.title}
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+        </a>
+          
+        
+    ))
+    }
+  </div>  
+
+</div>
+
+</section>
+      
+
+</Layout>

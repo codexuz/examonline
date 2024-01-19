@@ -1,7 +1,7 @@
 ---
-import { app } from "../lib/firebase/server";
+import { app } from "@lib/firebase/server";
 import { getAuth } from "firebase-admin/auth";
-import Layout from "../layouts/Layout.astro";
+import Layout from "@layouts/Layout.astro";
 import SignIn from "@components/SignIn.astro";
 
 /* Check if the user is authenticated */
@@ -13,6 +13,7 @@ if (Astro.cookies.has("session")) {
     return Astro.redirect("/dashboard");
   }
 }
+
 ---
 
 <Layout title="Sign in">
@@ -25,14 +26,16 @@ if (Astro.cookies.has("session")) {
     GoogleAuthProvider,
     signInWithPopup
   } from "firebase/auth";
-  import { app } from "../lib/firebase/client";
+  import { app } from "@lib/firebase/client";
 
   const auth = getAuth(app);
   const form = document.querySelector("form") as HTMLFormElement;
-  const loadingElement = document.getElementById("loading");
   const errorElement = document.getElementById("error");
+  const loader = document.getElementById("loader")
 
   form.addEventListener("submit", async (e) => {
+    errorElement.classList.add('hidden')
+    loader.classList.remove('hidden')
     e.preventDefault();
     const formData = new FormData(form);
     const email = formData.get("email")?.toString();
@@ -41,10 +44,6 @@ if (Astro.cookies.has("session")) {
     if (!email || !password) {
       return;
     }
-
-    // Show loading animation
-    loadingElement.style.display = "block";
-    errorElement.style.display = "none";
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -64,18 +63,32 @@ if (Astro.cookies.has("session")) {
         window.location.assign(response.url);
       } else {
         // Hide loading animation
-        loadingElement.style.display = "none";
+        //loadingElement.style.display = "none";
       }
     } catch (error) {
-      // Hide loading animation
-      loadingElement.style.display = "none";
       // Show error alert
-      errorElement.style.display = "block";
-      errorElement.textContent = "Invalid credentials. Please try again.";
+      loader.classList.add('hidden')
+      errorElement.classList.remove('hidden')
     }
 
   });
 
 
+  const googleSignin = document.querySelector("#google") as HTMLButtonElement;
+  googleSignin.addEventListener("click", async () => {
+    const provider = new GoogleAuthProvider();
+    const userCredential = await signInWithPopup(auth, provider);
+    const idToken = await userCredential.user.getIdToken();
+    const res = await fetch("/api/auth/signin", {
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
+    });
+
+    if (res.redirected) {
+      window.location.assign(res.url);
+    }
+  });
+  
 </script>
 

@@ -1,0 +1,60 @@
+---
+import { app } from "@lib/firebase/server";
+import { getFirestore } from "firebase-admin/firestore";
+import { getAuth } from "firebase-admin/auth";
+import Layout from "@layouts/Layout.astro";
+import Course from '@components/course/Course.astro'
+import SideMenu from "@components/dashboard/SideMenu.astro"
+
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+/* Check current session */
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+
+const userRef = db.collection("users").doc(user.uid)
+const userSnapshot = await userRef.get();
+const userData = userSnapshot.data();
+
+const {name, email, balance, picture, status, tariff} = userData
+
+
+---
+
+<Layout title="Kurslar">
+<SideMenu
+img={picture}
+name={name}
+email={email}
+balance={balance}
+status={status}
+/>
+
+<main class="container lg:w-[calc(100%-255px)] lg:ml-[255px] mx-auto px-4">
+
+<section class="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-3 gap-3 items-center justify-center  place-items-center pt-20 pb-10 lg:pt-[120px] lg:pb-20">
+
+<Course
+title="Writing Task 1 (Letter)"
+duration="1-2 hafta"
+level="Intermediate"
+link="/courses/task-1"
+lesson="5 ta"
+/>
+
+
+</section>
+</main>   
+
+</Layout>

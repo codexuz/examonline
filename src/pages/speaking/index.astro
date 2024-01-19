@@ -37,7 +37,7 @@ if(status ==="unpaid" || status ===""){
 <h1 class="mx-2">Speaking Section</h1>
 </header>
 
-<main class="box-card my-5">
+<main class="container px-4 grid grid-cols-1 sm:grid-cols-2 mx-auto place-items-center my-5">
 <div class="my-2 card-container py-3 px-5  flex rounded-2xl bg-gray-800  items-center shadow-xl">
         <a href="/speaking/speaking-mock" class="bg-blue-700 py-2 px-3 text-white rounded-xl">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -137,14 +137,7 @@ if(status ==="unpaid" || status ===""){
 </Layout>
 
 <style>
-     .box-card{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      flex-wrap:wrap
-     }
-
-    .card-container {
+     .card-container {
         width: 400px;
         margin:10px 30px
     }
@@ -155,11 +148,5 @@ if(status ==="unpaid" || status ===""){
         margin: 10px 5%
     }
 
-    .box-card{
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center
-     }
     }
 </style>

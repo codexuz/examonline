@@ -14,7 +14,7 @@ const firelink='https://console.firebase.google.com/project/exam-database-2eb01/
 const questions=[]
 let question;
 
-AudioRecorder.preload("/uploads/mp3worker.js");
+AudioRecorder.preload("/js/mp3worker.js");
 const audioData = [];
 
 let recorder = new AudioRecorder({
@@ -55,7 +55,7 @@ const fileName = `audio_${formattedDate}_${formattedTime}.wav`;
   
  
 const playBeep = ()=>{
-   var beep = new Audio('/mock-tests/beep.m4a')
+   var beep = new Audio('/german/beep.m4a')
    beep.play()
 }
 
@@ -117,7 +117,16 @@ async function sendServer(mp3Blob) {
 				submitTime: examSubmitted,
 				textNo: testName,
 				ques: question,
-				feedback:""
+				feedback:"",
+				score:"",
+				lexic:"",
+				grammar: "",
+				fluency:"",
+				pronunciation:"",
+				suggestion: "",
+				level:"",
+				show: "false"
+
 			});
 			window.location.href='/speaking/reports';
 			loader.classList.add('hidden');
@@ -682,7 +691,7 @@ function step11() {
 	$('#question').html(q[11]);
 	$('#q-number').text(12)
 	questions.push($('#question').text())
-	question = questions.join(' \n ');
+	question = questions;
 	var audio = document.getElementById('audio14')
     audio.play()
 	audio.addEventListener("ended", startCountdown)

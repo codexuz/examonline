@@ -30,24 +30,20 @@ const course = courseSnapshot.data() as Course;
 ---
 
 <Layout title={course.title}>
-<header class="flex items-center px-5 w-full sticky top-0 bg-slate-900 py-1 shadow-xl">
+<header class="flex items-center px-5 w-full sticky top-0  py-1 shadow-xl">
 <Back/>
-<h1 class="text-white text-xl">Lessons</h1>
 </header>
-<section class="max-w-3xl mx-auto pt-10 mb-6 bg-slate-900 my-5 p-6 rounded-lg">
-   <iframe class="w-full h-full aspect-video rounded-xl" src={course.video} title={course.title} frameborder="0" 
- allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
-
-  <div class="flex items-center justify-between mt-4 mb-3">
-      <p class="py-2 hidden sm:flex items-center text-white prose lg:prose-xl">
-    <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 mx-2 icon icon-tabler icon-tabler-calendar-stats" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" /><path d="M18 14v4h4" /><path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M15 3v4" /><path d="M7 3v4" /><path d="M3 11h16" /></svg>
-    Published: {course.date}</p>
-    <div class="g-ytsubscribe" data-channelid="UCi1XXSBwveXksfJTDNmBUuA" data-layout="default" data-count="default"></div>
-   </div>
+<section class="container mx-auto px-4 pt-10 mb-6  my-5 p-6">
   
-  <div class="prose lg:prose-xl prose-invert">
+  <div class="prose lg:prose-xl prose-invert mx-auto">
+
+   <iframe class="w-full h-full mb-3 sm:w-[769px] sm:h-[409px] mx-auto  aspect-video rounded-xl" src={course.video} title={course.title} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
+
+  <div class="g-ytsubscribe" data-channelid="UCi1XXSBwveXksfJTDNmBUuA" data-layout="default" data-count="default"></div>
+
    <div set:html={course.body}/>
   </div>
+  </section>
 </Layout>
 
 <script is:inline src="https://apis.google.com/js/platform.js"></script>

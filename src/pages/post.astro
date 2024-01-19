@@ -1,12 +1,9 @@
 ---
-import Layout from '@layouts/Layout.astro'
-import Post from '@components/Post.astro';
-import SkillHeader from '@components/SkillHeader.astro';
-
+import EditorLayout from "@layouts/EditorLayout.astro";
+import EditorJs from '@components/editor/EditorJs.astro'
 ---
-<Layout title="Writing Task 1">
-<SkillHeader skillTitle="Writing Task 1"/>
-<main class="w-full flex flex-col justify-center items-center mt-4">
-    <Post/>
-</main>
-</Layout>
+
+<EditorLayout title="Shaxsiy ma'lumotlar">
+   <EditorJs/>
+</EditorLayout>
+

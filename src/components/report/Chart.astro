@@ -1,0 +1,36 @@
+---
+interface Props{
+  widthHeight: string;
+}
+
+const {widthHeight} = Astro.props
+---
+<div id="chart" class={widthHeight}></div>
+
+
+<script>
+import ApexCharts from 'apexcharts'
+      
+        var options = {
+          series: [{
+          name: 'Level',
+          data: [30, 23, 50, 60, 40],
+        }],
+          chart: {
+          height: 350,
+          type: 'radar',
+           toolbar: {
+             show:false
+           }
+        },
+        title: {
+          text: ''
+        },
+        xaxis: {
+          categories: ['A1', 'A2', 'B1', 'B2', 'C1']
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+</script>
