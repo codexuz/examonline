@@ -27,9 +27,6 @@ const userData = userSnapshot.data();
 
 const {tariff, telegram, telegramName, status} = userData
 
-if(status ==="unpaid" || status ===""){
-  return Astro.redirect("/price");	
-}
 
 if (!telegram && !telegramName) {
     return Astro.redirect("/telegram");
