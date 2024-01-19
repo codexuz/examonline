@@ -3,22 +3,22 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "allowJs": true,
-    "baseUrl": "D:/dasturlash/eduAI/eduai/src",
+    "baseUrl": ".",
     "paths": {
       "@lib/*": [
-        "lib/*"
+        "src/lib/*"
       ],
       "@components/*": [
-        "components/*"
+        "src/components/*"
       ],
       "@layouts/*": [
-        "layouts/*"
+        "src/layouts/*"
       ],
       "@assets/*": [
-        "assets/*"
+        "src/assets/*"
       ],
       "@pages/*": [
-        "pages/*"
+        "src/pages/*"
       ]
     },
     "jsx": "react-jsx",
