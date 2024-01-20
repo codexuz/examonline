@@ -92,7 +92,7 @@ document.getElementById('save').addEventListener('click', async ()=>{
     editor.save().then( async (outputData) => {
     const text = parser.parse(outputData);
     //console.log(JSON.stringify(markup))
-    const response = await fetch('/api/listening', {
+    const response = await fetch('/api/blog', {
     method: 'POST',
     body: JSON.stringify({title, text}),
     headers: {
