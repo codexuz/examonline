@@ -44,6 +44,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       expiresAt:"",
       picture: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
       balance: "0 UZS",
+      attempt: "1"
     });
 
     return redirect("/signin");
