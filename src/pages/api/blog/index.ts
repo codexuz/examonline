@@ -4,7 +4,7 @@ import { getFirestore } from "firebase-admin/firestore";
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   const body = await request.json()
-  const {title, text} = body
+  const {text} = body
   
   if (!markup) {
     return new Response("Missing required fields", {
@@ -15,7 +15,6 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const db = getFirestore(app);
     const blogRef = db.collection("blog");
     await blogRef.add({
-      title,
       text,
       created: new Date()
     });
