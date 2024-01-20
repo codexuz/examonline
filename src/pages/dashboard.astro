@@ -35,7 +35,7 @@ const userData = userSnapshot.data();
 const {telegram, telegramName,picture, name, email, status, tariff, joined, expiresAt, balance, birth, level, region, ip} = userData
 
 if(!ip){
-console.log('Ip topilmadi')
+return Astro.redirect('/info')
 }
 
 if(ip != clientIp){
