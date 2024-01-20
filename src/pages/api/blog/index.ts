@@ -6,7 +6,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   const body = await request.json()
   const {text} = body
   
-  if (!markup) {
+  if (!text) {
     return new Response("Missing required fields", {
       status: 400,
     });
