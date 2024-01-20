@@ -1,10 +1,10 @@
 import type { APIRoute } from "astro";
-import { app } from "../../../lib/firebase/server";
+import { app } from "@lib/firebase/server";
 import { getFirestore } from "firebase-admin/firestore";
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   const body = await request.json()
-  const {markup} = body
+  const {title, text} = body
   
   if (!markup) {
     return new Response("Missing required fields", {
@@ -13,10 +13,11 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   }
   try {
     const db = getFirestore(app);
-    const listeningRef = db.collection("blog");
-    await listeningRef.add({
-      markup,
-      created_at: new Date()
+    const blogRef = db.collection("blog");
+    await blogRef.add({
+      title,
+      text,
+      created: new Date()
     });
   } catch (error) {
     return new Response("Something went wrong", {
