@@ -13,6 +13,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   const email = formData.get("email")?.toString();
   const password = formData.get("password")?.toString();
   const name = formData.get("name")?.toString();
+  const ip = formData.get("ip")?.toString();
 
   if (!email || !password || !name) {
     return new Response(
@@ -35,6 +36,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     // Save additional data to Firestore
     await firestore.collection("users").doc(userRecord.uid).set({
       name,
+      ip,
       email,
       status:"unpaid",
       joined: date,

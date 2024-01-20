@@ -9,6 +9,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   const formData = await request.formData();
   
   const id = formData.get("id")?.toString();
+  const ip = formData.get("ip")?.toString();
   const region = formData.get("region")?.toString();
   const email = formData.get("email")?.toString();
   const picture = formData.get("picture")?.toString();
@@ -38,7 +39,8 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       balance: "0 UZS",
       birth: birth,
       level: level,
-      region: region
+      region: region,
+      ip
     });
 
     return redirect("/dashboard");
