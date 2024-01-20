@@ -5,6 +5,8 @@ import Card from "@components/dashboard/Card.astro"
 import { app } from "../lib/firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
+const clientIp = Astro.clientAddress;
+
 
 const auth = getAuth(app);
 const db = getFirestore(app)
@@ -30,7 +32,15 @@ if (!userSnapshot.exists) {
 
 const userData = userSnapshot.data();
 
-const {telegram, telegramName,picture, name, email, status, tariff, joined, expiresAt, balance, birth, level, region} = userData
+const {telegram, telegramName,picture, name, email, status, tariff, joined, expiresAt, balance, birth, level, region, ip} = userData
+
+if(!ip){
+console.log('Ip topilmadi')
+}
+
+if(ip != clientIp){
+  return Astro.redirect('/')
+}
 
 var timestamp = joined.toMillis()
 
