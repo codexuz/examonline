@@ -39,8 +39,9 @@ return Astro.redirect('/info')
 }
 
 if(ip != clientIp){
-  return Astro.redirect('/')
+  return Astro.redirect('/max-ip')
 }
+
 
 var timestamp = joined.toMillis()
 
