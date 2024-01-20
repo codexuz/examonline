@@ -88,6 +88,7 @@ const editor = new EditorJS({
 
 
 document.getElementById('save').addEventListener('click', async ()=>{
+   document.body.style.opacity="0.5"
     editor.save().then( async (outputData) => {
     const markup = parser.parse(outputData);
     //console.log(JSON.stringify(markup))
@@ -101,6 +102,7 @@ document.getElementById('save').addEventListener('click', async ()=>{
     
      // Check if the response status is ok (2xx)
     if (response.ok) {
+     document.body.style.opacity="1"
       const data = await response.json();
       console.log(data);
     } else {
