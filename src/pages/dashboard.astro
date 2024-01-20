@@ -34,11 +34,13 @@ const userData = userSnapshot.data();
 
 const {telegram, telegramName,picture, name, email, status, tariff, joined, expiresAt, balance, birth, level, region, ip} = userData
 
+
+/*
 if(!ip){
 return Astro.redirect('/info')
 }
 
-/*
+
 if(ip != clientIp){
   return Astro.redirect('/max-ip')
 }
