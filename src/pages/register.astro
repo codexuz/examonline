@@ -1,8 +1,11 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Registeration from "@components/Register.astro";
+const ip = Astro.clientAddress;
 ---
 
 <Layout title="Register">
-  <Registeration/>
+  <Registeration
+  ip={ip}
+  />
 </Layout>
