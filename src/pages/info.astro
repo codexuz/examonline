@@ -3,6 +3,8 @@ import Layout from "@layouts/Layout.astro";
 import { app } from "../lib/firebase/server";
 import { getAuth } from "firebase-admin/auth";
 import { getFirestore } from "firebase-admin/firestore";
+const ip = Astro.clientAddress;
+
 
 const auth = getAuth(app);
 const db = getFirestore(app)
@@ -33,6 +35,7 @@ const {uid, photoURL, email} = user
             <input type="hidden" name="picture" value={photoURL}>
             <input type="hidden" name="email" value={email}>
             <input type="hidden" name="id" value={uid}>
+            <input type="hidden" name="ip" value={ip}>
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                 <div>
                     <label class="text-gray-200" for="username">To'liq ism-familiya</label>
