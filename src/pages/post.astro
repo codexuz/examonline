@@ -93,7 +93,7 @@ document.getElementById('save').addEventListener('click', async ()=>{
     //console.log(JSON.stringify(text))
     const response = await fetch('/api/blog', {
     method: 'POST',
-    body: JSON.stringify({text}),
+    body: JSON.stringify(text),
     headers: {
         'Content-Type': 'application/json'
       }
@@ -102,7 +102,7 @@ document.getElementById('save').addEventListener('click', async ()=>{
      // Check if the response status is ok (2xx)
     if (response.ok) {
       const data = await response.json();
-      //console.log(data);
+      console.log(data);
     } else {
       // If the response status is not ok, handle the error
       console.log('Server responded with error:', response.statusText);
