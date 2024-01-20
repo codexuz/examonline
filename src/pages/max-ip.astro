@@ -1,0 +1,58 @@
+---
+import Layout from "@layouts/Layout.astro"
+import { app } from "../lib/firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+const clientIp = Astro.clientAddress;
+
+
+const auth = getAuth(app);
+const db = getFirestore(app)
+
+/* Check current session */
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+
+const userRef = db.collection("users").doc(user.uid)
+const userSnapshot = await userRef.get();
+if (!userSnapshot.exists) {
+    return Astro.redirect('/info')
+}
+
+const userData = userSnapshot.data();
+
+const {ip} = userData
+---
+
+<Layout title="Boshqa qurilma">
+    <header class="h-[60px] w-full sticky top-0 shadow-lg text-white flex items-center">
+        <h1 class="text-xl mx-3">Boshqa qurilma</h1>
+    </header>
+
+    <section class="container px-4 flex flex-col justify-center items-center p-6 mt-5 pt-10 mx-auto">
+        
+        <p class="text-white font-medium text-2xl mb-3">Mavjud qurilma manzillari:</p>
+        
+        <div class="p-3 rounded-xl mx-auto shadow-xl mb-2 mx-2 w-[90%] sm:w-[500px] bg-slate-700 text-white font-medium text-lg">Joriy ip mazil: <span class="py-1 px-4 bg-rose-600 rounded-xl text-gray-50">{clientIp}</span></div>
+
+        <div class="p-3 rounded-xl mx-auto shadow-xl mb-2 w-[90%] mx-2 sm:w-[500px] bg-slate-700 text-white font-medium text-lg">Egalik ip manzili: <span class="py-1 px-4 bg-rose-600 rounded-xl text-gray-50">{ip}</span></div>
+        <div class="mx-auto mt-3">
+        <form action="/api/auth/signout" class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg bg-red-600 text-white">
+                <button class="flex items-center">
+                  <svg  xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 icon icon-tabler icon-tabler-logout"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
+                  <span class="mx-4 font-medium">Chiqish</span>
+                </button>
+              </form>
+        </div>
+        
+    </section>
+</Layout>
