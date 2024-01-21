@@ -6,7 +6,7 @@ const EssayList = () => {
 
   useEffect(() => {
     // Fetch essays from the JSON file or API endpoint
-    fetch('http://examonline-rouge.vercel.app/uploads/essay.json')
+    fetch('https://examonline-rouge.vercel.app/uploads/essay.json')
       .then(response => response.json())
       .then(data => setEssays(data))
       .catch(error => console.error('Error fetching essays:', error));
