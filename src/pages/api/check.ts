@@ -8,19 +8,20 @@ const openai = new OpenAI({
 export const POST: APIRoute = async ({request }) => {
   if (request.headers.get("Content-Type") === "application/json") {
     const body = await request.json();
+    const {title, content} = body
     try{
     const completion = await openai.completions.create({
     model: "gpt-3.5-turbo-instruct",
-    prompt: `You know everything about scoring IELTS essays. You assess the given essay  ${body.essay} of the given question ${body.question} in terms of IELTS Writing Criteria and essay sentences count, paragraphs count, and list the used academic words, and provide feedback and show grammar and spelling errors.You must follow this JSON output : 
+    prompt: `You know everything about scoring IELTS essays. You assess the given essay  ${content} of the given question ${title} in terms of IELTS Writing Criteria and essay sentences count, paragraphs count, and list the used academic words, and provide feedback and show grammar and spelling errors.You must follow this JSON output : 
       {
         "Band": "band",
         "Sentences": "sentences",
         "Paragraphs": "paragraphs",
         "Feedback": "feedback",
-        "TaskAchievement": "taskachievement",
-        "CoherenceCohesion": "coherence&cohesion",
-        "GrammarRange": "grammarRange",
-        "LexicalResource": "lexicalResources",
+        "TaskAchievement": "taskachievement feedback",
+        "CoherenceCohesion": "coherence&cohesion feedback",
+        "GrammarRange": "grammarRange feedback",
+        "LexicalResource": "lexicalResources feedback",
         "AcademicWord"={["academicWords"]},
       }
     `,
