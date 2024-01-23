@@ -1,0 +1,70 @@
+---
+interface Props{
+  title:string
+}
+
+const {title} = Astro.props
+---
+<form id="form" class="container sm:max-w-4xl mx-auto p-8 bg-slate-800 sm:bg-gray-900 sm:shadow-lg sm:rounded-lg mt-10">
+    <h1 class="text-3xl text-blue-600 font-semibold mb-6">Essay Checker</h1>
+
+    <div class="mb-6">
+      <label for="essayQuestion" class="block text-sm font-medium text-gray-400">Essay Question</label>
+      <div class="flex items-center">
+      <p id="essayQuestion" class="text-lg mb-2 text-gray-100">{title}</p>
+    </div>
+
+    <div class="mb-6">
+      <label for="essayText" class="block text-sm font-medium text-gray-400">Your Essay</label>
+      <textarea value="" id="essayText" class="w-full bg-slate-700/20 sm:bg-gray-700/30 text-gray-400 p-4 rounded-md border-none focus:outline-none resize-none" name="essay" rows="5" placeholder="Start typing your essay..."></textarea>
+    </div>
+
+    <div class="mb-6" id="timeContainer">
+      <label for="timer" class="block text-sm font-medium text-gray-400">Time Remaining</label>
+      <div id="timer" class="text-2xl font-bold text-gray-50">40:00</div>
+    </div>
+
+    <button id="checkButton" class="bg-blue-600 mx-auto w-full sm:w-auto text-white px-4 py-2 rounded-2xl hover:bg-blue-700 focus:outline-none sm:focus:ring sm:focus:border-blue-300">Check Essay</button>
+  
+  </form>
+
+  
+ 
+  <script>
+    // JavaScript for the countdown timer using moment.js
+    let timerDuration = moment.duration({ minutes: 40 });
+    let timerInterval;
+
+    function updateTimer() {
+      const timerElement = document.getElementById('timer');
+      const timerText = moment.utc(timerDuration.as('milliseconds')).format('mm:ss');
+      timerElement.textContent = timerText;
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(function () {
+        if (timerDuration.as('seconds') <= 0) {
+          clearInterval(timerInterval);
+          console.log("time is up")
+           timerElement.textContent = "Time is Up!"
+        } else {
+          timerDuration.subtract(1, 'second');
+          updateTimer();
+        }
+      }, 1000);
+    }
+
+    
+
+    // Auto-adjust textarea height based on content
+    const textarea = document.getElementById('essayText');
+    textarea.addEventListener('input', function () {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+      
+      // Start the timer when the user starts typing
+      if (!timerInterval) {
+        startTimer();
+      }
+    });
+  </script>
