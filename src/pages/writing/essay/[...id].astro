@@ -1,10 +1,42 @@
 ---
-import Textarea from "@components/essay/Textarea.astro";
 import Layout from "@layouts/Layout.astro";
+import Back from "@components/Back.astro";
+import Textarea from "@components/essay/Textarea.astro";
+import Modal from "@components/essay/Modal.astro";
+import Result from "@components/essay/Result.astro";
+
+const response = await fetch(Astro.url+ "/api/essay")
+const essayQues = await response.json()
+
+const {id} = Astro.params
+
+const essay = essayQues.find((essay) => essay.id === id);
+if (!essay) return Astro.redirect("/404");
+const { title, content } = essay;
 ---
-<Layout title="Essay checker">
-<Textarea/>
+
+
+<Layout title={title}>
+<header class="w-full sticky top-0  flex justify-between items-center px-5 text-2xl font-semibold text-gray-100 bg-slate-800">
+<div class="flex items-center">
+    <Back/>
+</div>
+</header>
+<div class="flex items-center justify-center">
+<Modal
+title={title}
+content={content}
+/>
+</div>
+
+<Textarea
+title={title}
+/>
+
+<Result/>
+<div style="height:50px"></div>
 </Layout>
+
 
 <script>
 
