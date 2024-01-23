@@ -5,7 +5,7 @@ import Textarea from "@components/essay/Textarea.astro";
 import Modal from "@components/essay/Modal.astro";
 import Result from "@components/essay/Result.astro";
 
-const response = await fetch(Astro.url+ "/api/essay")
+const response = await fetch("https://examonline-rouge.vercel.app/api/essay")
 const essayQues = await response.json()
 
 const {id} = Astro.params
