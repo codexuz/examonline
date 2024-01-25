@@ -25,8 +25,9 @@ export const POST: APIRoute = async ({request }) => {
         "AcademicWord"={["academicWords"]},
       }
     `,
-    max_tokens: 1200,
+    max_tokens: 800,
     temperature: 0,
+    stream: true
   });
 
     // Return the OpenAI API response
