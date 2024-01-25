@@ -12,5 +12,7 @@ export default defineConfig({
   },
   output: 'server',
   integrations: [tailwind(), mdx(), react()],
-  adapter: vercel()
+  adapter: vercel({
+    maxDuration: 25,
+  })
 });
