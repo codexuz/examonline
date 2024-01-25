@@ -26,8 +26,7 @@ export const POST: APIRoute = async ({request }) => {
       }
     `,
     max_tokens: 800,
-    temperature: 0,
-    stream: true
+    temperature: 0
   });
 
     // Return the OpenAI API response
