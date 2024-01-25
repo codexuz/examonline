@@ -14,8 +14,9 @@ export const POST: APIRoute = async ({request }) => {
     prompt: `Generate a high score IELTS essay sample to this topic with html <p> and <br> tags: ${body.question}
     `
     ,
-    max_tokens: 800,
+    max_tokens: 600,
     temperature: 0,
+    stream: true
   });
 
     // Return the OpenAI API response
