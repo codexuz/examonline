@@ -1,1 +1,141 @@
 
+---
+import Layout from '@layouts/PracticeLayout.astro'
+import Back from '@components/Back.astro'
+import Header from "@components/practice/Header.astro"
+import { app } from "@lib/firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+
+const auth = getAuth(app);
+const db = getFirestore(app)
+
+/* Check current session */
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+
+const userRef = db.collection("users").doc(user.uid)
+const userSnapshot = await userRef.get();
+if (!userSnapshot.exists) {
+    return Astro.redirect('/info')
+}
+
+const userData = userSnapshot.data();
+
+const {telegram, telegramName,picture, name, email, status, tariff, joined, expiresAt, balance, birth, level, region, ip} = userData
+
+
+
+---
+<Layout title="Speaking">
+<Header
+img={picture}
+name={name}
+email={email}
+balance={balance}
+status={status}
+/>
+<main class="container sm:max-w-4xl p-3 bg-white rounded-xl shadow-none sm:shadow-md mx-auto px-4 h-[auto] justify-center items-start mt-7">
+
+<section class="flex items-center justify-center flex-col">
+
+<div class="currentQuestion mt-6 pt-6 mx-auto"></div>
+
+<button id="startButton" class="mx-auto flex items-center py-2 px-5 bg-transparent border border-gray-800 rounded-full text-xl">
+<div class="w-4 h-4 border border-red-600 bg-red-600 rounded-full mx-2"></div>
+Start Practice</button>
+
+<div id="mainContainer" class="hidden w-full">
+
+<div class="flex items-center justify-between w-full gap-2">
+
+<div class="leftButton">
+<button id="recButton" class="bg-gray-950 px-3 py-2 text-white text-xl flex items-center rounded-lg gap-x-2">
+<svg xmlns="http://www.w3.org/2000/svg" class="text-red-600 animate-pulse w-4 h-4 icon icon-tabler icon-tabler-circle" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="red" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg>
+REC
+</button>
+
+<button class="hidden bg-blue-600 px-3 py-2 text-white text-xl flex items-center rounded-lg gap-x-2" id="retryButton">
+<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 icon icon-tabler icon-tabler-restore"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3.06 13a9 9 0 1 0 .49 -4.087" /><path d="M3 4.001v5h5" /><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
+ReTry</button>
+</div>
+
+<div class="rightButton">
+<button id="stopButton" class="bg-blue-600  px-3 py-2 text-white text-xl flex items-center rounded-lg gap-x-2">
+<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 icon icon-tabler icon-tabler-square"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="white" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /></svg>
+Stop</button>
+<button id="nextButton" class="hidden bg-blue-600  px-3 py-2 text-white text-xl flex items-center rounded-lg gap-x-2">
+<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 icon icon-tabler icon-tabler-player-track-next-filled"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M2 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z" stroke-width="0" fill="currentColor" /><path d="M13 5v14c0 .86 1.012 1.318 1.659 .753l8 -7a1 1 0 0 0 0 -1.506l-8 -7c-.647 -.565 -1.659 -.106 -1.659 .753z" stroke-width="0" fill="currentColor" /></svg>
+Next</button>
+<button id="responseButton" class="hidden bg-blue-600  px-3 py-2 text-white text-xl flex items-center rounded-lg gap-x-2">
+Javoblar
+<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 icon icon-tabler icon-tabler-arrow-narrow-right" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M15 16l4 -4" /><path d="M15 8l4 4" /></svg>
+</button>
+</div>
+</div>
+<canvas id="canvasElmId" class="w-[80%] px-4 mx-auto h-[40px]"></canvas>
+<div id="notice" class="hidden w-[80%] px-4 mx-auto p-2 bg-yellow-200/60 rounded-lg text-yellow-500 text-center">Javobingiz tekshiring va tahrirlang!</div>
+
+<div  id="transcribeContainer" class="p-5 mt-5 outline-none focus:outline-none text-lg container max-w-3xl text-gray-600 bg-gray-200 shadow-sm px-4 mx-auto border-none rounded-lg h-[300px] mb-5"></div>
+
+<audio id="audio" class="container mx-auto px-4 my-3" src=""></audio>
+</div>
+
+
+</section>
+
+<section id="resultPage" class="hidden container px-4 mx-auto text-left flex flex-col">
+<h1 class="p-4 text-2xl font-bold text-center text-blue-600 underline decoration-dotted ">Your Response</h1>
+<div id="answers" class="container font-medium px-4 mx-auto text-left flex flex-col gap-2">
+</div>
+</section>
+</main>
+</Layout>
+
+<style>
+.currentQuestion{
+          text-align: center;
+          font-size: 30px;
+          line-height: 34px;
+          padding: 0 10px 27px;
+          white-space: pre-line;/* pre-wrap; */
+        }
+</style>
+
+<script is:inline>
+
+var savol=[
+   'What kind of movies do you like?',
+   'Do you usually watch films alone or with others?',
+   'Which actor would you like to play you in a film?',
+   'Do you prefer foreign films or films made in your country?',
+   'Do people in your country like to go to a cinema to watch a film?',
+   'What was the first film that you watched?',
+   '<p><b>Describe the successful business that you know about</b></p><p>You should say:</p><ul><li>what the business is</li><li>where it is</li><li>who runs the business / how you know about this business</li><li>and explain why you think it is successful.</li></ul>',
+   'What skills are required to start a small business?',
+   'What are the risks of running your own business?',
+   'How can small businesses benefit the people in their community?',
+   'Compare owning and running a small business to being an employee in a large company.',
+   'Compare small shops with big international department stores and supermarkets.'
+  ]
+  
+</script>
+
+<script src="../../../scripts/practice.js"></script>
+
+  <style>
+    button {
+      min-width: 5rem;
+      margin: 1rem 1rem 1rem 0;
+    }
+  </style>
+</html>
