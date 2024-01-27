@@ -1,6 +1,8 @@
 
 import {Wave} from "@foobar404/wave";
+import Artyom from "artyom.js"
 
+const artyom = new Artyom();
 let stream;
 let recorder;
 
@@ -61,39 +63,32 @@ document.querySelector('#stopButton').onclick=()=>{
 const canvas = document.querySelector("#canvasElmId");
 const audio = document.querySelector("#audio");
 const audioCtx = new AudioContext();
-var speechRecognition = window.webkitSpeechRecognition
-var recognition = new speechRecognition()
 var content = '';
 var textbox = $('#transcribeContainer');
-recognition.continuous = true
 
 
- recognition.onstart = function (){
-        console.log('Voice Recognition is on')
-    }
 
-    recognition.onspeechend = function (){
-        console.log('No Activity');
-    }
-
-    recognition.onerror = function (event){
-        console.log(event);
-    }
-
-    recognition.onresult = function(event) {
-        var current = event.resultIndex;
-        var transcript = event.results[current][0].transcript;
-        var confidence = event.results[current][0].confidence;
-        transcript = transcript.charAt(0).toUpperCase() + transcript.slice(1);
-        transcript = transcript.trim();
-        if (!/[.?!]$/.test(transcript)) {
-            transcript += '. ';
+     // Start listening
+    artyom.redirectRecognizedTextOutput(function (recognized) {
+        recognized = recognized.charAt(0).toUpperCase() + recognized.slice(1);
+        recognized = recognized.trim();
+        if (!/[.?!]$/.test(recognized)) {
+            recognized += '. ';
         }
-        content += transcript;
-        console.log(content);
+        content += recognized;
+        console.log(recognized);
         $('#transcribeContainer').text(content);
-    }; 
+    });
 
+     // Stop listening
+    function stopListening() {
+        artyom.fatality(); // Stop listening
+    }
+
+    // Start listening again
+    function startListening() {
+        artyom.initialize({ lang: 'en-US', continuous: true, listen: true, debug: false });
+    }
 
 
 
@@ -104,9 +99,7 @@ function startRecording() {
             content += ''
   }
   
-
-  recognition.start()
-
+  startListening()
  navigator.mediaDevices.getUserMedia({ audio: true })
     .then(function (stream) {
       recorder = new MediaRecorder(stream);
@@ -150,7 +143,7 @@ function startRecording() {
 function stopRecording() {
     if (recorder && recorder.state !== "inactive") {
     recorder.stop();
-    recognition.stop()
+    stopListening()
     const tracks = recorder.stream.getTracks();
     tracks.forEach(track => track.stop());
   }
