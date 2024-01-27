@@ -33,6 +33,7 @@
     "@use-telegram-auth/client": "^1.0.5",
     "animate.css": "^4.1.1",
     "apexcharts": "^3.45.1",
+    "artyom.js": "^1.0.6",
     "astro": "^4.1.1",
     "audio-sync-with-text": "^1.0.0",
     "clipboard": "^2.0.11",
