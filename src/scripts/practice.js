@@ -98,11 +98,13 @@ var timeout;
         // Clear the previous timeout
         clearTimeout(timeout);
 
-        // Set a new timeout to restart recognition after a pause (e.g., 2 seconds) only on Android
+        // Set a new timeout to restart recognition after speech ends only on Android
         if (isAndroid()) {
             timeout = setTimeout(function () {
-                recognition.stop();
-                recognition.start();
+                // Check if recognition is not already started before starting it again
+                if (recognition && recognition.state !== 'listening') {
+                    recognition.start();
+                }
             }, 500);
         }
  }; 
