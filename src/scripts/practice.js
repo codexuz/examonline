@@ -1,8 +1,6 @@
 
 import {Wave} from "@foobar404/wave";
-import Artyom from "artyom.js"
 
-const artyom = new Artyom();
 let stream;
 let recorder;
 
@@ -63,34 +61,57 @@ document.querySelector('#stopButton').onclick=()=>{
 const canvas = document.querySelector("#canvasElmId");
 const audio = document.querySelector("#audio");
 const audioCtx = new AudioContext();
+var speechRecognition = window.webkitSpeechRecognition
+var recognition = new speechRecognition()
 var content = '';
 var textbox = $('#transcribeContainer');
+recognition.continuous = true
+var timeout;
 
 
 
-     // Start listening
-    artyom.redirectRecognizedTextOutput(function (recognized) {
-        recognized = recognized.charAt(0).toUpperCase() + recognized.slice(1);
-        recognized = recognized.trim();
-        if (!/[.?!]$/.test(recognized)) {
-            recognized += '. ';
+ recognition.onstart = function (){
+        console.log('Voice Recognition is on')
+    }
+
+    recognition.onspeechend = function (){
+        console.log('No Activity');
+    }
+
+    recognition.onerror = function (event){
+        console.log(event);
+    }
+
+    recognition.onresult = function(event) {
+        var current = event.resultIndex;
+        var transcript = event.results[current][0].transcript;
+        var confidence = event.results[current][0].confidence;
+        transcript = transcript.charAt(0).toUpperCase() + transcript.slice(1);
+        transcript = transcript.trim();
+        if (!/[.?!]$/.test(transcript)) {
+            transcript += '. ';
         }
-        content += recognized;
-        console.log(recognized);
+        content += transcript;
+        console.log(content);
         $('#transcribeContainer').text(content);
-    });
+   
+        // Clear the previous timeout
+        clearTimeout(timeout);
 
-     // Stop listening
-    function stopListening() {
-        artyom.fatality(); // Stop listening
-    }
+        // Set a new timeout to restart recognition after a pause (e.g., 2 seconds) only on Android
+        if (isAndroid()) {
+            timeout = setTimeout(function () {
+                recognition.stop();
+                recognition.start();
+            }, 500);
+        }
+ }; 
 
-    // Start listening again
-    function startListening() {
-        artyom.initialize({ lang: 'en-US', continuous: true, listen: true, debug: false });
-    }
 
-
+      // Function to check if the device is Android
+      function isAndroid() {
+          return /Android/i.test(navigator.userAgent);
+      }
 
 
 function startRecording() {
@@ -99,7 +120,9 @@ function startRecording() {
             content += ''
   }
   
-  startListening()
+
+  recognition.start()
+
  navigator.mediaDevices.getUserMedia({ audio: true })
     .then(function (stream) {
       recorder = new MediaRecorder(stream);
@@ -143,7 +166,7 @@ function startRecording() {
 function stopRecording() {
     if (recorder && recorder.state !== "inactive") {
     recorder.stop();
-    stopListening()
+    recognition.stop()
     const tracks = recorder.stream.getTracks();
     tracks.forEach(track => track.stop());
   }
