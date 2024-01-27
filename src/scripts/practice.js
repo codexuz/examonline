@@ -72,7 +72,13 @@ var textbox = $('#transcribeContainer');
 recognition.continuous = true
 var timeout;
 
-
+if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+  console.log('SpeechRecognition is supported')
+}
+else {
+    // Speech recognition is not supported
+    alert('Speech recognition is not supported in this browser.');
+}
 
  recognition.onstart = function (){
         console.log('Voice Recognition is on')
