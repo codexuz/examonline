@@ -4,10 +4,14 @@ import {Wave} from "@foobar404/wave";
 let stream;
 let recorder;
 
+ if (isAndroid()){
+  $('#eslatma').removeClass('hidden')
+ }
 
 //Starting_section
 
 $('#startButton').click(()=>{
+  $('#eslatma').addClass('hidden')
   $('#startButton').addClass('hidden')
   $('#mainContainer').removeClass('hidden')
   $('#stopButton').removeClass('hidden')
