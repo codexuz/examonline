@@ -1,4 +1,3 @@
-
 import {Wave} from "@foobar404/wave";
 
 let stream;
@@ -30,6 +29,11 @@ $('#resultPage').removeClass('hidden')
 
 $('#stopButton').click(()=>{
   if(currentQuestion === savol.length-1){
+      var newResponse = document.createElement('p');
+      newResponse.classList.add('my-3', 'text-gray-500', 'text-md')
+      var response = $('#transcribeContainer').text();
+      $(newResponse).text(response); 
+      $('#answers').append(newResponse);
       $('#nextButton').addClass('hidden')
       $('#responseButton').removeClass('hidden')
       $('#stopButton').addClass('hidden')
@@ -37,6 +41,7 @@ $('#stopButton').click(()=>{
       $('#recButton').addClass('hidden')
       $('#retryButton').removeClass('hidden')
       $('#notice').removeClass('hidden')
+      $('#canvasElmId').addClass('hidden')
       $('#audio').removeClass('hidden')
    }
    else {
@@ -53,10 +58,18 @@ $('#stopButton').click(()=>{
 })
 
 document.querySelector('#startButton').onclick=()=>{
-  startRecording()
+  if (recorder && recorder.state === 'paused') {
+    resumeRecording();
+  } else {
+    startRecording();
+  }
 }
 
 document.querySelector('#stopButton').onclick=()=>{
+  pauseRecording()
+}
+
+document.querySelector('#responseButton').onclick=()=>{
   stopRecording()
 }
 
@@ -185,6 +198,16 @@ function stopRecording() {
   }
   }
 
+function pauseRecording() {
+    recorder.pause()
+    recognition.stop()
+  }
+
+function resumeRecording() {
+    recognition.start()
+    recorder.resume()
+  }
+
 
 var currentQuestion = 0
 
@@ -196,6 +219,11 @@ $('#nextButton').click(()=>{
       if (wordCount < 5) {
         alert('Say at least 5 words.');
       } else {
+  var newResponse = document.createElement('p');
+  newResponse.classList.add('my-3', 'text-gray-500', 'text-md')
+  var response = $('#transcribeContainer').text();
+  $(newResponse).text(response); 
+  $('#answers').append(newResponse);
    currentQuestion++
   $('.currentQuestion').html(savol[currentQuestion])
   $('#transcribeContainer').text(' ')
@@ -207,7 +235,7 @@ $('#nextButton').click(()=>{
   $('#notice').addClass('hidden')
   $('#transcribeContainer').attr('contenteditable', 'false')
   var p = document.createElement('p');
-  p.classList.add('py-2', 'px-5', 'bg-gray-100', 'text-lg', 'text-gray-500', 'rounded-lg')
+  p.classList.add('py-2', 'px-5', 'text-lg', 'text-blue-600')
   p.innerHTML=savol[currentQuestion]
   document.querySelector('#answers').appendChild(p)
    }
@@ -217,7 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelector('.currentQuestion').innerText=savol[currentQuestion]
   var p = document.createElement('p');
   p.innerHTML=savol[currentQuestion]
-  p.classList.add('py-2', 'px-5', 'bg-gray-100', 'text-lg', 'text-gray-500', 'rounded-lg')
+  p.classList.add('py-2', 'px-5', 'text-lg', 'text-blue-600');
   document.querySelector('#answers').appendChild(p)
+
   
 })
