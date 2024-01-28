@@ -69,7 +69,8 @@ var speechRecognition = window.webkitSpeechRecognition
 var recognition = new speechRecognition()
 var content = '';
 var textbox = $('#transcribeContainer');
-recognition.continuous = true
+recognition.continuous = true;
+recognition.lang = "en-US";
 var timeout;
 
 if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
