@@ -125,7 +125,7 @@ async function sendServer(mp3Blob) {
 				pronunciation:"",
 				suggestion: "",
 				level:"",
-				show: "false"
+				show: "true"
 
 			});
 			window.location.href='/speaking/reports';
