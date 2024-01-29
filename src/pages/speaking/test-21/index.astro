@@ -1,0 +1,80 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import AudioLoader from '../../../components/AudioLoader.astro';
+import Speaking from '../../../components/Speaking.astro';
+import Home from '../../../components/Home.astro'
+import { app } from "@lib/firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+
+
+const auth = getAuth(app);
+const db = getFirestore(app)
+
+/* Check current session */
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+const userRef = db.collection("users").doc(user.uid)
+const userSnapshot = await userRef.get();
+const userData = userSnapshot.data();
+
+const {tariff, telegram, telegramName, status} = userData
+
+if(status ==="unpaid" || status ===""){
+  return Astro.redirect("/price");	
+}
+
+---
+
+<Layout title="Speaking">
+    <AudioLoader/>
+	<Home/>
+     <Speaking test="Test 21. Hometown and Influencer"/>
+
+     <audio src="/mock-tests/test21/1.mp3" id="audio1"></audio>
+     <audio src="/mock-tests/test21/2.mp3" id="audio2"></audio>
+     <audio src="/mock-tests/test21/3.mp3" id="audio3"></audio>
+     <audio src="/mock-tests/test21/4.mp3" id="audio4"></audio>
+     <audio src="/mock-tests/test21/5.mp3" id="audio5"></audio>
+     <audio src="/mock-tests/test21/6.mp3" id="audio6"></audio>
+     <audio src="/mock-tests/test12/part2/intro.mp3" id="audio7"></audio>
+     <audio src="/mock-tests/test21/part2/1.mp3" id="audio8"></audio>
+     <audio src="/mock-tests/test12/part3/intro.mp3" id="audio9"></audio>
+     <audio src="/mock-tests/test21/part3/1.mp3" id="audio10"></audio>
+     <audio src="/mock-tests/test21/part3/2.mp3" id="audio11"></audio>
+     <audio src="/mock-tests/test21/part3/3.mp3" id="audio12"></audio>
+     <audio src="/mock-tests/test21/part3/4.mp3" id="audio13"></audio>
+     <audio src="/mock-tests/test21/part3/5.mp3" id="audio14"></audio>
+     <audio src="/mock-tests/test12/part3/end.mp3" id="audio15"></audio>
+                        
+</Layout>
+
+<script is:inline>
+
+var q = [
+    "What is your country famous for?",
+    "Where do you live in your country?\n",
+    "Is it an interesting place to live?\n",
+    "Are you planning to live there in the future?\n",
+    "How long have you lived there?\n",
+    "Is there a garden in the place you live in?\n",
+    "Describe a person who taught you something important. You should say:\n<br>\n<ul>\n<li>who this person was</li>\n<li>what they taught you</li>\n<li>how they taught it to you</li>\n<li>and explain why you think what they taught is important.</li>\n</ul>",
+    "What types of people influence the young in your country?\n",
+    "What type of people, such as parents, teachers, or friends, are best to influence young people’s behaviour?\n",
+    "Why is it important for young people to have role models?\n",
+    "What do you think young people will be influenced by the most in the future?\n",
+    "Do you think the education system in your country influences young people’s behaviour?\n"
+  ]
+
+</script>
+
+<script src="../../../scripts/quiz.js"></script>  

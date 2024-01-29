@@ -1,0 +1,81 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import AudioLoader from '../../../components/AudioLoader.astro';
+import Speaking from '../../../components/Speaking.astro';
+import Home from '../../../components/Home.astro'
+import { app } from "@lib/firebase/server";
+import { getAuth } from "firebase-admin/auth";
+import { getFirestore } from "firebase-admin/firestore";
+
+
+const auth = getAuth(app);
+const db = getFirestore(app)
+
+/* Check current session */
+if (!Astro.cookies.has("session")) {
+  return Astro.redirect("/signin");
+}
+const sessionCookie = Astro.cookies.get("session").value;
+const decodedCookie = await auth.verifySessionCookie(sessionCookie);
+const user = await auth.getUser(decodedCookie.uid);
+
+if (!user) {
+  return Astro.redirect("/signin");
+}
+
+const userRef = db.collection("users").doc(user.uid)
+const userSnapshot = await userRef.get();
+const userData = userSnapshot.data();
+
+const {tariff, telegram, telegramName, status} = userData
+
+if(status ==="unpaid" || status ===""){
+  return Astro.redirect("/price");	
+}
+
+---
+
+<Layout title="Speaking">
+    <AudioLoader/>
+	<Home/>
+     <Speaking test="Test 22. Help and Product"/>
+
+     <audio src="/mock-tests/test22/1.mp3" id="audio1"></audio>
+     <audio src="/mock-tests/test22/2.mp3" id="audio2"></audio>
+     <audio src="/mock-tests/test22/3.mp3" id="audio3"></audio>
+     <audio src="/mock-tests/test22/4.mp3" id="audio4"></audio>
+     <audio src="/mock-tests/test22/5.mp3" id="audio5"></audio>
+     <audio src="/mock-tests/test22/6.mp3" id="audio6"></audio>
+     <audio src="/mock-tests/test12/part2/intro.mp3" id="audio7"></audio>
+     <audio src="/mock-tests/test22/part2/1.mp3" id="audio8"></audio>
+     <audio src="/mock-tests/test12/part3/intro.mp3" id="audio9"></audio>
+     <audio src="/mock-tests/test22/part3/1.mp3" id="audio10"></audio>
+     <audio src="/mock-tests/test22/part3/2.mp3" id="audio11"></audio>
+     <audio src="/mock-tests/test22/part3/3.mp3" id="audio12"></audio>
+     <audio src="/mock-tests/test22/part3/4.mp3" id="audio13"></audio>
+     <audio src="/mock-tests/test22/part3/5.mp3" id="audio14"></audio>
+     <audio src="/mock-tests/test12/part3/end.mp3" id="audio15"></audio>
+                        
+</Layout>
+
+<script is:inline>
+
+var q = [
+    "Do you like helping others?\n",
+    "Do you think people are less willing to help others these days compared to the past?\n",
+    "Do people today trust others as much as they used to in the past?\n",
+    "How do people in your community help each other?\n",
+    "In your view, should children be taught to help others?\n",
+    "In your opinion, how can we encourage children to help others?\n",
+    "Describe a traditional product in your country. You should say:\n<br>\n<ul>\n<li>what the product is</li>\n<li>when you tried this product for the first time</li>\n<li>what it is made of</li>\n<li>and explain how you feel about it.</li>\n</ul>",
+    "What kinds of products are mostly imported into your country?\n",
+    "In your opinion, why do some people like to buy imported products?\n",
+    "What are some famous local products in your country?\n",
+    "Do you think a country should make everything it needs or import some things?\n",
+    "What are the disadvantages of a country producing everything it needs?\n"
+  ]
+
+
+</script>
+
+<script src="../../../scripts/quiz.js"></script>  
