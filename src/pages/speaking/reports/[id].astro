@@ -174,7 +174,7 @@ const sendFeedback = async () => {
 
   try {
     const transcriptObj = { transcript }; // Convert the transcript to an object
-    const res = await fetch('/api/report', {
+    const res = await fetch('https://report-jcw3.onrender.com/report', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
