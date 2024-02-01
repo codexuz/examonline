@@ -32,6 +32,9 @@ const {tariff, telegram, telegramName, status, attempt} = userData
 if(status === "unpaid" && attempt === "0"){
   return Astro.redirect("/price");
 }
+else if(status === "unpaid" && !attempt){
+  return Astro.redirect("/price");
+}
 
 ---
 
