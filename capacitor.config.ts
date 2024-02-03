@@ -3,7 +3,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'vercel.multiexam.app',
   appName: 'examonline edumo',
-  webDir: 'dist',
+  webDir: 'server',
   server: {
     androidScheme: 'https'
   }
