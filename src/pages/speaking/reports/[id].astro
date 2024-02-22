@@ -163,10 +163,13 @@ document.getElementById('loader').classList.add('hidden')
 }
 
 //sendFeedback function
+
 const sendFeedback = async () => {
+
 if(updateRef.feedback){
-return
+  return
 }
+else{
   try {
    document.getElementById('loader').innerHTML="Javobingiz tekshirilmoqda, iltimos sahifani tark etmang!";
     const transcriptObj = { transcript }; // Convert the transcript to an object
@@ -195,7 +198,7 @@ return
   } catch (error) {
     console.error('Error sending feedback:', error);
   }
-  
+}
 };
 sendFeedback()
 </script>
