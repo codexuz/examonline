@@ -162,16 +162,13 @@ document.getElementById('resultContainer').classList.remove('hidden')
 document.getElementById('loader').classList.add('hidden')
 }
 
+if(!updateRef.feedback){
+sendFeedback();
+}
+
 
 //sendFeedback function
-
-
 const sendFeedback = async () => {
-  if(updateRef.feedback){
-    return
-  }
-  else{
-
   try {
     const transcriptObj = { transcript }; // Convert the transcript to an object
     const res = await fetch('https://report-jcw3.onrender.com/report', {
@@ -185,6 +182,7 @@ const sendFeedback = async () => {
     const data = await res.json();
     const result = JSON.parse(data)
     console.log(result)
+     document.getElementById('loader').innerHTML="Javobingiz tayyor! Admin tomonidan ko'rsatilishga ruxsat kutmoqda ⏳"
      updateRef.feedback = result.feedback
      updateRef.score = result.overall_score
      updateRef.level = result.cefr_level
@@ -198,9 +196,7 @@ const sendFeedback = async () => {
   } catch (error) {
     console.error('Error sending feedback:', error);
   }
- } 
+  
 };
-
-sendFeedback();
 
 </script>
