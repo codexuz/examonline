@@ -93,7 +93,7 @@ title={title}
 
           try {
             const jsonString = JSON.stringify({content: essay.value, title: question.innerText});
-            const response = await fetch('https://backend-xp79.onrender.com/check/', {
+            const response = await fetch('https://generate.edumoacademy.uz/check/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
