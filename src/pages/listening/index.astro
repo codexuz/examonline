@@ -8,7 +8,7 @@ import Back from '@components/Back.astro'
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-/* Check current session
+/* Check current session */
 if (!Astro.cookies.has("session")) {
   return Astro.redirect("/signin");
 }
@@ -20,13 +20,13 @@ if (!user) {
   return Astro.redirect("/signin");
 }
 
-*/
+
 const userRef = db.collection("users").doc(user.uid)
 const userSnapshot = await userRef.get();
 const userData = userSnapshot.data();
 
 const {status, tariff} = userData
-/*
+
 if(tariff==="basic"){
 return Astro.redirect("/pay");
 }
@@ -34,7 +34,7 @@ return Astro.redirect("/pay");
 if(status ==="unpaid" || status ==="" || status ===null){
   return Astro.redirect("/price");	
 }
-*/
+
 
 interface Listening {
   id: string;
