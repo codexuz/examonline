@@ -11,8 +11,5 @@ export default defineConfig({
     service: passthroughImageService()
   },
   output: 'server',
-  integrations: [tailwind(), mdx(), react()],
-  adapter: vercel({
-    maxDuration: 10,
-  })
+  integrations: [tailwind(), mdx(), react()]
 });
