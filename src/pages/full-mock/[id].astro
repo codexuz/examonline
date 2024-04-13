@@ -1,38 +1,28 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { app } from "@lib/firebase/server";
-import { getFirestore } from "firebase-admin/firestore";
 import Back from '@components/Back.astro'
+import tests from '@assets/fullMock.json'
 
 
-interface Listening {
-  title: string;
-  markup: string;
+export async function getStaticPaths() {
+  return tests.map(({id, data}) => {
+    return {
+      params: { id },
+      props: {data}
+    }
+  })
 }
 
-const { id } = Astro.params;
-
-if (!id) {
-  return Astro.redirect("/404");
-}
-
-const db = getFirestore(app);
-const listeningRef = db.collection("full-mock");
-const listeningSnapshot = await listeningRef.doc(id).get();
-
-if (!listeningSnapshot.exists) {
-  return Astro.redirect("/404");
-}
-
-const listen = listeningSnapshot.data() as Listening;
+const { data } = Astro.props;
+---
 ---
 
-<Layout title={listen.title}>
+<Layout title={data.title}>
 <header class="flex items-center px-5 w-full sticky top-0 py-1 shadow-xl">
 <Back/>
 </header>
   <div class="mx-auto px-4 py-6">
-   <div set:html={listen.markup}/>
+   <div set:html={data.markup}/>
   </div>
 </Layout>
 

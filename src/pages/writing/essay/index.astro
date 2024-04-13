@@ -2,8 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import Back from "@components/Back.astro";
 
-const response = await fetch("https://examonline-rouge.vercel.app/api/essay")
-const essayQues = await response.json()
+import essayQues from '@assets/essay.json'
 ---
 
 
@@ -24,7 +23,7 @@ const essayQues = await response.json()
 <article class="grid grid-cols-1 gap-5">
 {
   essayQues.map((essay, index)=>(
-    <a  class="p-5 rounded group focus:outline-none" href={`/writing/essay/${essay.id}/`}>
+    <a  class="p-5 rounded group focus:outline-none" href={`/writing/essay/${essay.id}/index.html`}>
             <div class="mt-2">
               <h3 class="text-xl font-semibold text-blue-600"><span class="bg-slate-900 mx-2 my-2 rounded py-1 px-4 text-blue-600 text-xl font-medium">{index+1}</span>{essay.title}</h3>
               <p class="mt-3 text-gray-200">{`${essay.content.slice(0, 250)}...`}</p>
@@ -43,3 +42,16 @@ const essayQues = await response.json()
 <div style="height:50px"></div>
 </Layout>
 
+<script>
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'))
+ const { status, tariff } = currentUser
+ if(status !== "paid" || !tariff){
+  window.location.href="/price/index.html"
+ }
+ else if(tariff === "basic"){
+  window.location.href  = '/pay/index.html'
+ }
+ else{
+   document.getElementById('testBody').classList.remove('hidden')
+ }
+</script>

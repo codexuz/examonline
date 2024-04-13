@@ -1,118 +1,101 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { app } from "@lib/firebase/server";
-import { getAuth } from "firebase-admin/auth";
-import { getFirestore } from "firebase-admin/firestore";
-import Report from '@components/Report.astro'
 import Header from '@components/report/Header.astro'
-
-
-
-const auth = getAuth(app);
-const db = getFirestore(app)
-
-/* Check current session */
-if (!Astro.cookies.has("session")) {
-  return Astro.redirect("/signin");
-}
-const sessionCookie = Astro.cookies.get("session").value;
-const decodedCookie = await auth.verifySessionCookie(sessionCookie);
-const user = await auth.getUser(decodedCookie.uid);
-
-if (!user) {
-  return Astro.redirect("/signin");
-}
-
-const userRef = db.collection("users").doc(user.uid)
-const userSnapshot = await userRef.get();
-const userData = userSnapshot.data();
-
-const {telegram, telegramName, audio, picture, name, email, status, balance, submitTime, textNo, feedback} = userData
-
-
-interface Report {
-  id: string;
-  audio: string;
-  feedback: string;
-  submitTime: string;
-  textNo: string;
-}
-
-const reportRef = db.collection("users").doc(user.uid).collection("report").orderBy("submitTime", "asc")
-
-const reportSnapshot = await reportRef.get();
-const reports = reportSnapshot.docs.map((doc) => ({
-  id: doc.id,
-  ...doc.data(),
-})) as Report[];
 
 ---
 <Layout title="Speaking Report">
   
   <Header
-    img={picture}
-    name={name}
-    status={status}
-    balance={balance}
-    email={email}
-   />
+  link="window.location.href='/dashboard/index.html'"
+  />
 
 <main class="my-4 pt-6">
-  <ul class="container grid grid-cols-1 gap-3 mx-auto px-5 ">
-{
-      reports.map((report) => (
-         <a class="flex justify-between items-center p-3  bg-blue-600 text-white rounded-2xl" data-astro-reload href={`/speaking/reports/${report.id}`}>
-         <div class="mx-2">
-         <p><small>{report.submitTime}</small><p/>
-         <p set:html={report.textNo} class="text-xl"/>
-         </div>
-         <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
-         </a>
-         
-      ))
-  }
+  <ul class="container grid grid-cols-1 gap-3 mx-auto px-5 " id="report-list">
+
   </ul>
   </main>
 
 </Layout>
 
 <script>
-/*
-import { app } from "@lib/firebase/client";
-import { getFirestore, doc, updateDoc, getDoc} from "firebase/firestore";
+  import { db } from "@lib/firebase/client";
+import { doc, getDocs, collection, onSnapshot } from "firebase/firestore";
 
-const db = getFirestore(app)
-const uid=localStorage.getItem("storeId")
+var user = JSON.parse(localStorage.getItem('user'));
 
-const docRef = doc(db, "users", uid);
-const docSnap = await getDoc(docRef);
-const res=docSnap.data()
-const {transcript, feedback} = res
-
-
-
-if(!feedback && transcript){
- $('#loader').removeClass('hidden')
-const response = await fetch('https://examonline-rouge.vercel.app/api/report', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({transcript}),
-      });
-
-      const feedback = await response.json();
-      await updateDoc(docRef, {
-      feedback: feedback,
-      javob: {audio: "audio", text: "text"}
-      }).then(() => {
-      $('#loader').addClass('hidden')
-      //$('#feedback').removeClass('hidden')
-      $('#feedback').html(feedback)
-    }).catch((error) => {
-    console.error("Error saving transcript:", error);
-  });
+function generateReportLink(reportId) {
+  return `/speaking/reports/details?id=${reportId}`;
 }
 
-*/
+function fetchReportsAndUpdateLocalStorage() {
+  let reports = [];
+
+  const docRef = doc(db, "users", user.uid);
+  const reportsCollectionRef = collection(docRef, 'report');
+
+  getDocs(reportsCollectionRef)
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        var answers = {
+          id: doc.id,
+          data: doc.data()
+        };
+
+        reports.push(answers);
+      });
+
+      localStorage.setItem('reports', JSON.stringify(reports));
+
+      renderReports(reports);
+    })
+    .catch((error) => {
+      console.error("Error getting documents: ", error);
+    });
+}
+
+function renderReports(reports) {
+  let data = "";
+  reports.forEach((report) => {
+    const link = generateReportLink(report.id);
+    data += `<a class="flex justify-between items-center p-3  bg-blue-600 text-white rounded-2xl" data-astro-reload href="${link}">
+      <div class="mx-2">
+        <p><small>${report.data.submitTime}</small></p>
+        <p class="text-sm">${report.data.textNo}</p>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" class="mx-2 icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+    </a>`;
+  });
+
+  document.getElementById('report-list').innerHTML = data;
+}
+
+function updateReportsAndLocalStorage(reports) {
+  localStorage.setItem('reports', JSON.stringify(reports));
+  renderReports(reports);
+}
+
+const storedReports = localStorage.getItem('reports');
+if (storedReports && navigator.onLine) {
+  renderReports(JSON.parse(storedReports));
+} else {
+  fetchReportsAndUpdateLocalStorage();
+}
+
+const docRef = doc(db, "users", user.uid);
+const reportsCollectionRef = collection(docRef, 'report');
+
+onSnapshot(reportsCollectionRef, (querySnapshot) => {
+  let reports = [];
+  querySnapshot.forEach((doc) => {
+    var answers = {
+      id: doc.id,
+      data: doc.data()
+    };
+    reports.push(answers);
+  });
+
+  if (navigator.onLine) {
+    updateReportsAndLocalStorage(reports);
+  }
+});
 </script>

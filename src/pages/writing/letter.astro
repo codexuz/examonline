@@ -1,41 +1,6 @@
 ---
-import { app } from "@lib/firebase/server";
-import { getAuth } from "firebase-admin/auth";
 import Layout from "@layouts/Layout.astro";
 import Back from "@components/Back.astro";
-import { getFirestore } from "firebase-admin/firestore";
-
-
-const auth = getAuth(app);
-const db = getFirestore(app)
-
-/* Check current session */
-if (!Astro.cookies.has("session")) {
-  return Astro.redirect("/signin");
-}
-const sessionCookie = Astro.cookies.get("session").value;
-const decodedCookie = await auth.verifySessionCookie(sessionCookie);
-const user = await auth.getUser(decodedCookie.uid);
-
-if (!user) {
-  return Astro.redirect("/signin");
-}
-
-
-const userRef = db.collection("users").doc(user.uid)
-const userSnapshot = await userRef.get();
-const userData = userSnapshot.data();
-
-const {status, tariff, telegramName} = userData
-
-if(tariff==="basic"){
-return Astro.redirect("/pay");
-}
-
-if(status==="unpaid" || status===""){
-return Astro.redirect("/price");
-}
-
 ---
 
 <Layout title="Letter">
@@ -43,7 +8,6 @@ return Astro.redirect("/price");
     <div class="flex items-center">
    <Back/>
     </div>
-    <p>{telegramName}</p>
     </header>
    <form id="essayForm" class="md:colums-2 flex flex-col justify-start items-center">
     <div class="my-3 py-4"></div>
@@ -143,10 +107,9 @@ return Astro.redirect("/price");
 </script>
 
 
-<script>
 
 
-<script>
+<script is:inline>
 $(function () {
   $('#alert').click(() => {
     $("#alert").fadeOut('2000')
@@ -207,3 +170,16 @@ if(q.value==="" && l.value===""){
 
 </script>
 
+<script>
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'))
+ const { status, tariff } = currentUser
+ if(status !== "paid" || !tariff){
+  window.location.href="/price/index.html"
+ }
+ else if(tariff === "basic"){
+  window.location.href  = '/pay/index.html'
+ }
+ else{
+   document.getElementById('testBody').classList.remove('hidden')
+ }
+</script>

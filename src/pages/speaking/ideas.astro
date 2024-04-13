@@ -1,9 +1,6 @@
 ---
-import { getCollection } from "astro:content";
-const allIdeas = await getCollection("speakingideas");
+import allIdeas from '@assets/SpeakingIdeas.json'
 import Layout from '@layouts/Layout.astro'
-
-
 ---
 
 <Layout title="Speaking Ideas">
@@ -19,7 +16,7 @@ import Layout from '@layouts/Layout.astro'
          allIdeas.map((idea) => (
           <div class="py-2 sm:py-4  px-4 rounded-lg border shadow-xl bg-gray-800 border-gray-900">
               
-              <a class="text-lg text-white flex items-center gap-2 justify-between" href={`/speaking/speaking-ideas/${idea.slug}/`}>{idea.data.title}
+              <a class="text-lg text-white flex items-center gap-2 justify-between capitalize" href={`/speaking/speaking-ideas/${idea.id}/index.html`}>{idea.url}
               <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
               </a>
               

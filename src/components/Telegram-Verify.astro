@@ -14,19 +14,24 @@
     import { app } from "@lib/firebase/client";
     import { getFirestore, doc, updateDoc } from "firebase/firestore";
     const db = getFirestore(app)
-const uid=localStorage.getItem("storeId")
+    
+    const user =JSON.parse(localStorage.getItem("user"))
 
     const tgAuth = document.getElementById("telegram")
 
     tgAuth.addEventListener("click", async ()=>{
-  const BOT_ID = "6765226432:AAGBnCx0esy2dbhTpdeMixRUf8mjT2jm8Ao";
-  const result = await telegramAuth(BOT_ID, { windowFeatures: { popup: true } }); 
-  console.log(result)
-  var telegramId=`${result.id}` 
-  var telegramName=`${result.first_name}` 
-  var telegramUsername=`${result.username}` 
-  localStorage.setItem('telegramId', telegramId)
-  const telegramData = doc(db, "users", uid );
+  
+        const BOT_ID = "6765226432:AAGBnCx0esy2dbhTpdeMixRUf8mjT2jm8Ao";
+        const result = await telegramAuth(BOT_ID, { windowFeatures: { popup: true } }); 
+        console.log(result)
+
+        var telegramId=`${result.id}` 
+        var telegramName=`${result.first_name}` 
+        var telegramUsername=`${result.username}` 
+        localStorage.setItem('telegramId', telegramId)
+
+      const telegramData = doc(db, "users", user.uid );
+
       await updateDoc(telegramData, {
       telegram: telegramUsername,
       telegramName: telegramName,

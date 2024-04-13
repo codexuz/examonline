@@ -1,17 +1,7 @@
 ---
 import Notification from '@components/dashboard/Notification.astro'
-import Image from 'astro:assets'
-
-interface Props {
-  img: string;
-  name: string;
-  email: string;
-  balance: string;
-  status: string
-}
-
-const {img, name, email, balance, status} = Astro.props
 ---
+
 <header class="sticky top-0  w-full lg:w-[calc(100%-255px)] lg:ml-[255px] flex items-center justify-between lg:justify-end mx-auto px-4 w-full h-[60px] z-10 text-white bg-slate-800 shadow-xl">
 
 <!-- Navigation Toggle -->
@@ -28,21 +18,21 @@ const {img, name, email, balance, status} = Astro.props
     <Notification/>      
     <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
         <span class="sr-only">Open user menu</span>
-        <img class="w-8 h-8 rounded-full" src={img} alt="user photo">
+        <img class="w-8 h-8 rounded-full" id="img" src="/avatar.png" alt="user photo">
       </button>
       <!-- Dropdown menu -->
       <div class="z-50 hidden my-4 mr-5 text-base list-none  divide-y rounded-lg shadow bg-gray-700 divide-gray-600" id="user-dropdown">
         <div class="px-4 py-3">
-          <span class="block text-sm text-white">{name}</span>
-          <span class="block text-xs text-gray-400">{email}</span>
+          <span class="block text-sm text-white" id="name"></span>
+          <span class="block text-xs text-gray-400" id="email"></span>
         </div>
         <ul class="py-2" aria-labelledby="user-menu-button">
           <li>
-            <a href="#" class="block px-4 py-2 text-sm text-emerald-500 font-medium">Hisob: {balance}</a>
+            <a href="#" class="block px-4 py-2 text-sm text-emerald-500 font-medium" id="balance"></a>
           </li>
           <li>
             <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:text-white">Status: 
-            <span class="inline-flex items-center gap-x-1.5 mx-2 py-[1px] px-4 rounded-xl text-sm font-medium bg-slate-800/30 text-blue-600">{status}</span>
+            <span class="inline-flex items-center gap-x-1.5 mx-2 py-[1px] px-4 rounded-xl text-sm font-medium bg-slate-800/30 text-blue-600" id="status"></span>
             </a>
           </li>
           <li>
@@ -54,12 +44,12 @@ const {img, name, email, balance, status} = Astro.props
             </a>
           </li>
           <li>
-            <form action="/api/auth/signout" class="flex items-center px-3 py-1 transition-colors duration-300 transform rounded-lg text-rose-500">
-                <button class="flex items-center">
+            <div class="flex items-center px-3 py-1 transition-colors duration-300 transform rounded-lg text-rose-500">
+                <button id="btn-sign-out1" class="flex items-center">
                   <svg  xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 icon icon-tabler icon-tabler-logout"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
                   <span class="mx-4 font-medium">Chiqish</span>
                 </button>
-              </form>
+              </div>
           </li>
         </ul>
       </div>
@@ -71,45 +61,35 @@ const {img, name, email, balance, status} = Astro.props
   <div id="docs-sidebar" class="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64  pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 lg:[&::-webkit-scrollbar]:w-2 lg:[&::-webkit-scrollbar-thumb]:rounded-full  lg:[&::-webkit-scrollbar-track]:bg-slate-700 lg:[&::-webkit-scrollbar-thumb]:bg-slate-500 bg-gray-900 border-gray-700">
     <div class="px-4 border-b border-gray-800 pb-3 text-center">
       <img 
-      src={img} 
+      src="/avatar.png"
+      id="avatar"
       alt="avatar"
       class="mb-3 rounded-full w-16 h-16 bg-slate-800 border-2 border-blue-600 mx-auto"
       />
-      <p class="my-2 text-xl font-medium text-white">{name}</p>
+      <p class="my-2 text-xl font-medium text-white" id="name"></p>
     </div>
     <nav class="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
       <ul class="space-y-3">
         <li>
-          <a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/dashboard">
+          <a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/dashboard/index.html">
             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             <span class="mx-2 text-sm font-medium">Asosiy</span>
           </a>
         </li>
-  
-        <li><a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/courses">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-            stroke="currentColor">
-            <path d="M12 14l9-5-9-5-9 5 9 5z" />
-            <path
-              d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
-          </svg>
-          <span class="mx-2 text-sm font-medium">Kurslar</span>
-        </a></li>
-        <li><a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/full-mock">
+
+        <li><a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/full-mock/index.html">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 icon icon-tabler icon-tabler-align-box-bottom-center"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M9 15v2" /><path d="M12 11v6" /><path d="M15 13v4" /></svg>
           <span class="mx-2 text-sm font-medium">Mock Testlar</span>
         </a></li>
         <li>
-          <a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/karaoke">
+          <a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/karaoke/index.html">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 icon icon-tabler icon-tabler-brand-bandlab"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.885 7l-2.536 4.907c-2.021 3.845 -2.499 8.775 3.821 9.093h6.808c4.86 -.207 7.989 -2.975 4.607 -9.093l-2.988 -4.907" /><path d="M15.078 4h-5.136l3.678 8.768c.547 1.14 .847 1.822 .162 2.676c-.053 .093 -1.332 1.907 -3.053 1.495c-.825 -.187 -1.384 -.926 -1.32 -1.74c.04 -.91 .62 -1.717 1.488 -2.074a4.463 4.463 0 0 1 2.723 -.358" /></svg>
 
               <span class="mx-2 text-sm font-medium">Karaoke</span>
           </a>
         </li>
         <li>
-          <a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/speaking/reports">
+          <a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/speaking/reports/index.html">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
@@ -119,7 +99,7 @@ const {img, name, email, balance, status} = Astro.props
           </a>
         </li>
           <li>
-          <a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/speaking/practice">
+          <a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/speaking/practice/index.html">
               <svg xmlns="http://www.w3.org/2000/svg" class="text-green-500 w-5 h-5 icon icon-tabler icon-tabler-microphone" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 2m0 3a3 3 0 0 1 3 -3h0a3 3 0 0 1 3 3v5a3 3 0 0 1 -3 3h0a3 3 0 0 1 -3 -3z" /><path d="M5 10a7 7 0 0 0 14 0" /><path d="M8 21l8 0" /><path d="M12 17l0 4" /></svg>
 
               <span class="mx-2 text-sm font-medium">Simulator</span>
@@ -129,7 +109,7 @@ const {img, name, email, balance, status} = Astro.props
           <hr class="mt-8  border-gray-800" />
         </li>
         <li>
-          <a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/settings">
+          <a class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-gray-200 hover:bg-gray-800 hover:text-gray-200 " href="/settings/index.html">
               <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M10.3246 4.31731C10.751 2.5609 13.249 2.5609 13.6754 4.31731C13.9508 5.45193 15.2507 5.99038 16.2478 5.38285C17.7913 4.44239 19.5576 6.2087 18.6172 7.75218C18.0096 8.74925 18.5481 10.0492 19.6827 10.3246C21.4391 10.751 21.4391 13.249 19.6827 13.6754C18.5481 13.9508 18.0096 15.2507 18.6172 16.2478C19.5576 17.7913 17.7913 19.5576 16.2478 18.6172C15.2507 18.0096 13.9508 18.5481 13.6754 19.6827C13.249 21.4391 10.751 21.4391 10.3246 19.6827C10.0492 18.5481 8.74926 18.0096 7.75219 18.6172C6.2087 19.5576 4.44239 17.7913 5.38285 16.2478C5.99038 15.2507 5.45193 13.9508 4.31731 13.6754C2.5609 13.249 2.5609 10.751 4.31731 10.3246C5.45193 10.0492 5.99037 8.74926 5.38285 7.75218C4.44239 6.2087 6.2087 4.44239 7.75219 5.38285C8.74926 5.99037 10.0492 5.45193 10.3246 4.31731Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                   <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -139,13 +119,63 @@ const {img, name, email, balance, status} = Astro.props
           </a>
         </li>
         <li>    
-              <form action="/api/auth/signout" class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-red-600 hover:bg-gray-800 hover:text-red-600">
-                <button class="flex items-center">
+              <div class="flex items-center px-3 py-2  transition-colors duration-300 transform rounded-lg text-red-600 hover:bg-gray-800 hover:text-red-600">
+                <button id="btn-sign-out" class="flex items-center">
                   <svg  xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 icon icon-tabler icon-tabler-logout"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
                   <span class="mx-4 font-medium">Chiqish</span>
                 </button>
-              </form>
+              </div>
         </li>
       </ul>
     </nav>
   </div>
+
+
+  <script>    
+  import { app } from "@lib/firebase/client";
+  import { getAuth, signOut } from "firebase/auth";
+  
+const auth = getAuth(app);
+
+document.getElementById('btn-sign-out').onclick = () => {
+
+  var val = confirm ('Ilovadan chiqmoqchimisiz?')
+  if(!val){
+    return
+  }
+  localStorage.removeItem('user')
+  localStorage.removeItem('currentUser')
+      signOut(auth).then(() => {
+      window.location.href='/index.html'
+    }).catch((error) => {
+      alert(error.message)
+    });
+}
+
+
+document.getElementById('btn-sign-out1').onclick = () => {
+
+var val = confirm ('Ilovadan chiqmoqchimisiz?')
+if(!val){
+  return
+}
+localStorage.removeItem('user')
+localStorage.removeItem('currentUser')
+    signOut(auth).then(() => {
+    window.location.href='/index.html'
+  }).catch((error) => {
+    alert(error.message)
+  });
+}
+
+let currentUser = JSON.parse(localStorage.getItem('currentUser'))
+if(currentUser){
+const { name, email, status, balance, picture } = currentUser
+  document.getElementById('img').src=picture;
+  document.getElementById('avatar').src=picture;
+  document.getElementById('name').innerText = name
+  document.getElementById('email').innerText = email
+  document.getElementById('status').innerText = status
+  document.getElementById('balance').innerText = 'Hisob '+balance
+}
+  </script>

@@ -1,16 +1,3 @@
----
-import Image from 'astro:assets'
-
-interface Props {
-  img: string;
-  name: string;
-  email: string;
-  balance: string;
-  status: string
-}
-
-const {img, name, email, balance, status} = Astro.props
----
 
 <header class="sticky top-0 w-full  flex items-center justify-between mx-auto px-4 w-full h-[60px] z-10 text-white bg-indigo-600 shadow-xl">
 
@@ -19,43 +6,6 @@ const {img, name, email, balance, status} = Astro.props
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
       </svg>
-   </a>
-
-   <div class="flex items-center justify-end md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse mr-5">
-      <button type="button" class="flex text-sm bg-white rounded-full md:me-0 focus:ring-4 focus:ring-blue-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-        <span class="sr-only">Open user menu</span>
-        <img class="w-8 h-8 rounded-full" src={img} alt="user photo">
-      </button>
-      <!-- Dropdown menu -->
-      <div class="z-50 hidden my-4 mr-5 text-base list-none  divide-y rounded-lg shadow bg-gray-200 divide-gray-300" id="user-dropdown">
-        <div class="px-4 py-3">
-          <span class="block text-sm text-blue-600">{name}</span>
-          <span class="block text-xs text-blue-500">{email}</span>
-        </div>
-        <ul class="py-2" aria-labelledby="user-menu-button">
-          <li>
-            <a href="#" class="block px-4 py-2 text-sm text-emerald-500 font-medium">Hisob: {balance}</a>
-          </li>
-          <li>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:text-gray-800">Status: 
-            <span class="inline-flex items-center gap-x-1.5 mx-2 py-[1px] px-4 rounded-xl text-sm font-medium bg-blue-600/30 text-blue-600">{status}</span>
-            </a>
-          </li>
-          <li>
-            <a href="https://t.me/javlon_developer" target="_blank" class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-700 hover:text-gray-800">
-            <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 icon icon-tabler icon-tabler-brand-telegram" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg>
-            Bog'lanish
-            </a>
-          </li>
-          <li>
-            <form action="/api/auth/signout" class="flex items-center px-3 py-1 transition-colors duration-300 transform rounded-lg text-rose-500">
-                <button class="flex items-center">
-                  <svg  xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 icon icon-tabler icon-tabler-logout"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
-                  <span class="mx-4 font-medium">Chiqish</span>
-                </button>
-              </form>
-          </li>
-        </ul>
-      </div>
+</a>
 
 </header>

@@ -2,108 +2,9 @@
 import Layout from "@layouts/Layout.astro"
 import SideMenu from "@components/dashboard/SideMenu.astro"
 import Card from "@components/dashboard/Card.astro"
-import { app } from "../lib/firebase/server";
-import { getAuth } from "firebase-admin/auth";
-import { getFirestore } from "firebase-admin/firestore";
-const clientIp = Astro.clientAddress;
-
-
-const auth = getAuth(app);
-const db = getFirestore(app)
-
-/* Check current session */
-if (!Astro.cookies.has("session")) {
-  return Astro.redirect("/signin");
-}
-const sessionCookie = Astro.cookies.get("session").value;
-const decodedCookie = await auth.verifySessionCookie(sessionCookie);
-const user = await auth.getUser(decodedCookie.uid);
-
-if (!user) {
-  return Astro.redirect("/signin");
-}
-
-
-const userRef = db.collection("users").doc(user.uid)
-const userSnapshot = await userRef.get();
-if (!userSnapshot.exists) {
-    return Astro.redirect('/info')
-}
-
-const userData = userSnapshot.data();
-
-const {telegram, telegramName,picture, name, email, status, tariff, joined, expiresAt, balance, birth, level, region, ip} = userData
-
-
-/*
-if(!ip){
-return Astro.redirect('/info')
-}
-
-
-if(ip != clientIp){
-  return Astro.redirect('/max-ip')
-}
-*/
-
-var timestamp = joined.toMillis()
-
-const join_date= new Date(timestamp)
-
-const joinDate = join_date.toLocaleDateString('uz-UZ', {
-  day: '2-digit',
-  month: '2-digit',
-  year: 'numeric',
-});
-
-
-
-const today = new Date().getTime()
-
-let expiredDate; 
-
-if(!expiresAt){
-  console.log("User expired")
-}
-else{
-  const expiresIn = expiresAt.toMillis()
-
-const expire = new Date(expiresIn)
-
- expiredDate = expire.toLocaleDateString('uz-UZ', {
-  day: '2-digit',
-  month: '2-digit',
-  year: 'numeric',
-});
-
-
-if (today >=expiresIn) {
-  // Update user status to "unpaid" if today is greater than or equal to expiresAt
-  userRef.update({
-    status: "unpaid",
-    expiresAt: "",
-    balance: "0 UZS",
-    tariff: ""
-  }).then(() => {
-    console.log("User status updated to 'unpaid'");
-  }).catch((error) => {
-    console.error("Error updating user status:", error);
-  });
-}
-
-}
-
 ---
 <Layout title="Dashboard">
-<p style="display:none" id="store-id">{user.uid}</p>
-<p style="display:none">{clientIp}</p>
-<SideMenu
-img={picture}
-name={name}
-email={email}
-balance={balance}
-status={status}
-/>
+<SideMenu/>
 
 <main class="container lg:w-[calc(100%-255px)] lg:ml-[255px] mx-auto px-4">
 
@@ -111,7 +12,7 @@ status={status}
  <Card
  bg=""
  id="speaking"
- link="/speaking"
+ link="/speaking/index.html"
  lottie="/lotties/speaking.json"
  title="Speaking"
  desc="Og‘zaki nutq bo‘limining maqsadi nomzodning fikrini chet tilida og‘zaki tarzda to‘g‘ri va ravon ifodalay olish qobiliyatini tekshirishdir."
@@ -121,7 +22,7 @@ status={status}
  <Card
  bg=""
  id="listening"
- link="/listening"
+ link="/listening/index.html"
  lottie="/lotties/listening.json"
  title="Listening"
  desc="Ushbu bo‘limning maqsadi autentik va yarim autentik audiomatnlarning umumiy mazmunini, ulardagi asosiy fikrlar va detallarni tushunish"
@@ -131,7 +32,7 @@ status={status}
  <Card
  bg="white"
  id="writing"
- link="/writing"
+ link="/writing/index.html"
  lottie="/lotties/writing.json"
  title="Writing"
  desc="Yozma nutq bo‘limining maqsadi nomzodning fikrini chet tilida yozma ravishda to‘g‘ri va ravon ifodalay olish qobiliyatini tekshirishdir."
@@ -141,7 +42,7 @@ status={status}
  <Card
  bg="white"
  id="reading"
- link="/reading"
+ link="#"
  lottie="/lotties/reading.json"
  title="Reading"
  desc="Ushbu bo‘limning maqsadi ommabop, ilmiy-ommabop hamda ilmiy matnlarning umumiy mazmunini, ulardagi asosiy fikrlar va detallarni tushunish."
@@ -155,8 +56,35 @@ status={status}
 </Layout>
 
 <script>
-var storeId=document.getElementById("store-id").innerHTML
-localStorage.setItem("storeId", storeId)
+  import { db } from "@lib/firebase/client";
+  import { doc, getDoc } from "firebase/firestore";
+ 
+  var user = localStorage.getItem('user')
+  
+  if(!user){
+    window.location.href='/index.html'
+  }
+  
 
+  var profile = JSON.parse(user)
+
+  let currentUser;
+
+async function getUserData(){
+ const docRef = doc(db, "users", profile.uid);
+ const docSnap = await getDoc(docRef);
+
+if (docSnap.exists()) {
+  currentUser = docSnap.data();
+  localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+} else {
+  // docSnap.data() will be undefined in this case
+  console.log("No such document!");
+}
+}
+
+getUserData()
 
 </script>
+
