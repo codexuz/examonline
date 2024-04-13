@@ -115,7 +115,7 @@ var topics=[
 </main>  
 </Layout>
 
-<script>
+<script is:inline>
    let currentUser = JSON.parse(localStorage.getItem('currentUser'))
   const { status, tariff, telegram, telegramName } = currentUser
   if(status !== "paid" && !tariff){
