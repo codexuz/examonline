@@ -15,7 +15,8 @@
     "@astrojs/react": "^3.0.9",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vercel": "^6.1.4",
-    "@capacitor/core": "^5.6.0",
+    "@capacitor/android": "^5.7.4",
+    "@capacitor/core": "^5.7.4",
     "@deepgram/sdk": "^3.0.1",
     "@editorjs/attaches": "^1.3.0",
     "@editorjs/checklist": "^1.6.0",
@@ -32,6 +33,7 @@
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "@use-telegram-auth/client": "^1.0.5",
+    "androidjs": "^2.0.6",
     "animate.css": "^4.1.1",
     "apexcharts": "^3.45.1",
     "artyom.js": "^1.0.6",
@@ -63,7 +65,7 @@
     "web-speech-recognizer": "^1.0.5"
   },
   "devDependencies": {
-    "@capacitor/cli": "^5.6.0",
+    "@capacitor/cli": "^5.7.4",
     "@editorjs/marker": "^1.4.0",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
