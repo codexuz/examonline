@@ -1,0 +1,52 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import AudioLoader from '../../../components/AudioLoader.astro';
+import Speaking from '../../../components/Speaking.astro';
+import Home from '../../../components/Home.astro'
+
+
+---
+
+<Layout title="Speaking">
+    <AudioLoader/>
+	<Home/>
+     <Speaking test="Test 15. Music & Childhood"/>
+
+     <audio src="/mock-tests/test15/1.mp3" id="audio1"></audio>
+     <audio src="/mock-tests/test15/2.mp3" id="audio2"></audio>
+     <audio src="/mock-tests/test15/3.mp3" id="audio3"></audio>
+     <audio src="/mock-tests/test15/4.mp3" id="audio4"></audio>
+     <audio src="/mock-tests/test15/5.mp3" id="audio5"></audio>
+     <audio src="/mock-tests/test15/6.mp3" id="audio6"></audio>
+     <audio src="/mock-tests/test12/part2/intro.mp3" id="audio7"></audio>
+     <audio src="/mock-tests/test15/part2/1.mp3" id="audio8"></audio>
+	 <audio src="/mock-tests/test12/part3/intro.mp3" id="audio9"></audio>
+	 <audio src="/mock-tests/test15/part3/1.mp3" id="audio10"></audio>
+	 <audio src="/mock-tests/test15/part3/2.mp3" id="audio11"></audio>
+	 <audio src="/mock-tests/test15/part3/3.mp3" id="audio12"></audio>
+	 <audio src="/mock-tests/test15/part3/4.mp3" id="audio13"></audio>
+	 <audio src="/mock-tests/test15/part3/5.mp3" id="audio14"></audio>
+	 <audio src="/mock-tests/test12/part3/end.mp3" id="audio15"></audio>
+                        
+</Layout>
+
+<script is:inline>
+
+var q=[
+     'Do you listen to music?',
+   'What\'s your favorite kind of music?',
+   'What kinds of music are most popular in your country?',
+   'Where do you listen to it?',
+   'How do you feel when you listen to this music?',
+   'Is music an important subject at school in your country?',
+   '<p><b> Describe an unforgettable event from your childhood</b></p><p>You should say:</p><ul><li> what it is</li><li>when it happened</li><li> how you felt at the time</li></ul><br><textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Izoh yozish uchun"></textarea>',
+   'Do you think that people are permanently affected by negative childhood memories? Why do you think so?',
+   'What do you think it means to live in the past?',
+   'Nowadays many parents try to make their children happy by buying them many toys. How do you feel about this?',
+   'Do you think kids are happier than adults?',
+   'Do you think people often stay in touch with their childhood friends?'
+	]
+
+</script>
+
+<script src="../../../scripts/quiz.js"></script>  

@@ -1,0 +1,27 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Back from '@components/Back.astro'
+import listeningTests from '@assets/listening.json'
+
+export async function getStaticPaths() {
+  return listeningTests.map(({id, data}) => {
+    return {
+      params: { id },
+      props: {data}
+    }
+  })
+}
+
+const { data } = Astro.props;
+
+---
+
+<Layout title={data.title}>
+<header class="flex items-center px-5 w-full sticky top-0 py-1 shadow-xl">
+<Back/>
+</header>
+  <div class="mx-auto px-4 py-6 prose lg:prose-xl prose-invert">
+   <div set:html={data.markup}/>
+  </div>
+</Layout>
+

@@ -1,0 +1,50 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import AudioLoader from '../../../components/AudioLoader.astro';
+import Speaking from '../../../components/Speaking.astro';
+import Home from '../../../components/Home.astro'
+---
+
+<Layout title="Speaking">
+    <AudioLoader/>
+	<Home/>
+     <Speaking test="Test 9. Buildings"/>
+
+     <audio src="/mock-tests/test09/1.mp3" id="audio1"></audio>
+     <audio src="/mock-tests/test09/2.mp3" id="audio2"></audio>
+     <audio src="/mock-tests/test09/3.mp3" id="audio3"></audio>
+     <audio src="/mock-tests/test09/4.mp3" id="audio4"></audio>
+     <audio src="/mock-tests/test09/5.mp3" id="audio5"></audio>
+     <audio src="/mock-tests/test09/6.mp3" id="audio6"></audio>
+     <audio src="/mock-tests/test09/part2/intro.mp3" id="audio7"></audio>
+     <audio src="/mock-tests/test09/part2/1.mp3" id="audio8"></audio>
+	 <audio src="/mock-tests/test09/part3/intro.mp3" id="audio9"></audio>
+	 <audio src="/mock-tests/test09/part3/1.mp3" id="audio10"></audio>
+	 <audio src="/mock-tests/test09/part3/2.mp3" id="audio11"></audio>
+	 <audio src="/mock-tests/test09/part3/3.mp3" id="audio12"></audio>
+	 <audio src="/mock-tests/test09/part3/4.mp3" id="audio13"></audio>
+	 <audio src="/mock-tests/test09/part3/5.mp3" id="audio14"></audio>
+	 <audio src="/mock-tests/test09/part3/end.mp3" id="audio15"></audio>
+                        
+</Layout>
+
+<script is:inline>
+ 
+ var q=[
+   'What types of buildings are there where you live?',
+   'Are there any monuments in your hometown?',
+   'Do you like to visit historic buildings?',
+   'What are the landmarks in your hometown?',
+   'Have you ever visited a famous structure?',
+   'Have you ever seen some old buildings in your city',
+   '<p><b>Describe a style of architecture that you like.</b></p><p>You should say:</p><ul><li>what style it is</li><li>what it looks like</li><li>where you can see it</li><li> and explain why you like this style.</li></ul><br><textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Izoh yozish uchun"></textarea>',
+   'What kinds of people like to visit historic buildings?',
+   'How have buildings changed in the past few years?',
+   'Do you think it’s worth the money to preserve old buildings?',
+   'Do people enjoy a better quality of life in the city or in the countryside?',
+   'What are some of the challenges facing towns and cities?'
+	]
+
+</script>
+
+<script src="../../../scripts/quiz.js"></script>  

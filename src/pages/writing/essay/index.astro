@@ -1,0 +1,57 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Back from "@components/Back.astro";
+
+import essayQues from '@assets/essay.json'
+---
+
+
+<Layout title="Essay Checker">
+<header class="w-full sticky top-0 shadow-lg flex justify-between items-center px-5 text-2xl font-semibold text-gray-100 bg-slate-800">
+<div class="flex items-center">
+    <Back/>
+</div>
+</header>
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+
+<div class="max-w-2xl mx-auto text-center mb-8">
+    <h2 class="text-2xl font-bold md:text-4xl md:leading-tight text-white"> Essay Mavzulari
+</h2>
+  
+  </div>
+
+<article class="grid grid-cols-1 gap-5">
+{
+  essayQues.map((essay, index)=>(
+    <a  class="p-5 rounded group focus:outline-none" href={`/writing/essay/${essay.id}/index.html`}>
+            <div class="mt-2">
+              <h3 class="text-xl font-semibold text-blue-600"><span class="bg-slate-900 mx-2 my-2 rounded py-1 px-4 text-blue-600 text-xl font-medium">{index+1}</span>{essay.title}</h3>
+              <p class="mt-3 text-gray-200">{`${essay.content.slice(0, 250)}...`}</p>
+              <p class="mt-5 inline-flex items-center gap-x-1 text-blue-600 decoration-2 group-hover:underline font-medium">
+                Yozib ko'rish
+                <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </p>
+            </div>
+          </a>
+
+          <div class="mb-3 border-b border-gray-700/70"></div>
+  )) 
+}
+  </article>
+</div>
+<div style="height:50px"></div>
+</Layout>
+
+<script>
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'))
+ const { status, tariff } = currentUser
+ if(status !== "paid" || !tariff){
+  window.location.href="/price/index.html"
+ }
+ else if(tariff === "basic"){
+  window.location.href  = '/pay/index.html'
+ }
+ else{
+   document.getElementById('testBody').classList.remove('hidden')
+ }
+</script>

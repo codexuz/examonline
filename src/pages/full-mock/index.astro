@@ -1,0 +1,45 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Back from '@components/Back.astro'
+import tests from '@assets/fullMock.json'
+---
+
+<Layout title="Full Mock Tests">
+<header class="flex items-center px-5 w-full sticky top-0 py-1 shadow-xl">
+<Back/>
+</header>
+
+<div class="grid grid-cols-1 sm:grid-cols-4 gap-3 container mx-auto mt-5 pt-8 px-4">
+     {
+      tests.map((test) => (
+        
+        <a class="px-5 py-3 bg-slate-700 rounded-lg text-xl text-white flex items-center justify-between gap-x-2" href={`/full-mock/${test.id}/index.html`}>
+        {test.data.title}
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+        </a>
+          
+        
+    ))
+    }
+  </div>  
+
+</div>
+
+</section>
+      
+
+</Layout>
+
+<script>
+  let currentUser = JSON.parse(localStorage.getItem('currentUser'))
+ const { status, tariff } = currentUser
+ if(status !== "paid" || !tariff){
+  window.location.href="/price/index.html"
+ }
+ else if(tariff === "basic"){
+  window.location.href  = '/pay/index.html'
+ }
+ else{
+   document.getElementById('testBody').classList.remove('hidden')
+ }
+</script>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+      <head>
+            <title>Karaoke</title>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+            <meta name="theme-color" content="#00001b" />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" />
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.6.0/dist/nouislider.min.css" />
+            <link rel="stylesheet" href="https://mcanam.github.io/liricle/demo/style.css">
+      </head>
+
+      <body>
+            <header class="topbar">
+                  <h1 class="topbar__title">Karaoke</h1>
+                  
+            </header>
+
+            <main class="lyric" id="$lyric">
+                  <div class="lyric__cursor" id="$lyric_cursor"></div>
+                  <div class="lyric__content" id="$lyric_content"></div>
+            </main>
+
+            <div class="player">
+                  <audio class="player__audio" id="$player_audio"></audio>
+                  <button class="player__button" data-play="false" id="$player_play_button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                              <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+                              <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
+                        </svg>
+                  </button>
+                  <div class="player__progress">
+                        <div class="player__slider" id="$player_slider"></div>
+                        <div class="player__time">
+                              <span class="player__time--current" id="$player_time_current">00:00.00</span>
+                              <span class="player__time--total" id="$player_time_total">00:00.00</span>
+                        </div>
+                  </div>
+                  <button class="player__button" id="$menu_button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                              <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+                        </svg>
+                  </button>
+            </div>
+
+            <div class="menu" id="$menu">
+                  <div class="menu__item">
+                        <label class="menu__label">Load lyric</label>
+                        <button class="menu__input" id="$menu_load_lyric">choose file</button>
+                  </div>
+                  <div class="menu__item">
+                        <label class="menu__label">Load audio</label>
+                        <button class="menu__input" id="$menu_load_audio">choose file</button>
+                  </div>
+                  <div class="menu__item">
+                        <label class="menu__label">Lyric offset</label>
+                        <input class="menu__input" id="$menu_lyric_offset" type="number" value="0" />
+                  </div>
+            </div>
+<audio id="track" src="/uploads/karaoke/unity.m4a"></audio>
+<p id="url">/uploads/karaoke/unity.lrc</p>
+
+<script is:inline>
+    const urlLyrc=document.getElementById('url').innerText
+    const audioUrl = document.getElementById('track').src
+</script>
+
+            <script is:inline src="https://cdn.jsdelivr.net/npm/nouislider@15.6.0/dist/nouislider.min.js"></script>
+            <script is:inline src="/uploads/script.js"></script>
+        
+      </body>
+</html>

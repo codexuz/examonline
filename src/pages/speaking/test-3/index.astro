@@ -1,0 +1,52 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import AudioLoader from '../../../components/AudioLoader.astro';
+import Speaking from '../../../components/Speaking.astro';
+import Home from '../../../components/Home.astro'
+---
+
+<Layout title="Speaking">
+    <AudioLoader/>
+	<Home/>
+     <Speaking test="Test 3. Time Management" />
+
+     <audio src="/mock-tests/test03/1.mp3" id="audio1"></audio>
+     <audio src="/mock-tests/test03/2.mp3" id="audio2"></audio>
+     <audio src="/mock-tests/test03/3.mp3" id="audio3"></audio>
+     <audio src="/mock-tests/test03/4.mp3" id="audio4"></audio>
+     <audio src="/mock-tests/test03/5.mp3" id="audio5"></audio>
+     <audio src="/mock-tests/test03/6.mp3" id="audio6"></audio>
+     <audio src="/mock-tests/test03/part2/intro.mp3" id="audio7"></audio>
+     <audio src="/mock-tests/test03/part2/1.mp3" id="audio8"></audio>
+	 <audio src="/mock-tests/test03/part3/intro.mp3" id="audio9"></audio>
+	 <audio src="/mock-tests/test03/part3/1.mp3" id="audio10"></audio>
+	 <audio src="/mock-tests/test03/part3/2.mp3" id="audio11"></audio>
+	 <audio src="/mock-tests/test03/part3/3.mp3" id="audio12"></audio>
+	 <audio src="/mock-tests/test03/part3/4.mp3" id="audio13"></audio>
+	 <audio src="/mock-tests/test03/part3/5.mp3" id="audio14"></audio>
+	 <audio src="/mock-tests/test03/part3/end.mp3" id="audio15"></audio>
+                        
+</Layout>
+
+<script is:inline>
+ 
+ 
+var q=[
+  "How do you organize your time?",
+  "Do you make plans every day?",
+  "Would you say you manage your time well?",
+  "Do you think young people organize their time in the same way?",
+  "What's the biggest difficulty you have when managing time?",
+  "Do you think children should learn to manage time?",
+  `<p><b>Describe a childhood friend you have lost touch with.</b></p><p>You should say:</p><ul><li>Where you met</li><li>how you spent time together</li><li>what you liked about your friend</li><li>and say why you think you have lost touch with them.</li></ul><br><textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Izoh yozish uchun"></textarea>`,
+  "What personal qualities make a good friend?",
+  "Who do people have stronger connection with – their friends or their family? Why?",
+  "Nowadays people tend to start families later in their lives. Why?",
+  "How has technology affected the way people communicate?",
+  "Has the way people meet their partners changed over the past twenty years?"
+]
+
+
+</script>
+
+<script src="../../../scripts/quiz.js"></script>  

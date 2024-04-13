@@ -1,0 +1,32 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Back from '@components/Back.astro'
+const tracks =[
+
+{title: 'Dharia - Sugar&Brownies', link: '/karaoke/1/index.html'},
+{title: 'I\'ve been lost', link: '/karaoke/2/index.html'},
+{title: 'Alan Walker- Faded', link: '/karaoke/3/index.html'},
+{title: 'Alan Walker- Unity', link: '/karaoke/4/index.html'},
+{title: 'Jamie Miller - Here\'s Your Perfect', link: '/karaoke/5/index.html'},
+{title: 'Alan Walker - Who I am', link: '/karaoke/6/index.html'},
+{title: 'Ariana Grande - Yes, and?', link: '/karaoke/7/index.html'}
+
+]
+---
+
+<Layout title="Karaoke - ExamOnline Edumo">
+      <Back/>
+      <div class="mt-5 pt-10 container mx-auto px-4 grid grid-cols-1 sm:grid-cols-4 gap-2 place-items-center">
+                  {
+        tracks.map((track) => (
+        <a href={track.link} class="flex items-center justify-between gap-2 rounded w-full mx-auto px-4 bg-slate-700 text-white py-2 px-5">
+        <div class="flex items-center gap-2">
+        <lottie-player class="w-9 h-9 p-1 rounded-full bg-gray-800" src='/lotties/music.json' background="transparent" speed="1"  direction="1" mode="normal" loop autoplay></lottie-player>
+        {track.title}
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+        </a>
+        ))
+      }
+      </div>
+</Layout>

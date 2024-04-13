@@ -1,0 +1,28 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Back from '@components/Back.astro'
+import tests from '@assets/fullMock.json'
+
+
+export async function getStaticPaths() {
+  return tests.map(({id, data}) => {
+    return {
+      params: { id },
+      props: {data}
+    }
+  })
+}
+
+const { data } = Astro.props;
+---
+---
+
+<Layout title={data.title}>
+<header class="flex items-center px-5 w-full sticky top-0 py-1 shadow-xl">
+<Back/>
+</header>
+  <div class="mx-auto px-4 py-6">
+   <div set:html={data.markup}/>
+  </div>
+</Layout>
+

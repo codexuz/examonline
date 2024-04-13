@@ -1,0 +1,12 @@
+---
+import Back from '@components/Back.astro'
+interface Props {
+    skillTitle:string
+}
+const {skillTitle} = Astro.props
+---
+
+<div class="py-1 w-full bg-gray-900 flex items-center text-left px-2 sticky top-0 text-gray-50" style="z-index:999">
+    <Back/>
+   <h1 class="text-2xl mx-2">{skillTitle}</h1> 
+</div>

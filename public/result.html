@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	 <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Edumo Online Speaking Exam">
+  <meta name="author" content="Kubayev Javlon">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <meta name="keywords" content="Exam Online, Multi Level, Speaking, IELTS, ingliz tili, Multi Level Speaking, Speaking exam">
+    <!-- Font Awesome -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/#[[latestVersion]]#/mdb.min.css"
+rel="stylesheet"
+/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Result</title>
+
+
+	<title>Result</title>
+	<style>
+
+#result{
+  display:inlined;
+  background: blue;
+  padding: 5px 15px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 10px;
+  color:white
+}
+        
+#feedback{
+font-style: italic
+}
+
+
+
+	</style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">Speaking Result</h2>
+            <p class="card-text">Your speaking performance:</p>
+
+            <!-- Display speaking result here -->
+            <div class="result">
+              <p class="mb-2"><strong>Score:</strong> <span id="result"></span></p>
+              <span class="text-danger" id="error"></span>
+              <p class="mb-2"><i><span id="feedback"></span></i></p>
+            </div>
+
+            <a href="/" class="btn btn-primary mt-3">Exam Page</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+ <script>
+const transcript = localStorage.getItem('transcript');
+     if(transcript===null){
+         document.getElementById("error").innerHTML="You did not provide any response. Please, check your microphone or try to speak louder!"
+         document.getElementById("result").innerHTML=0
+     }
+     
+     
+
+// Counting the number of words in the transcript
+const wordCount = transcript.split(/\s+/).length; 
+     
+     if(wordCount>0 && wordCount<=30){
+      let min = 0;
+      let max = 5;
+      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
+       document.getElementById("result").innerHTML=randomBand
+       document.getElementById("feedback").innerHTML=`Feedback: Your speaking level is very low. Practice to imporve your level.`
+         
+     }
+     else if(wordCount>31 && wordCount<=60){
+      let min = 6;
+      let max = 30;
+      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
+      document.getElementById("result").innerHTML=randomBand
+        document.getElementById("feedback").innerHTML=`
+        <b>Fluency and Coherence:</b>
+
+        Work on maintaining a steady flow of speech. Avoid frequent pauses and hesitations.
+        Practice linking your ideas together to create a more cohesive and organized response.
+        <b>Lexical Resource:</b>
+
+        Expand your vocabulary to express ideas more precisely.
+        Avoid repeating the same words. Try to use synonyms to enhance your speech.
+        <b>Grammatical Range and Accuracy:</b>
+
+        Pay attention to verb tenses and grammatical structures.
+        Practice using a variety of sentence structures to demonstrate a broader command of English.
+        <b>Pronunciation:</b>
+
+        Work on clear pronunciation, especially for commonly mispronounced words.
+        Focus on intonation and stress patterns to sound more natural.
+        <b>Task Response:</b>
+
+        Make sure your responses directly address the questions asked. Avoid going off-topic.
+        Provide more details and examples to support your answers.
+        
+        Remember, consistent practice is key to improvement. Focus on these areas, and you'll likely see an enhancement in your speaking skills. Good luck!
+        `
+     }
+     else if(wordCount>61 && wordCount<=120){
+         let min = 31;
+      let max = 50;
+      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
+      document.getElementById("result").innerHTML=randomBand
+         document.getElementById("feedback").innerHTML=`
+         <b>Fluency and Coherence</b>: While you communicate reasonably well, there are noticeable pauses and hesitations in your speech. Aim for a smoother flow by using linking words and phrases to connect your ideas.
+
+          <b>Vocabulary:</b> Your vocabulary is sufficient to convey your ideas, but there is room for improvement. Try incorporating a wider range of words and expressions to enhance the richness of your language.
+
+          <b>Grammar:</b> You demonstrate a basic grasp of grammar, but there are some errors in sentence structure and verb tenses. Pay attention to these details to convey your message more accurately.
+
+          <b>Pronunciation:</b> Your pronunciation is generally clear and understandable. However, there are occasional mispronunciations. Focus on refining your pronunciation by practicing challenging sounds and words.
+
+          <b>Task Response:</b> You address the topics adequately, but there is a lack of detail in some of your responses. Try to provide more specific examples and details to fully develop your answers.
+
+          Remember to practice regularly, especially in areas where improvement is needed. Good luck with your preparation!
+         `
+     }
+     else if(wordCount>121 && wordCount<=300){
+         let min = 51;
+      let max = 60;
+      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
+      document.getElementById("result").innerHTML=randomBand
+         document.getElementById("feedback").innerHTML=`
+         <b>Fluency and Coherence:</b>
+
+          Work on maintaining a steadier flow of speech. Avoid long pauses and hesitations.
+          Organize your ideas logically to enhance coherence. Use linking words to connect your thoughts.
+          <b>Lexical Resource (Vocabulary):</b>
+
+          Expand your vocabulary range. Try to incorporate more varied and precise vocabulary.
+          Be cautious about word choice; make sure the words you use fit the context appropriately.
+          <b>Grammatical Range and Accuracy:</b>
+
+          Aim for a wider range of grammatical structures. Don't stick to basic sentence structures only.
+          Pay attention to verb tenses, subject-verb agreement, and the correct use of articles.
+          <b>Pronunciation:</b>
+
+          Work on clear pronunciation. Ensure that your words are easily understandable.
+          Focus on intonation and stress to convey your meaning effectively.
+          <b>Task Response:</b>
+
+          Address the prompt fully and provide detailed responses. Avoid being too brief or too verbose.
+          Practice expressing your opinions clearly and justifying them with relevant examples.
+          Interactive Communication:
+
+          Engage more actively in the conversation. Don't wait for the examiner to prompt you; contribute willingly.
+          Practice asking and answering questions with more depth.
+          Remember, regular practice is key to improvement. Consider recording yourself during practice sessions to identify areas that need attention. Additionally, try to simulate exam conditions to build confidence and familiarity with the test format. Keep up the good work!
+         `
+     }
+     else if(wordCount>301){
+       let min = 61;
+      let max = 75;
+      let randomBand = Math.floor(Math.random() * (max - min + 1)) + min;
+      document.getElementById("result").innerHTML=randomBand
+         document.getElementById("feedback").innerHTML=`
+        <b> Fluency and Coherence:</b>
+
+        Speak at a steady pace, avoiding long pauses.
+        Try to express your ideas clearly and logically.
+        Use a range of linking words to connect your thoughts.
+        <b>Lexical Resource (Vocabulary):</b>
+
+        Demonstrate a wide range of vocabulary relevant to the topic.
+        Use idiomatic expressions and collocations appropriately.
+        Avoid repeating the same words; showcase variety.
+        <b>Grammatical Range and Accuracy:</b>
+
+        Aim for complex sentence structures but ensure they are grammatically accurate.
+        Show a good command of tenses and use them appropriately.
+        Minimize errors in subject-verb agreement and article usage.
+        <b>Pronunciation:</b>
+
+        Work on clear pronunciation, focusing on both individual sounds and intonation.
+        Aim for a natural and confident tone.
+        Be mindful of word stress within sentences.
+        <b>Task Response:</b>
+
+        Address the examiner's questions directly and thoroughly.
+        Provide detailed and relevant responses.
+        Be prepared to discuss a variety of topics.
+        Remember, practice is key. Record yourself answering Multilevel-style questions and listen for areas of improvement. Additionally, consider seeking feedback from a teacher or language exchange partner. Good luck!
+         `
+     }
+    
+     
+     
+     
+     
+
+</script>
+</body>
+</html>

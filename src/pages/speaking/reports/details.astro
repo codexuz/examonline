@@ -1,0 +1,219 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Header from '@components/report/Header.astro'
+
+---
+
+<Layout title="Report Details">
+<Header
+link="window.history.back()"
+/>
+
+<main id="main" class="flex flex-col items-center">
+    <h1 class="text-center py-4 text-white text-lg" id="notion">Loading ...</h1>
+</main>
+</Layout>
+<script>
+import { transcribeAudio, scoreSpeaking } from '@scripts/deepgram.js'
+import { db } from "@lib/firebase/client";
+import { doc, updateDoc } from "firebase/firestore";
+const { uid } = JSON.parse(localStorage.getItem('user'))
+
+
+    // Function to parse the query parameters from the URL
+function getQueryParams() {
+  const params = {};
+  const searchParams = new URLSearchParams(window.location.search);
+  for (const [key, value] of searchParams) {
+    params[key] = value;
+  }
+  return params;
+}
+
+// Function to get the report ID from the URL query parameters
+function getReportIdFromURL() {
+  const queryParams = getQueryParams();
+  return queryParams.id;
+}
+
+// Function to get the report details from localStorage or Firestore using the report ID
+function getReportDetails(reportId) {
+  // You can first check if the report details are available in localStorage
+  const storedReports = localStorage.getItem('reports');
+  if (storedReports) {
+    const reports = JSON.parse(storedReports);
+    const report = reports.find(r => r.id === reportId);
+    if (report) {
+      return report;
+    }
+  }
+
+  // If not available in localStorage, you can fetch it from Firestore
+  // Implement the logic to fetch report details from Firestore here
+  // You can use the reportId to fetch the specific report details
+}
+
+let data = '';
+// When the page loads, get the report ID from the URL and display the report details
+window.onload = function() {
+  const reportId = getReportIdFromURL();
+  const reportDetails = getReportDetails(reportId);
+  if (reportDetails) {
+    // Display the report details on the page
+    // Modify this part to display the report details as per your UI structure
+    const { textNo, audio, feedback, grammar, level, pronunciation, lexic, fluency,score, suggestion, submitTime, show } = reportDetails.data;
+    data +=`
+    <section class="px-4 mx-auto container sm:w-full mt-5">
+   
+
+   <div class="my-3">
+       <h1 id="name" class="text-xl sm:text-3xl text-blue-600 font-bold py-2">${textNo}</h1>
+       <span class="text-gray-400 text-md font-medium mx-2">Exam Date:</span>
+       <span class="text-white italic">${submitTime}</span>
+    </div>
+
+ <div id="loader" class="mx-auto text-white text-md flex items-center justify-center text-center"> 
+</div>
+
+
+<main id="resultContainer" class="">
+   <div class="w-full mt-8 pt-10 sm:container mx-auto px-4 p-10 rounded-xl border-2 border-gray-700">
+     <div class="flex flex-col px-5">
+      <p class="mb-3  text-white text-lg flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="text-yellow-400 icon icon-tabler icon-tabler-brand-supabase" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 14h8v7l8 -11h-8v-7z" /></svg>
+      ${feedback}
+      </p>
+      
+      <div class="my-2 text-lg font-bold text-blue-500">Level: <span class="hidden" id="level">${level}</span></div>
+
+      <div class="mb-3 text-gray-200 text-md sm:text-lg flex flex-col sm:flex-row justify-between gap-2">
+        <p class="mb-2 w-full sm:w-[80%]" set:html={feedback}/>
+         <p class="w-full bg-sky-500 text-gray-100 text-4xl font-bold flex items-center justify-center py-4 rounded-lg sm:w-[150px] sm:h-[150px]"><span id="score" class="hidden">${score}</span></p>
+      </div>
+     </div>
+   </div>
+    
+
+ 
+   <div class="w-full mt-4 sm:container mx-auto px-4 p-6 rounded-xl border-2 border-gray-700">
+     <div class="flex flex-col px-5">
+       <p class="mb-3 font-medium text-white text-lg flex items-center gap-2">
+        Detailed Feedback
+      </p>
+      <ul class="">
+
+        <li class="mb-4 text-white gap-2">
+        <p class="flex font-bold"> Grammar <span class="mx-2 text-gray-200 font-normal">${grammar}</span></p>
+        </li>
+         
+        <div class="sm:hidden container mx-auto border-b border-gray-600 py-3 mb-3"></div>
+
+        <li class="mb-4 text-white gap-2">
+        <p class="flex font-bold"> Lexical Resources <span class="mx-2 text-gray-200 font-normal">${lexic}</span></p>
+        </li>
+
+        <div class="sm:hidden container mx-auto border-b border-gray-600 py-3 mb-3"></div>
+
+        <li class="mb-4 text-white gap-2">
+        <p class="flex  font-bold"> Pronunciation <span class="mx-2 text-gray-200 font-normal">${pronunciation}</span></p>
+        </li>
+
+        <div class="sm:hidden container mx-auto border-b border-gray-600 py-3 mb-3"></div>
+
+        <li class="mb-4 text-white gap-2">
+        <p class="flex font-bold"> Fluency <span class="mx-2 text-gray-200 font-normal">${fluency}</span></p>
+        </li>
+
+      </ul>
+     </div>
+   </div>
+
+   
+   <div class="w-full mt-4 sm:container mx-auto px-4 p-6 rounded-xl border-2 border-gray-700">
+     <div class="flex flex-col px-5">
+       <p class="mb-3 font-medium text-white text-lg flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-400 icon icon-tabler icon-tabler-info-circle-filled"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm0 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876l-.117 -.007zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" stroke-width="0" fill="currentColor" /></svg>
+        Suggestions
+      </p>
+      <p class="text-md text-gray-300">${suggestion}</p>
+     </div>
+   </div>
+
+</main>
+  <div class="h-[60px]"></div>
+  <footer class="w-full px-4 bg-slate-800 py-5 sticky bottom-0 flex items-center justify-center">
+  <audio type="audio/mp3" controls src=${audio} id="audio" class="container mx-auto px-4">
+   </audio> 
+  </footer>
+   
+</section>
+    `
+let reportRef;
+let transcription;
+let response;
+
+    async function getTranscribe(){
+        let result = await transcribeAudio(audio)
+        console.log(result)
+        if(result){
+           reportRef = doc(db, "users", uid, "report", reportId);
+           transcription =  result.results.channels[0].alternatives[0].transcript
+            try {
+             await updateDoc(reportRef, {
+               transcript: transcription
+            });
+            
+            console.log("Document successfully updated!");
+            await updateFirestore()
+        } catch (error) {
+            console.error("Error updating document:", error);
+        }
+            
+        }
+    }
+
+ async function updateFirestore(){
+  response = await scoreSpeaking(transcription)
+  console.log(response)
+      await updateDoc(reportRef, {
+               level: response.cefr_level,
+               score: response.overall_score,
+               feedback: response.feedback,
+              fluency: response.fluency,
+              grammar: response.grammar,
+              lexic: response.lexical_resources,
+              pronunciation: response.pronunciation,
+              suggestion: response.suggestion
+
+            
+        });
+console.log("Document successfully updated!");
+localStorage.removeItem('reports')
+window.location.href='/speaking/reports/index.html'
+
+ }
+
+
+    if(!feedback){
+        document.getElementById('main').innerHTML = `<p class='text-lg text-center text-white py-3'>Tekshirilmoqda ... <br>Iltimos, sahifani tark etmang!</p>`
+        getTranscribe()
+        return
+    }
+    document.getElementById('main').innerHTML = data
+   if(show ==="true"){
+    document.getElementById('score').classList.remove('hidden')
+    document.getElementById('level').classList.remove('hidden')
+   }
+   else if(show === "false"){
+    localStorage.removeItem('reports')
+   }
+
+  } else {
+    console.error("Report details not found");
+  }
+
+};
+
+
+
+</script>

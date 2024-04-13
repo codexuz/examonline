@@ -1,0 +1,139 @@
+---
+interface Props {
+  test: string;
+}
+
+const { test } = Astro.props;
+
+---
+
+<section id="speaking" class="hidden">
+<header class="header  sticky top-0 py-4 w-full flex items-center justify-between  bg-blue-500 text-white">
+    <h2 class="mx-3 font-medium text-lg" id="test">{test}</h2>
+    <svg id="fullscreen"  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 cursor-pointer mx-3">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+      </svg>          
+      
+      
+</header>
+
+<div class="flex text-center items-center justify-center mt-7 text-white">
+    <div class="rounded py-1 px-5 active flex items-center justify-center border-2 border-emerald-600 shadow-lg mx-2" id="indicator-1">Part 1</div> 
+    <div class="rounded py-1 px-5 bg-blue-500 flex items-center justify-center border-2 border-blue-600 shadow-lg mx-2" id="indicator-2">Part 2</div> 
+    <div class="rounded py-1 px-5  bg-blue-500 flex items-center justify-center border-2 border-blue-600 shadow-lg mx-2" id="indicator-3">Part 3</div> 
+</div>
+
+<main class="main bg-gray-700 container mx-auto px-4 mt-8 mb-4 py-6 shadow-xl rounded justify-between items-start">
+    <div class="right-side bg-gray-800 rounded-lg p-6 my-4">
+      <div class="flex justify-bewteen items-center">
+        <button class="bg-blue-600 text-white rounded-xl py-1 font-bold px-4 w-full">Question#<span id="q-number"></span></button>
+      </div>
+      <div class="my-3 border-b border-gray-600"></div>
+      <div class="flex justify-center items-center text-white font-bold">
+        <button id="shrink" class="bg-blue-600 py-2 px-3 rounded-lg text-center mx-3">A-</button>
+        <button id="zoom" class="bg-blue-600 py-2 px-3 rounded-lg text-center mx-3">A+</button> 
+      </div>
+      <div class="my-3 border-b border-gray-600"></div>
+      <h3 id="question" class="text-gray-100 text-center font-semibold"></h3>
+    </div>
+    <!----Left side-->
+    <div class="left-side bg-gray-800 rounded-lg p-6 ">
+        <button class="w-full rounded py-2 text-white text-xl bg-gray-700" id="timer" style="font-family:monospace;">00:00</button>
+        <div class="hidden w-full my-3 bg-gray-600 p-4 rounded flex justify-center items-center" id="recorder-blink">
+            <button class="px-5 py-3 rounded-lg bg-gray-700">
+                <div class="recording w-6 h-6 rounded-full bg-red-600 border shadow-lg border-red-700"></div>
+            </button>
+        </div>
+    </div>
+
+</main>
+</section>
+
+<style>
+    .recording{
+        animation-name: blink;
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+    }
+
+   @keyframes blink{
+    0%{
+        opacity: 100%;
+
+    }
+    50%{
+        opacity: 0%;
+    }
+
+    100%{
+        opacity: 100%;
+    }
+   }
+
+    .main{
+        display: flex;
+    }
+
+    .right-side{
+        width:40%;
+
+    }
+
+    .left-side{
+        width:50%
+    }
+
+    @media screen and (max-width: 660px){
+        .main{
+        display: block;
+    }
+        .right-side{
+            width: 100%;
+        }
+
+        .left-side{
+        width:100%
+    }
+    }
+
+    .active{
+        background-color: rgb(17, 193, 134);
+        border: 1px solid rgb(16, 155, 108);
+    }
+    </style>
+
+
+<script is:inline>
+    
+    var TextSize=document.getElementById("question");
+document.getElementById("zoom").addEventListener('click', ()=>{
+    var style = window.getComputedStyle(TextSize, null).getPropertyValue('font-size');
+    var fontSize = parseFloat(style);
+    TextSize.style.fontSize=(fontSize+1)+'px'
+})
+    
+ 
+document.getElementById("shrink").addEventListener('click', ()=>{
+    var style = window.getComputedStyle(TextSize, null).getPropertyValue('font-size');
+    var fontSize = parseFloat(style);
+    TextSize.style.fontSize=(fontSize-1)+'px'
+})
+ 
+
+
+document.getElementById('fullscreen')?.addEventListener('click', ()=>{
+    const element = document.documentElement;
+
+if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+  if (element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if (element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  }
+}
+})
+</script>
+
+<script is:inline src="/js/recorder.js"></script>
+<script is:inline src="/js/moment.min.js"></script>

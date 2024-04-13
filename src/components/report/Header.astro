@@ -1,0 +1,101 @@
+---
+import Notification from '@components/dashboard/Notification.astro'
+interface Props {
+  link: string
+}
+
+const { link } = Astro.props
+---
+
+<header class="sticky top-0 w-full  flex items-center justify-between mx-auto px-4 w-full h-[60px] z-10 text-white bg-slate-800 shadow-xl">
+
+<a onclick={link} class="rounded-lg flex justify-center items-center  text-white m-4">
+ 
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+      </svg>
+   </a>
+
+ 
+   <div class="flex items-end justify-end md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse mr-5">
+    <Notification/>      
+    <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+        <span class="sr-only">Open user menu</span>
+        <img class="w-8 h-8 rounded-full" id="img" src="/avatar.png" alt="user photo">
+      </button>
+      <!-- Dropdown menu -->
+      <div class="z-50 hidden my-4 mr-5 text-base list-none  divide-y rounded-lg shadow bg-gray-700 divide-gray-600" id="user-dropdown">
+        <div class="px-4 py-3">
+          <span class="block text-sm text-white" id="name"></span>
+          <span class="block text-xs text-gray-400" id="email"></span>
+        </div>
+        <ul class="py-2" aria-labelledby="user-menu-button">
+          <li>
+            <a href="#" class="block px-4 py-2 text-sm text-emerald-500 font-medium" id="balance"></a>
+          </li>
+          <li>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-200 hover:text-white">Status: 
+            <span class="inline-flex items-center gap-x-1.5 mx-2 py-[1px] px-4 rounded-xl text-sm font-medium bg-slate-800/30 text-blue-600" id="status"></span>
+            </a>
+          </li>
+          <li>
+          </li>
+          <li>
+            <a href="https://t.me/javlon_developer" target="_blank" class="flex items-center gap-x-2 px-4 py-2 text-sm text-gray-200 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600 icon icon-tabler icon-tabler-brand-telegram" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg>
+            Bog'lanish
+            </a>
+          </li>
+          <li>
+            <div class="flex items-center px-3 py-1 transition-colors duration-300 transform rounded-lg text-rose-500">
+                <button id="btn-sign-out" class="flex items-center">
+                  <svg  xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 icon icon-tabler icon-tabler-logout"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
+                  <span class="mx-4 font-medium">Chiqish</span>
+                </button>
+              </div>
+          </li>
+        </ul>
+      </div>
+
+
+</header>
+
+
+<script>    
+  import { app } from "@lib/firebase/client";
+  import { getAuth, signOut } from "firebase/auth";
+  
+const auth = getAuth(app);
+
+document.getElementById('btn-sign-out').onclick = () => {
+
+  var val = confirm ('Ilovadan chiqmoqchimisiz?')
+  if(!val){
+    return
+  }
+  localStorage.removeItem('user')
+  localStorage.removeItem('currentUser')
+      signOut(auth).then(() => {
+      window.location.href='/index.html'
+    }).catch((error) => {
+      alert(error.message)
+    });
+}
+
+
+
+var User = JSON.parse(localStorage.getItem('currentUser'))
+if(User){
+  getUser()
+}
+
+ function getUser(){
+const { name, email, status, balance, picture } = User
+  document.getElementById('img').src=picture;
+  document.getElementById('name').innerText = name
+  document.getElementById('email').innerText = email
+  document.getElementById('status').innerText = status
+  document.getElementById('balance').innerText = 'Hisob: '+balance
+
+ }
+  </script>
