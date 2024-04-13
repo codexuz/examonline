@@ -5,8 +5,9 @@ import AudioRecorder from "simple-audio-recorder";
 
 const testName=$('#test').text()
 var loader = document.querySelector('.transition-loader')
-var telegramUsername=localStorage.getItem("telegram")
-var telegramName=localStorage.getItem("telegramName")
+var currentUser= JSON.parse(localStorage.getItem("currentUser"))
+const { telegramName, telegramUsername } = currentUser
+
 const chat_id='1483919112'
 const bot_token='6124695087:AAFesX68ij5sgWJgjkzS4cbrMEziHlYs_Pk'
 
@@ -40,7 +41,8 @@ recorder.onstop = () => {
 const examSubmitted=moment().format('MMMM Do YYYY, h:mm:ss a');
 
 const db = getFirestore(app)
-const uid=localStorage.getItem("storeId")
+const user =JSON.parse(localStorage.getItem("user"))
+const { uid } = user
 // Get the current date
 const currentDate = new Date();
 
@@ -128,7 +130,7 @@ async function sendServer(mp3Blob) {
 				show: "false"
 
 			});
-			window.location.href='/speaking/reports';
+			window.location.href='/speaking/reports/index.html';
 			loader.classList.add('hidden');
 			return fileUrl;
   } else {
