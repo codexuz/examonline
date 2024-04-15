@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import Auth from '@assets/upay.svg'
+---
+<section class="bg-gray-900">
+  <div class="container flex items-center justify-center min-h-screen px-6 mx-auto">
+      <form class="w-full max-w-md" action="https://pay.upay.uz/prePay.do" target="_blank" method="POST">
+        <Image src={Auth} alt="Auth"
+        class="w-[200px]  h-[auto] sm:hidden mx-auto"
+        />
+
+          <p class="text-gray-400 text-center py-3"><small>Iltimos, ma'lumotlarni aniq kiriting</small></p>
+
+          <div class="relative flex items-center mt-8">
+              <span class="absolute">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </span>
+
+              <input required type="text" class="block w-full py-3  border rounded-lg px-11 bg-gray-900 text-gray-300 border-gray-600  focus:border-blue-300 focus:ring-none focus:outline-none focus:ring focus:ring-opacity-40" placeholder="O'quvchining F.I.Sh" name="personalAccount">
+          </div>
+
+          <div class="relative flex items-center mt-4">
+              <span class="absolute">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+                  </svg>
+                  
+              </span>
+
+              <input required type="text" class="block w-full px-10 py-3  border rounded-lg bg-gray-900 text-gray-300 border-gray-600  focus:border-blue-300  focus:outline-none focus:ring focus:ring-opacity-40" placeholder="To'lov miqdori" name="amount">
+
+              <input name="serviceId" value="1482" type="hidden" />  <!-- Уникальный номер услуги в системе UPAY -->
+              <input name="apiVersion" value="1" type="hidden" /> <!-- Версия UPAY = 1 -->
+              
+          </div>
+
+          <div class="mt-6">
+              <button id="btn" class="flex items-center justify-center w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-600 focus:ring-opacity-50">
+                  To'lov tizimiga o'tish
+              </button>
+
+          </div>
+      </form>
+  </div>
+</section>
