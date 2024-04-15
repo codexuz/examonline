@@ -26,7 +26,7 @@ import Registeration from "@components/Register.astro";
     const password = formData.get("password")?.toString();
     const name = formData.get("name")?.toString();
 
-    if (!email || !password || name) {
+    if (!email || !password || !name) {
       return;
     }
 
