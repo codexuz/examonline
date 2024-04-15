@@ -15,7 +15,6 @@ import SignIn from "@components/SignIn.astro";
 
   const auth = getAuth(app);
   const form = document.querySelector("form") as HTMLFormElement;
-  const errorElement = document.getElementById("error");
   const loader = document.getElementById("loader")
 
   
@@ -27,7 +26,6 @@ import SignIn from "@components/SignIn.astro";
 
   form.addEventListener("submit", async (e) => {
 
-    errorElement.classList.add('hidden')
     loader.classList.remove('hidden')
     e.preventDefault();
 
@@ -48,9 +46,8 @@ import SignIn from "@components/SignIn.astro";
   })
   .catch((error) => {
     loader.classList.add('hidden')
-    const errorCode = error.code;
     const errorMessage = error.message;
-    alert("Email yoki parol xato!")
+    alert(errorMessage)
   });
 
   });
