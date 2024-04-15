@@ -4,6 +4,60 @@ import Registeration from "@components/Register.astro";
 ---
 
 <Layout title="Register">
-  <Registeration
-  />
+  <Registeration/>
 </Layout>
+<script>
+  import {
+    getAuth,
+    createUserWithEmailAndPassword 
+  } from "firebase/auth";
+  import {  setDoc, doc } from "firebase/firestore";
+  import { app, db } from "@lib/firebase/client";
+
+  const auth = getAuth(app);
+
+  const form = document.querySelector("form") as HTMLFormElement;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const email = formData.get("email")?.toString();
+    const password = formData.get("password")?.toString();
+    const name = formData.get("name")?.toString();
+
+    if (!email || !password || name) {
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        const user = userCredential.user;
+        localStorage.setItem("user", JSON.stringify(user));
+
+        // Write user data to Firestore
+        try {
+          const userRef = doc(db, "users", user.uid);
+          await setDoc(userRef, {
+            uid: user.uid,
+            email: user.email,
+            name: name,
+            status:"unpaid",
+            joined: new Date(),
+            tariff:"",
+            expiresAt:"",
+            picture: "https://cdn-icons-png.flaticon.com/512/3177/3177440.png",
+            balance: "0 UZS"
+          });
+          window.location.href = "/dashboard/index.html";
+        } catch (error) {
+          console.error("Error setting user data in Firestore: ", error);
+          alert("Error creating user. Please try again.");
+        }
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        alert(errorMessage);
+      });
+  });
+</script>
