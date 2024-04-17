@@ -122,3 +122,25 @@ import Back from '@components/Back.astro'
 
     }
 </style>
+
+
+<script>
+  import { updateUser } from '@scripts/firestore.js'
+ 
+  var user = localStorage.getItem('user')
+  
+  if(!user){
+    window.location.href='/index.html'
+  }
+  
+
+  var profile = JSON.parse(user)
+
+
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await updateUser( profile.uid)
+});
+
+</script>
+
