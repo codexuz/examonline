@@ -1,6 +1,6 @@
 import { doc, updateDoc } from "firebase/firestore";
 
-async function updateUser(userId){
+ export const updateUser = async(userId) => {
   const userRef = doc(db, "users", userId);
   await updateDoc(userRef, {
   expiresAt: '',
