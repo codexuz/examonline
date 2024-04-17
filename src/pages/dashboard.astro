@@ -58,6 +58,7 @@ import Card from "@components/dashboard/Card.astro"
 <script>
   import { db } from "@lib/firebase/client";
   import { doc, getDoc } from "firebase/firestore";
+  import { updateUser } from '@scripts/firestore.js'
  
   var user = localStorage.getItem('user')
   
@@ -84,7 +85,11 @@ if (docSnap.exists()) {
 }
 }
 
-getUserData()
+
+document.addEventListener("DOMContentLoaded", async () => {
+  await getUserData()
+  await updateUser( profile.uid)
+});
 
 </script>
 
