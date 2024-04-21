@@ -55,6 +55,7 @@ import Card from "@components/dashboard/Card.astro"
     
 </Layout>
 
+
 <script>
   import { db } from "@lib/firebase/client";
   import { doc, getDoc } from "firebase/firestore";
@@ -86,10 +87,31 @@ if (docSnap.exists()) {
 }
 
 
+async function checkUser(){
+  const userDate = JSON.parse(localStorage.getItem('currentUser'))
+
+  if(!userDate.expiresAt){
+    return
+  }
+
+  var endDate = new Date(userDate.expiresAt.seconds*1000)
+  console.log(endDate)
+  var bugun = new Date()
+
+  if(bugun >= endDate){
+    updateUser(profile.uid)
+    localStorage.removeItem('currentUser')
+  }
+}
+
+
+
 document.addEventListener("DOMContentLoaded", async () => {
   await getUserData()
- //await updateUser( profile.uid)
+  checkUser()
 });
 
 </script>
+
+
 
