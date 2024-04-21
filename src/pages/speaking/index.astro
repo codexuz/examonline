@@ -124,4 +124,41 @@ import Back from '@components/Back.astro'
 </style>
 
 
+<script>
+
+    import { updateUser } from '@scripts/firestore.js'
+
+  
+    var profile = JSON.parse(localStorage.getItem('user'))
+  
+ 
+  
+  
+  async function checkUser(){
+    const userDate = JSON.parse(localStorage.getItem('currentUser'))
+  
+    if(!userDate.expiresAt){
+      return
+    }
+  
+    var endDate = new Date(userDate.expiresAt.seconds*1000)
+    console.log(endDate)
+    var bugun = new Date()
+  
+    if(bugun >= endDate){
+      updateUser(profile.uid)
+      localStorage.removeItem('currentUser');
+      window.location.reload()
+    }
+  }
+  
+  
+  
+  document.addEventListener("DOMContentLoaded", async () => {
+    await checkUser()
+  });
+  
+  </script>
+  
+  
 
