@@ -79,6 +79,7 @@ async function getUserData(){
 if (docSnap.exists()) {
   currentUser = docSnap.data();
   localStorage.setItem('currentUser', JSON.stringify(currentUser));
+  await checkUser()
 
 } else {
   // docSnap.data() will be undefined in this case
@@ -108,8 +109,7 @@ async function checkUser(){
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-   getUserData()
-  checkUser()
+   await getUserData()
 });
 
 </script>
