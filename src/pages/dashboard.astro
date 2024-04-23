@@ -83,6 +83,7 @@ if (docSnap.exists()) {
 } else {
   // docSnap.data() will be undefined in this case
   console.log("No such document!");
+window.locatioin.reload()
 }
 }
 
@@ -107,7 +108,7 @@ async function checkUser(){
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await getUserData()
+   getUserData()
   checkUser()
 });
 
