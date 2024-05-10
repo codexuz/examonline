@@ -1,0 +1,5 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : { "namespace": "android_app", "package_name": "uz.speakup.edumo",
+               "sha256_cert_fingerprints": ["D3:12:F2:6A:C6:F7:D5:A6:B6:8D:47:47:86:7B:46:48:7F:E1:CE:1A:AA:49:F4:26:B1:B8:8D:ED:50:B0:09:F0"] }
+}]
