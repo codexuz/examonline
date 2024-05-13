@@ -215,6 +215,15 @@ let response;
     }
 
  async function updateFirestore(){
+
+ // Check if the transcript length is less than 100 words
+  const wordCount = transcription.split(/\s+/).length;
+ 
+  if (wordCount < 100) {
+    document.getElementById('main').innerHTML = "Your response is not sufficient to assess"
+    return
+  }
+
   response = await scoreSpeaking(transcription)
   console.log(response)
       await updateDoc(reportRef, {
