@@ -29,12 +29,6 @@ export const transcribeAudio = async (audioURL) => {
 
 export const scoreSpeaking = async (transcription) => {
 
-  // Check if the transcript length is less than 100 words
-  const wordCount = transcription.split(/\s+/).length;
-  if (wordCount < 100) {
-    return "Transcript length must be at least 100 words.";
-  }
-
   const res =  await fetch('https://generate.edumoacademy.uz/report/', {
     method: 'POST',
     headers: {
