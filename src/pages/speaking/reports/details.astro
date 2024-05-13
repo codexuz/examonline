@@ -220,7 +220,7 @@ let response;
   const wordCount = transcription.split(/\s+/).length;
  
   if (wordCount < 100) {
-    document.getElementById('main').innerHTML = "Your response is not sufficient to assess"
+    document.getElementById('main').innerHTML = "<h2 class="text-white text-xl">Your response is not sufficient to assess 🚫 </h2>"
     return
   }
 
