@@ -1,0 +1,98 @@
+---
+import Layout from "@layouts/Layout.astro"
+---
+
+<Layout title="Successfull Payment">
+  <!-- component -->
+<div class="h-screen">
+    <div class="p-6  md:mx-auto">
+      <svg viewBox="0 0 24 24" class="text-green-600 w-16 h-16 mx-auto my-6">
+          <path fill="currentColor"
+              d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z">
+          </path>
+      </svg>
+      <div class="text-center">
+          <h3 class="md:text-2xl text-base text-gray-50 font-semibold text-center">To'lov amalga oshirildi!</h3>
+          <p class="text-gray-50 my-2" id="note-1">Hisobingiz yangilanmoqda. Kutib turing...</p>
+          <p class="text-gray-50 my-2 hidden" id="note-2">Ma'lumotingiz yangilanishi uchun hisobingizga <br>qayta kirib chiqing!</p>
+          <div class="py-10 text-center">
+              <a id="loader" href="#" class="px-12 bg-indigo-600 flex items-center w-[40%] sm:w-[200px] mx-auto justify-center rounded-xl text-white font-semibold py-3">
+                <div class="loader"></div>
+             </a>
+
+             <a id="redirect" href="./dashboard.html" class="hidden w-[40%] sm:w-[200px] bg-indigo-600 flex gap-x-2 items-center  mx-auto justify-center rounded-xl text-white font-semibold py-3">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M16.5 3.75a1.5 1.5 0 0 1 1.5 1.5v13.5a1.5 1.5 0 0 1-1.5 1.5h-6a1.5 1.5 0 0 1-1.5-1.5V15a.75.75 0 0 0-1.5 0v3.75a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5.25a3 3 0 0 0-3-3h-6a3 3 0 0 0-3 3V9A.75.75 0 1 0 9 9V5.25a1.5 1.5 0 0 1 1.5-1.5h6ZM5.78 8.47a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 0 0 0 1.06l3 3a.75.75 0 0 0 1.06-1.06l-1.72-1.72H15a.75.75 0 0 0 0-1.5H4.06l1.72-1.72a.75.75 0 0 0 0-1.06Z" clip-rule="evenodd" />
+                  </svg>
+                  
+                  Chiqish               
+             </a>
+
+          </div>
+      </div>
+  </div>
+</div>
+</Layout>
+
+<style>
+.loader {
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  animation:
+    l20-1 0.8s infinite linear alternate,
+    l20-2 1.6s infinite linear;
+}
+@keyframes l20-1{
+   0%    {clip-path: polygon(50% 50%,0       0,  50%   0%,  50%    0%, 50%    0%, 50%    0%, 50%    0% )}
+   12.5% {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100%   0%, 100%   0%, 100%   0% )}
+   25%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 100% 100%, 100% 100% )}
+   50%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
+   62.5% {clip-path: polygon(50% 50%,100%    0, 100%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
+   75%   {clip-path: polygon(50% 50%,100% 100%, 100% 100%,  100% 100%, 100% 100%, 50%  100%, 0%   100% )}
+   100%  {clip-path: polygon(50% 50%,50%  100%,  50% 100%,   50% 100%,  50% 100%, 50%  100%, 0%   100% )}
+}
+@keyframes l20-2{ 
+  0%    {transform:scaleY(1)  rotate(0deg)}
+  49.99%{transform:scaleY(1)  rotate(135deg)}
+  50%   {transform:scaleY(-1) rotate(0deg)}
+  100%  {transform:scaleY(-1) rotate(-135deg)}
+}
+</style>
+
+<script>
+  import { updatePaymentInfoFifty } from '@scripts/firestore.js'
+  import { app } from "@lib/firebase/client";
+  import { getAuth, signOut } from "firebase/auth";
+  const auth = getAuth(app);
+
+
+const user = JSON.parse(localStorage.getItem('user'))
+var loader = document.querySelector('#loader')
+var redirectBtn = document.querySelector('#redirect')
+var note1 = document.querySelector('#note-1')
+var note2 = document.querySelector('#note-2')
+
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await updatePaymentInfoFifty(user.uid)
+  redirectBtn.classList.remove('hidden')
+  note2.classList.remove('hidden')
+  loader.classList.add('hidden')
+  note1.classList.add('hidden')
+  
+  
+})
+
+
+redirectBtn.onclick = () => {
+    signOut(auth).then(() => {
+      window.location.href='/index.html'
+      localStorage.removeItem('user')
+      localStorage.removeItem('currentUser')
+    }).catch((error) => {
+      alert(error.message)
+    });
+}
+</script>
