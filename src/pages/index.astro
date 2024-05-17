@@ -56,7 +56,7 @@ import SignIn from "@components/SignIn.astro";
     }
 
   signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
+  .then( async (userCredential) => {
     // Signed in 
     const user = userCredential.user;
     localStorage.setItem('user', JSON.stringify(user))
