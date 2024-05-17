@@ -65,6 +65,7 @@ import Card from "@components/dashboard/Card.astro"
   
   if(!user){
     window.location.href='/index.html'
+    return
   }
   
 
@@ -84,7 +85,7 @@ if (docSnap.exists()) {
 } else {
   // docSnap.data() will be undefined in this case
   console.log("No such document!");
-window.locatioin.reload()
+window.location.reload()
 }
 }
 
