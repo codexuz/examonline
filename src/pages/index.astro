@@ -11,11 +11,29 @@ import SignIn from "@components/SignIn.astro";
     getAuth,
     signInWithEmailAndPassword
   } from "firebase/auth";
-  import { app } from "@lib/firebase/client";
+  import { db, app } from "@lib/firebase/client";
+  import { doc, getDoc } from "firebase/firestore";
 
   const auth = getAuth(app);
   const form = document.querySelector("form") as HTMLFormElement;
   const loader = document.getElementById("loader")
+
+  
+    async function getUserData(uid){
+     const docRef = doc(db, "users", uid);
+     const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      let currentUser = docSnap.data();
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      window.location.href='/dashboard/index.html'
+    
+    } else {
+      // docSnap.data() will be undefined in this case
+    console.log("No such document!");
+    window.location.reload()
+    }
+    }
 
   
   var userLoggedIn = localStorage.getItem('user')
@@ -42,7 +60,7 @@ import SignIn from "@components/SignIn.astro";
     // Signed in 
     const user = userCredential.user;
     localStorage.setItem('user', JSON.stringify(user))
-    window.location.href='/dashboard/index.html'
+    await getUserData(user.uid)
   })
   .catch((error) => {
     loader.classList.add('hidden')
