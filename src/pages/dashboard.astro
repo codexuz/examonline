@@ -62,26 +62,6 @@ import Card from "@components/dashboard/Card.astro"
   import { updateUser } from '@scripts/firestore.js'
   import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-  
-  let currentUser;
-
-async function getUserData(uid){
- const docRef = doc(db, "users", uid);
- const docSnap = await getDoc(docRef);
-
-if (docSnap.exists()) {
-  currentUser = docSnap.data();
-  localStorage.setItem('currentUser', JSON.stringify(currentUser));
-  await checkUser()
-
-} else {
-  // docSnap.data() will be undefined in this case
-  console.log("No such document!");
-window.location.reload()
-}
-}
-
-
 async function checkUser(){
   const userDate = JSON.parse(localStorage.getItem('currentUser'))
 
@@ -96,6 +76,7 @@ async function checkUser(){
   if(bugun >= endDate){
     updateUser(profile.uid)
     localStorage.removeItem('currentUser')
+    window.location.reload()
   }
 }
 
@@ -106,8 +87,7 @@ const auth = getAuth(app);
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     console.log(user)
-    const uid = user.uid;
-    await getUserData(uid)
+    await checkUser()
   } else {
     window.location.href='./index.html'
   }
