@@ -103,7 +103,7 @@ async function checkUser(){
 
 document.addEventListener("DOMContentLoaded", async () => {
 const auth = getAuth(app);
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (user) {
     console.log(user)
     const uid = user.uid;
